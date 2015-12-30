@@ -3,13 +3,10 @@ using MvvmNano;
 
 namespace MvvmNano.Forms
 {
-    public class MvvmNanoApplication : Application
+    public abstract class MvvmNanoApplication : Application
     {
-        // TODO: That should be moved somewhere else, 
-        // not living in the constructor of the app
-        public MvvmNanoApplication()
+        protected void SetUpFormsPresenter()
         {
-            // Workaround
             MvvmNanoViewModel.Presenter = new FormsPresenter(Current.MainPage.Navigation);
         }
     }
