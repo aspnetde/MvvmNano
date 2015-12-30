@@ -35,6 +35,7 @@
     <Compile Include="IViewModel.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="MvvmNanoViewModel.cs" />
+    <Compile Include="MvvmNanoCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
