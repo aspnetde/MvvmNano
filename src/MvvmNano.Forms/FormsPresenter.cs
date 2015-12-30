@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using MvvmNano.Core;
+using MvvmNano;
 using Xamarin.Forms;
 
 namespace MvvmNano.Forms

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MvvmNano.Core
+namespace MvvmNano
 {
     public interface IPresenter
     {

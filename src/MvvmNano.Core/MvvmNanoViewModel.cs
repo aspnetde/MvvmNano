@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace MvvmNano.Core
+namespace MvvmNano
 {
     public class MvvmNanoViewModel : IViewModel
     {

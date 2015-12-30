@@ -1,4 +1,4 @@
-﻿namespace MvvmNano.Core
+﻿namespace MvvmNano
 {
     public interface IView
     {

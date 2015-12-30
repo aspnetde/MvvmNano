@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MvvmNano.Core
+namespace MvvmNano
 {
     public interface IViewModel : INotifyPropertyChanged
     {

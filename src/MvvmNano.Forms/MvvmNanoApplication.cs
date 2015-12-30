@@ -1,10 +1,12 @@
 ﻿using Xamarin.Forms;
-using MvvmNano.Core;
+using MvvmNano;
 
 namespace MvvmNano.Forms
 {
     public class MvvmNanoApplication : Application
     {
+        // TODO: That should be moved somewhere else, 
+        // not living in the constructor of the app
         public MvvmNanoApplication()
         {
             // Workaround
