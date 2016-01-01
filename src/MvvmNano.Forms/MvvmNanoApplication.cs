@@ -7,7 +7,7 @@ namespace MvvmNano.Forms
     {
         protected void SetUpFormsPresenter()
         {
-            MvvmNanoViewModel.Presenter = new FormsPresenter(Current.MainPage.Navigation);
+            MvvmNanoViewModel.Presenter = new FormsPresenter(this);
         }
     }
 }

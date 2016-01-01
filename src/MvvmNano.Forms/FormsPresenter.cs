@@ -9,11 +9,11 @@ namespace MvvmNano.Forms
 {
     public class FormsPresenter : IPresenter
     {
-        private readonly INavigation _navigation;
+        private readonly Application _application;
 
-        public FormsPresenter(INavigation navigation)
+        public FormsPresenter(Application application)
         {
-            _navigation = navigation;
+            _application = application;
         }
 
         public async Task ShowViewModelAsync<TViewModel>(object parameter) where TViewModel : IViewModel
@@ -21,7 +21,7 @@ namespace MvvmNano.Forms
             Type viewModelType = typeof(TViewModel);
             string pageName = viewModelType.Name.Replace("ViewModel", "Page");
 
-            Type pageType = viewModelType.GetTypeInfo().Assembly.DefinedTypes
+            Type pageType = _application.GetType().GetTypeInfo().Assembly.DefinedTypes
                 .Select(t => t.AsType())
                 .FirstOrDefault(t => t.Name == pageName);
 
@@ -31,7 +31,7 @@ namespace MvvmNano.Forms
             var page = Activator.CreateInstance(pageType) as Page;
             ((IView)page).SetViewModel(viewModel);
 
-            await _navigation.PushAsync(page, true);
+            await _application.MainPage.Navigation.PushAsync(page, true);
         }
     }
 }
