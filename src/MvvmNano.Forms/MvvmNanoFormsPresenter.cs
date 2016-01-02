@@ -51,8 +51,12 @@ namespace MvvmNano.Forms
                 .FirstOrDefault(t => t.Name == viewName);
 
             var view = Activator.CreateInstance(pageType) as IView;
+
             if (view == null)
                 throw new InvalidOperationException(viewName + " could not be found.");
+
+            if (!(view is Page))
+                throw new InvalidOperationException(viewName + " is not a Xamarin.Forms Page.");
 
             return view;
         }
