@@ -15,6 +15,9 @@ namespace MvvmNano.Forms
 
         public MvvmNanoFormsPresenter(Application application)
         {
+            if (application == null)
+                throw new ArgumentNullException("application");
+
             _application = application;
 
             _availableViewTypes = _application
