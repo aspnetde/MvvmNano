@@ -41,7 +41,17 @@ namespace MvvmNano.Forms
 
         private static IViewModel CreateViewModel(Type viewModelType)
         {
-            return Activator.CreateInstance(viewModelType) as IViewModel;
+            var viewModel = Activator.CreateInstance(viewModelType);
+
+            if (viewModel == null)
+                throw new InvalidOperationException(viewModelType + " could not be created.");
+
+            var iViewModel = viewModel as IViewModel;
+
+            if (iViewModel == null)
+                throw new InvalidOperationException(viewModelType + " does not implement IViewModel.");
+
+            return iViewModel;
         }
 
         private IView CreateView(Type viewModelType)
