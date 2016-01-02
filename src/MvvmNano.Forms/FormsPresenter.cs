@@ -57,7 +57,7 @@ namespace MvvmNano.Forms
             return view;
         }
 
-        private Task OpenPageAsync(Page page)
+        protected virtual Task OpenPageAsync(Page page)
         {
             if (page == null)
                 throw new ArgumentNullException("page");
