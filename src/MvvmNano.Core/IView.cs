@@ -1,6 +1,8 @@
-﻿namespace MvvmNano
+﻿using System;
+
+namespace MvvmNano
 {
-    public interface IView
+    public interface IView : IDisposable
     {
         void SetViewModel(IViewModel viewModel);
     }

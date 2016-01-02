@@ -32,6 +32,11 @@ namespace MvvmNano
 
             return Presenter.ShowViewModelAsync<TViewModel>(parameter);
         }
+
+        public virtual void Dispose()
+        {
+            // Hook
+        }
     }
 }
 

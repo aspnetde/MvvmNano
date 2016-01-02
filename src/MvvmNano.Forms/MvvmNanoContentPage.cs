@@ -23,6 +23,13 @@ namespace MvvmNano.Forms
         {
             BindingContext = viewModel;
         }
+
+        public virtual void Dispose()
+        {
+            ViewModel.Dispose();
+            BindingContext = null;
+            Content = null;
+        }
     }
 }
 
