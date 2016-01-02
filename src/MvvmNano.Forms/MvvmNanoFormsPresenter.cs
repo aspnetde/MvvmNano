@@ -9,18 +9,18 @@ namespace MvvmNano.Forms
 {
     public class MvvmNanoFormsPresenter : IPresenter
     {
-        private readonly Application _application;
-
         private readonly Type[] _availableViewTypes;
+
+        protected readonly Application Application;
 
         public MvvmNanoFormsPresenter(Application application)
         {
             if (application == null)
                 throw new ArgumentNullException("application");
 
-            _application = application;
+            Application = application;
 
-            _availableViewTypes = _application
+            _availableViewTypes = Application
                 .GetType()
                 .GetTypeInfo()
                 .Assembly
@@ -79,7 +79,7 @@ namespace MvvmNano.Forms
             if (page == null)
                 throw new ArgumentNullException("page");
 
-            return _application.MainPage.Navigation.PushAsync(page, true);
+            return Application.MainPage.Navigation.PushAsync(page, true);
         }
     }
 }
