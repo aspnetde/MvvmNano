@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System;
 
 namespace MvvmNano
 {
@@ -26,6 +27,9 @@ namespace MvvmNano
         protected Task ShowViewModelAsync<TViewModel>(object parameter) 
             where TViewModel : IViewModel
         {
+            if (Presenter == null)
+                throw new InvalidOperationException("Please set MvvmNanoViewModel.Presenter.");
+
             return Presenter.ShowViewModelAsync<TViewModel>(parameter);
         }
     }
