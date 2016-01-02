@@ -7,13 +7,13 @@ using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
-    public class FormsPresenter : IPresenter
+    public class MvvmNanoFormsPresenter : IPresenter
     {
         private readonly Application _application;
 
         private readonly Type[] _availableViewTypes;
 
-        public FormsPresenter(Application application)
+        public MvvmNanoFormsPresenter(Application application)
         {
             _application = application;
 
