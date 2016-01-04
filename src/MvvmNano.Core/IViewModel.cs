@@ -7,9 +7,9 @@ namespace MvvmNano
     {
     }
 
-    public interface IViewModel<TParameter> : IViewModel
+    public interface IViewModel<TNavigationParameter> : IViewModel
     {
-        void Initialize(TParameter parameter);
+        void Initialize(TNavigationParameter parameter);
     }
 }
 

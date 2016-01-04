@@ -29,11 +29,11 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
-        public async Task ShowViewModelAsync<TViewModel, TParameter>(TParameter parameter)
+        public async Task ShowViewModelAsync<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
             Type viewModelType = typeof(TViewModel);
 
-            var viewModel = CreateViewModel<TViewModel, TParameter>(viewModelType);
+            var viewModel = CreateViewModel<TViewModel, TNavigationParameter>(viewModelType);
             viewModel.Initialize(parameter);
 
             IView view = CreateView(viewModelType);
@@ -67,11 +67,11 @@ namespace MvvmNano.Forms
             return viewModel;
         }
 
-        private static IViewModel<TParameter> CreateViewModel<TViewModel, TParameter>(Type viewModelType)
+        private static IViewModel<TNavigationParameter> CreateViewModel<TViewModel, TNavigationParameter>(Type viewModelType)
         {
-            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TParameter>;
+            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TNavigationParameter>;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(viewModelType + " does not implement IViewModel<" + typeof(TParameter).Name + ">");
+                throw new MvvmNanoFormsPresenterException(viewModelType + " does not implement IViewModel<" + typeof(TNavigationParameter).Name + ">");
 
             return viewModel;
         }
