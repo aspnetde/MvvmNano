@@ -11,7 +11,6 @@ namespace MvvmNano
 
     public class MvvmNanoViewModel<TParameter> : IViewModel<TParameter>
     {
-        // Workaround, as long as we don't have an IoC Container ...
         public static IPresenter Presenter { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,6 +26,8 @@ namespace MvvmNano
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
 
         protected Task ShowViewModelAsync<TViewModel, TViewModelParameter>(TViewModelParameter parameter) 
             where TViewModel : IViewModel<TViewModelParameter>
