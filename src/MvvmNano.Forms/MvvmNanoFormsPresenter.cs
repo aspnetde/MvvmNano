@@ -29,7 +29,7 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
-        public async Task ShowViewModelAsync<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
+        public Task ShowViewModelAsync<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
             Type viewModelType = typeof(TViewModel);
 
@@ -39,10 +39,10 @@ namespace MvvmNano.Forms
             IView view = CreateView(viewModelType);
             view.SetViewModel(viewModel);
 
-            await OpenPageAsync(view as Page);
+            return OpenPageAsync(view as Page);
         }
 
-        public async Task ShowViewModelAsync<TViewModel>()
+        public Task ShowViewModelAsync<TViewModel>()
         {
             Type viewModelType = typeof(TViewModel);
 
@@ -55,7 +55,7 @@ namespace MvvmNano.Forms
             IView view = CreateView(viewModelType);
             view.SetViewModel(viewModel);
 
-            await OpenPageAsync(view as Page);
+            return OpenPageAsync(view as Page);
         }
 
         private static IViewModel CreateViewModel<TViewModel>(Type viewModelType)
