@@ -5,7 +5,11 @@ namespace MvvmNano
 {
     public interface IViewModel : INotifyPropertyChanged, IDisposable
     {
-        void Initialize(object parameter);
+    }
+
+    public interface IViewModel<TParameter> : IViewModel
+    {
+        void Initialize(TParameter parameter);
     }
 }
 

@@ -29,11 +29,11 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
-        public async Task ShowViewModelAsync<TViewModel>(object parameter) where TViewModel : IViewModel
+        public async Task ShowViewModelAsync<TViewModel, TParameter>(TParameter parameter) where TViewModel : IViewModel<TParameter>
         {
             Type viewModelType = typeof(TViewModel);
 
-            IViewModel viewModel = CreateViewModel<TViewModel>(viewModelType);
+            var viewModel = CreateViewModel<TViewModel>(viewModelType) as IViewModel<TParameter>;
             viewModel.Initialize(parameter);
 
             IView view = CreateView(viewModelType);

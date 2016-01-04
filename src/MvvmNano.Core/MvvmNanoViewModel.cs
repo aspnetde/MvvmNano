@@ -5,14 +5,18 @@ using System;
 
 namespace MvvmNano
 {
-    public class MvvmNanoViewModel : IViewModel
+    public class MvvmNanoViewModel : MvvmNanoViewModel<object>
+    {
+    }
+
+    public class MvvmNanoViewModel<TParameter> : IViewModel<TParameter>
     {
         // Workaround, as long as we don't have an IoC Container ...
         public static IPresenter Presenter { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public virtual void Initialize(object parameter)
+        public virtual void Initialize(TParameter parameter)
         {
             // Hook
         }
@@ -24,13 +28,13 @@ namespace MvvmNano
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected Task ShowViewModelAsync<TViewModel>(object parameter) 
-            where TViewModel : IViewModel
+        protected Task ShowViewModelAsync<TViewModel, TViewModelParameter>(TViewModelParameter parameter) 
+            where TViewModel : IViewModel<TViewModelParameter>
         {
             if (Presenter == null)
                 throw new InvalidOperationException("Please set MvvmNanoViewModel.Presenter.");
 
-            return Presenter.ShowViewModelAsync<TViewModel>(parameter);
+            return Presenter.ShowViewModelAsync<TViewModel, TViewModelParameter>(parameter);
         }
 
         public virtual void Dispose()

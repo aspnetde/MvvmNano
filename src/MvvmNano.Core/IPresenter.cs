@@ -4,8 +4,8 @@ namespace MvvmNano
 {
     public interface IPresenter
     {
-        Task ShowViewModelAsync<TViewModel>(object parameter) 
-            where TViewModel : IViewModel;
+        Task ShowViewModelAsync<TViewModel, TParameter>(TParameter parameter) 
+            where TViewModel : IViewModel<TParameter>;
     }
 }
 
