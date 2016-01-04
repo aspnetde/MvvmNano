@@ -55,9 +55,9 @@ namespace MvvmNano
         }
     }
 
-    public class MvvmNanoViewModel<TParameter> : MvvmNanoViewModelBase, IViewModel<TParameter>
+    public class MvvmNanoViewModel<TNavigationParameter> : MvvmNanoViewModelBase, IViewModel<TNavigationParameter>
     {
-        public virtual void Initialize(TParameter parameter)
+        public virtual void Initialize(TNavigationParameter parameter)
         {
         }
     }

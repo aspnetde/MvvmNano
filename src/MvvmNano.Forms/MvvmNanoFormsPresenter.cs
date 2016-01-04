@@ -48,7 +48,7 @@ namespace MvvmNano.Forms
 
             var viewModel = CreateViewModel<TViewModel>(viewModelType) as MvvmNanoViewModel;
             if (viewModel == null)
-                throw new InvalidOperationException(viewModelType + " is not a MvvmNanoViewModel.");
+                throw new MvvmNanoFormsPresenterException(viewModelType + " is not a MvvmNanoViewModel.");
             
             viewModel.Initialize();
 
@@ -62,7 +62,7 @@ namespace MvvmNano.Forms
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel;
             if (viewModel == null)
-                throw new InvalidOperationException(viewModelType + " does not implement IViewModel.");
+                throw new MvvmNanoFormsPresenterException(viewModelType + " does not implement IViewModel.");
 
             return viewModel;
         }
@@ -71,7 +71,7 @@ namespace MvvmNano.Forms
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TParameter>;
             if (viewModel == null)
-                throw new InvalidOperationException(viewModelType + " does not implement IViewModel<" + typeof(TParameter).Name + ">");
+                throw new MvvmNanoFormsPresenterException(viewModelType + " does not implement IViewModel<" + typeof(TParameter).Name + ">");
 
             return viewModel;
         }
@@ -85,10 +85,10 @@ namespace MvvmNano.Forms
             var view = Activator.CreateInstance(pageType) as IView;
 
             if (view == null)
-                throw new InvalidOperationException(viewName + " could not be found. Does it implement IView?");
+                throw new MvvmNanoFormsPresenterException(viewName + " could not be found. Does it implement IView?");
 
             if (!(view is Page))
-                throw new InvalidOperationException(viewName + " is not a Xamarin.Forms Page.");
+                throw new MvvmNanoFormsPresenterException(viewName + " is not a Xamarin.Forms Page.");
 
             return view;
         }
