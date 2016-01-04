@@ -3,38 +3,16 @@ using System.Windows.Input;
 
 namespace MvvmNano
 {
-    public class MvvmNanoCommand : ICommand
+    public class MvvmNanoCommand : MvvmNanoCommand<object>
     {
-        private readonly Func<bool> _canExecute;
-        private readonly Action _execute;
-
-        public event EventHandler CanExecuteChanged;
-
-        public MvvmNanoCommand(Action execute) : this(execute, null)
+        public MvvmNanoCommand(Action execute) 
+            : base(p => execute(), null)
         {
         }
 
         public MvvmNanoCommand(Action execute, Func<bool> canExecute)
+            : base(p => execute(), p => canExecute())
         {
-            _execute = execute;
-            _canExecute = canExecute;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute();
-        }
-
-        public void Execute(object parameter)
-        {
-            _execute();
-        }
-
-        public void RaiseCanExecuteChanged()
-        {
-            var handler = CanExecuteChanged;
-            if (handler != null)
-                handler(this, EventArgs.Empty);
         }
     }
 
