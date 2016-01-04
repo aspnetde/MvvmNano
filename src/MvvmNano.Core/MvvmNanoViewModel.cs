@@ -5,13 +5,9 @@ using System;
 
 namespace MvvmNano
 {
-    public class MvvmNanoViewModel : MvvmNanoViewModel<object>
+    public abstract class MvvmNanoViewModelBase
     {
-    }
-
-    public class MvvmNanoViewModel<TParameter> : IViewModel<TParameter>
-    {
-        public class NavigationStep2<TNavigationViewModel>
+        protected class NavigationStep2<TNavigationViewModel>
         {
             public Task WithParameterAsync<TNavigationParameter>(TNavigationParameter parameter)
             {
@@ -26,11 +22,6 @@ namespace MvvmNano
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public virtual void Initialize(TParameter parameter)
-        {
-            // Hook
-        }
-
         protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
         {
             var handler = PropertyChanged;
@@ -44,17 +35,30 @@ namespace MvvmNano
         }
 
         protected Task NavigateToAsync<TNavigationViewModel>()
-            where TNavigationViewModel : IViewModel<object>
+            where TNavigationViewModel : IViewModel
         {
             if (Presenter == null)
                 throw new InvalidOperationException("Please set MvvmNanoViewModel.Presenter.");
 
-            return Presenter.ShowViewModelAsync<TNavigationViewModel, object>(null);        
+            return Presenter.ShowViewModelAsync<TNavigationViewModel>();
         }
 
         public virtual void Dispose()
         {
-            // Hook
+        }
+    }
+
+    public class MvvmNanoViewModel : MvvmNanoViewModelBase, IViewModel
+    {
+        public virtual void Initialize()
+        {
+        }
+    }
+
+    public class MvvmNanoViewModel<TParameter> : MvvmNanoViewModelBase, IViewModel<TParameter>
+    {
+        public virtual void Initialize(TParameter parameter)
+        {
         }
     }
 }
