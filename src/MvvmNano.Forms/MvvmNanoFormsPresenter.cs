@@ -33,7 +33,7 @@ namespace MvvmNano.Forms
         {
             Type viewModelType = typeof(TViewModel);
 
-            IViewModel viewModel = CreateViewModel(viewModelType);
+            IViewModel viewModel = CreateViewModel<TViewModel>(viewModelType);
             viewModel.Initialize(parameter);
 
             IView view = CreateView(viewModelType);
@@ -42,19 +42,14 @@ namespace MvvmNano.Forms
             await OpenPageAsync(view as Page);
         }
 
-        private static IViewModel CreateViewModel(Type viewModelType)
+        private static IViewModel CreateViewModel<TViewModel>(Type viewModelType)
         {
-            var viewModel = Activator.CreateInstance(viewModelType);
+            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel;
 
             if (viewModel == null)
                 throw new InvalidOperationException(viewModelType + " could not be created.");
 
-            var iViewModel = viewModel as IViewModel;
-
-            if (iViewModel == null)
-                throw new InvalidOperationException(viewModelType + " does not implement IViewModel.");
-
-            return iViewModel;
+            return viewModel;
         }
 
         private IView CreateView(Type viewModelType)
