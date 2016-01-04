@@ -29,11 +29,11 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
-        public async Task ShowViewModelAsync<TViewModel, TParameter>(TParameter parameter) where TViewModel : IViewModel<TParameter>
+        public async Task ShowViewModelAsync<TViewModel, TParameter>(TParameter parameter)
         {
             Type viewModelType = typeof(TViewModel);
 
-            var viewModel = CreateViewModel<TViewModel>(viewModelType) as IViewModel<TParameter>;
+            var viewModel = CreateViewModel<TViewModel, TParameter>(viewModelType);
             viewModel.Initialize(parameter);
 
             IView view = CreateView(viewModelType);
@@ -42,9 +42,9 @@ namespace MvvmNano.Forms
             await OpenPageAsync(view as Page);
         }
 
-        private static IViewModel CreateViewModel<TViewModel>(Type viewModelType)
+        private static IViewModel<TParameter> CreateViewModel<TViewModel, TParameter>(Type viewModelType)
         {
-            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel;
+            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TParameter>;
 
             if (viewModel == null)
                 throw new InvalidOperationException(viewModelType + " could not be created.");

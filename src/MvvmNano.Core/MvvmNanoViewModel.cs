@@ -11,6 +11,17 @@ namespace MvvmNano
 
     public class MvvmNanoViewModel<TParameter> : IViewModel<TParameter>
     {
+        public class NavigationStep2<TNavigationViewModel>
+        {
+            public Task WithParameterAsync<TNavigationParameter>(TNavigationParameter parameter)
+            {
+                if (Presenter == null)
+                    throw new InvalidOperationException("Please set MvvmNanoViewModel.Presenter.");
+
+                return Presenter.ShowViewModelAsync<TNavigationViewModel, TNavigationParameter>(parameter);
+            }
+        }
+
         public static IPresenter Presenter { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,15 +38,18 @@ namespace MvvmNano
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        protected NavigationStep2<TNavigationViewModel> NavigateTo<TNavigationViewModel>()
+        {
+            return new NavigationStep2<TNavigationViewModel>();
+        }
 
-
-        protected Task ShowViewModelAsync<TViewModel, TViewModelParameter>(TViewModelParameter parameter) 
-            where TViewModel : IViewModel<TViewModelParameter>
+        protected Task NavigateToAsync<TNavigationViewModel>()
+            where TNavigationViewModel : IViewModel<object>
         {
             if (Presenter == null)
                 throw new InvalidOperationException("Please set MvvmNanoViewModel.Presenter.");
 
-            return Presenter.ShowViewModelAsync<TViewModel, TViewModelParameter>(parameter);
+            return Presenter.ShowViewModelAsync<TNavigationViewModel, object>(null);        
         }
 
         public virtual void Dispose()
