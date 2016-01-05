@@ -7,18 +7,17 @@ namespace MvvmNano
 {
     public abstract class MvvmNanoViewModelBase
     {
-        protected class NavigationStep2<TNavigationViewModel>
-        {
-            public Task WithParameterAsync<TNavigationParameter>(TNavigationParameter parameter)
+        private static IPresenter _presenter;
+        public static IPresenter Presenter 
+        { 
+            get
             {
-                if (Presenter == null)
-                    throw new InvalidOperationException("Please set MvvmNanoViewModel.Presenter.");
-
-                return Presenter.ShowViewModelAsync<TNavigationViewModel, TNavigationParameter>(parameter);
+                if (_presenter == null)
+                    throw new InvalidOperationException("Please set MvvmNanoViewModelBase.Presenter.");
+                return _presenter;
             }
+            set { _presenter = value; }
         }
-
-        public static IPresenter Presenter { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,17 +33,22 @@ namespace MvvmNano
             return new NavigationStep2<TNavigationViewModel>();
         }
 
-        protected Task NavigateToAsync<TNavigationViewModel>()
-            where TNavigationViewModel : IViewModel
+        protected Task NavigateToAsync<TNavigationViewModel>() where TNavigationViewModel : IViewModel
         {
-            if (Presenter == null)
-                throw new InvalidOperationException("Please set MvvmNanoViewModel.Presenter.");
-
             return Presenter.ShowViewModelAsync<TNavigationViewModel>();
         }
 
         public virtual void Dispose()
         {
+            // Hook
+        }
+
+        protected class NavigationStep2<TNavigationViewModel>
+        {
+            public Task WithParameterAsync<TNavigationParameter>(TNavigationParameter parameter)
+            {
+                return Presenter.ShowViewModelAsync<TNavigationViewModel, TNavigationParameter>(parameter);
+            }
         }
     }
 
@@ -52,6 +56,7 @@ namespace MvvmNano
     {
         public virtual void Initialize()
         {
+            // Hook
         }
     }
 
@@ -59,6 +64,7 @@ namespace MvvmNano
     {
         public virtual void Initialize(TNavigationParameter parameter)
         {
+            // Hook
         }
     }
 }
