@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System;
 
 namespace MvvmNano
 {
@@ -13,7 +12,8 @@ namespace MvvmNano
             get
             {
                 if (_presenter == null)
-                    throw new InvalidOperationException("Please set MvvmNanoViewModelBase.Presenter.");
+                    throw new MvvmNanoException("Please set MvvmNanoViewModelBase.Presenter.");
+                
                 return _presenter;
             }
             set { _presenter = value; }
