@@ -22,6 +22,13 @@ namespace MvvmNano.Forms
         public void SetViewModel(IViewModel viewModel)
         {
             BindingContext = viewModel;
+
+            OnViewModelSet();
+        }
+
+        public virtual void OnViewModelSet()
+        {
+            // Hook
         }
 
         public virtual void Dispose()
