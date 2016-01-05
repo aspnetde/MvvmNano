@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using MvvmNano;
 using Xamarin.Forms;
 
@@ -15,6 +14,22 @@ namespace MvvmNano.Forms
         private readonly Type[] _availableViewTypes;
 
         protected readonly Application Application;
+
+        protected Page CurrentPage
+        {
+            get 
+            { 
+                Page modalPage = Application.MainPage.Navigation.ModalStack.LastOrDefault();
+                if (modalPage != null)
+                    return modalPage;
+
+                Page contentPage = Application.MainPage.Navigation.NavigationStack.LastOrDefault();
+                if (contentPage != null)
+                    return contentPage;
+
+                return Application.MainPage;
+            }
+        }
 
         public MvvmNanoFormsPresenter(Application application)
         {
@@ -102,7 +117,7 @@ namespace MvvmNano.Forms
                 throw new ArgumentNullException("page");
 
             Device.BeginInvokeOnMainThread(async () => 
-                await Application.MainPage.Navigation.PushAsync(page, true)
+                await CurrentPage.Navigation.PushAsync(page, true)
             );
         }
     }
