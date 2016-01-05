@@ -9,6 +9,9 @@ namespace MvvmNano.Forms
 {
     public class MvvmNanoFormsPresenter : IPresenter
     {
+        private const string VIEW_MODEL_SUFFIX = "ViewModel";
+        private const string VIEW_SUFFIX = "Page";
+
         private readonly Type[] _availableViewTypes;
 
         protected readonly Application Application;
@@ -78,7 +81,7 @@ namespace MvvmNano.Forms
 
         private IView CreateView(Type viewModelType)
         {
-            string viewName = viewModelType.Name.Replace("ViewModel", "Page");
+            string viewName = viewModelType.Name.Replace(VIEW_MODEL_SUFFIX, VIEW_SUFFIX);
             Type pageType = _availableViewTypes
                 .FirstOrDefault(t => t.Name == viewName);
 
