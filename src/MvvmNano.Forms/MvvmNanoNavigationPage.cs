@@ -21,14 +21,21 @@ namespace MvvmNano.Forms
             base.OnDisappearing();
 
             Popped -= PagePopped;
+
+            DisposePage(CurrentPage as IDisposable);
         }
 
         private static void PagePopped(object sender, NavigationEventArgs e)
         {
-            var disposablePage = e.Page as IDisposable;
+            DisposePage(e.Page as IDisposable);
+        }
 
-            if (disposablePage != null)
-                disposablePage.Dispose();
+        private static void DisposePage(IDisposable page)
+        {
+            if (page == null)
+                return;
+
+            page.Dispose();
         }
     }
 }
