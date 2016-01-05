@@ -1,11 +1,9 @@
-﻿using System.Threading.Tasks;
-
-namespace MvvmNano
+﻿namespace MvvmNano
 {
     public interface IPresenter
     {
-        Task ShowViewModelAsync<TViewModel>();
-        Task ShowViewModelAsync<TViewModel, TNavigationParameter>(TNavigationParameter parameter);
+        void NavigateToViewModel<TViewModel>();
+        void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter);
     }
 }
 

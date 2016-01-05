@@ -32,7 +32,7 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
-        public Task ShowViewModelAsync<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
+        public void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
             Type viewModelType = typeof(TViewModel);
 
@@ -42,10 +42,10 @@ namespace MvvmNano.Forms
             IView view = CreateView(viewModelType);
             view.SetViewModel(viewModel);
 
-            return OpenPageAsync(view as Page);
+            OpenPage(view as Page);
         }
 
-        public Task ShowViewModelAsync<TViewModel>()
+        public void NavigateToViewModel<TViewModel>()
         {
             Type viewModelType = typeof(TViewModel);
 
@@ -58,7 +58,7 @@ namespace MvvmNano.Forms
             IView view = CreateView(viewModelType);
             view.SetViewModel(viewModel);
 
-            return OpenPageAsync(view as Page);
+            OpenPage(view as Page);
         }
 
         private static IViewModel CreateViewModel<TViewModel>(Type viewModelType)
@@ -96,12 +96,14 @@ namespace MvvmNano.Forms
             return view;
         }
 
-        protected virtual Task OpenPageAsync(Page page)
+        protected virtual void OpenPage(Page page)
         {
             if (page == null)
                 throw new ArgumentNullException("page");
 
-            return Application.MainPage.Navigation.PushAsync(page, true);
+            Device.BeginInvokeOnMainThread(async () => 
+                await Application.MainPage.Navigation.PushAsync(page, true)
+            );
         }
     }
 }

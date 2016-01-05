@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace MvvmNano
 {
@@ -33,11 +32,6 @@ namespace MvvmNano
             return new NavigationStep2<TNavigationViewModel>();
         }
 
-        protected Task NavigateToAsync<TNavigationViewModel>() where TNavigationViewModel : IViewModel
-        {
-            return Presenter.ShowViewModelAsync<TNavigationViewModel>();
-        }
-
         public virtual void Dispose()
         {
             // Hook
@@ -45,9 +39,14 @@ namespace MvvmNano
 
         protected class NavigationStep2<TNavigationViewModel>
         {
-            public Task WithParameterAsync<TNavigationParameter>(TNavigationParameter parameter)
+            public void WithoutParameter()
             {
-                return Presenter.ShowViewModelAsync<TNavigationViewModel, TNavigationParameter>(parameter);
+                Presenter.NavigateToViewModel<TNavigationViewModel>();
+            }
+
+            public void WithParameter<TNavigationParameter>(TNavigationParameter parameter)
+            {
+                Presenter.NavigateToViewModel<TNavigationViewModel, TNavigationParameter>(parameter);
             }
         }
     }
