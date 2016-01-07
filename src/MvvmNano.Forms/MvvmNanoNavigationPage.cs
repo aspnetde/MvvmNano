@@ -21,8 +21,14 @@ namespace MvvmNano.Forms
             base.OnDisappearing();
 
             Popped -= PagePopped;
+        }
 
-            DisposePage(CurrentPage as IDisposable);
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+
+            if (Parent == null)
+                DisposePage(CurrentPage as IDisposable);
         }
 
         private static void PagePopped(object sender, NavigationEventArgs e)
