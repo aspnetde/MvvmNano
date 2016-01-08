@@ -15,7 +15,7 @@ namespace MvvmNano.Forms
 
         protected readonly Application Application;
 
-        protected Page CurrentPage
+        public Page CurrentPage
         {
             get 
             { 
