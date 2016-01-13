@@ -5,20 +5,12 @@ namespace MvvmNano
 {
     public abstract class MvvmNanoViewModelBase
     {
-        private static IPresenter _presenter;
-        public static IPresenter Presenter 
-        { 
-            get
-            {
-                if (_presenter == null)
-                    throw new MvvmNanoException("Please set MvvmNanoViewModelBase.Presenter.");
-                
-                return _presenter;
-            }
-            set { _presenter = value; }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
+
+        protected static IPresenter Presenter 
+        { 
+            get { return MvvmNanoIoC.Resolve<IPresenter>(); }
+        }
 
         protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
         {

@@ -23,6 +23,11 @@ namespace MvvmNano
             _kernel.Bind<TInterface>().To<TImplementation>().InSingletonScope();
         }
 
+        public static void RegisterConcreteInstance<TInterface>(TInterface instance)
+        {
+            _kernel.Bind<TInterface>().ToConstant(instance);
+        }
+
         public static T Resolve<T>()
         {
             return _kernel.Get<T>();
