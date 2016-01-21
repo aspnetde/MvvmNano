@@ -1,4 +1,9 @@
-﻿namespace MvvmNano
+﻿/*****************************************************************************
+ * Copyright (c) Thomas Bandt (https://thomasbandt.com). Licensed under the 
+ * MIT License. See LICENSE file in the project root for detailed information. 
+ ****************************************************************************/
+
+namespace MvvmNano
 {
     /// <summary>
     /// The central point of navigation, which is responsible for creating 
