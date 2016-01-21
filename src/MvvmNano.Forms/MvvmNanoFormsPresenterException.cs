@@ -4,7 +4,7 @@ namespace MvvmNano.Forms
 {
     public class MvvmNanoFormsPresenterException : Exception
     {
-        public MvvmNanoFormsPresenterException(string message) : base(message)
+        internal MvvmNanoFormsPresenterException(string message) : base(message)
         {
         }
     }
