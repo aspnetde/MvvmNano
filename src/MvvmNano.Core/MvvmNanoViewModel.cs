@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace MvvmNano
 {
+    /// <summary>
+    /// The base class of every MvvmNano View Model
+    /// </summary>
     public abstract class MvvmNanoViewModelBase
     {
         public event PropertyChangedEventHandler PropertyChanged;
