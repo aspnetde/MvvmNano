@@ -66,7 +66,7 @@ namespace MvvmNano.Forms
 
             var viewModel = CreateViewModel<TViewModel>(viewModelType) as MvvmNanoViewModel;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(viewModelType + " is not a MvvmNanoViewModel.");
+                throw new MvvmNanoFormsPresenterException(viewModelType + " is not a MvvmNanoViewModel (without parameter).");
             
             viewModel.Initialize();
 
