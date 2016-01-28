@@ -3,8 +3,17 @@ using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
+    /// <summary>
+    /// An implementation of NavigationPage which takes care of 
+    /// cleaning up all popped and dismissed Pages. Strongly 
+    /// recommended to use it instead of the default NavigationPage.
+    /// </summary>
     public class MvvmNanoNavigationPage : NavigationPage
     {
+        /// <summary>
+        /// We need a root Page, which should be shown when this
+        /// new navigation stack opens its doors.
+        /// </summary>
         public MvvmNanoNavigationPage(Page root) : base(root)
         {
         }

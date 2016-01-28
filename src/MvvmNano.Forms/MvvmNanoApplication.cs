@@ -2,6 +2,9 @@
 
 namespace MvvmNano.Forms
 {
+    /// <summary>
+    /// The entry point of your XF application
+    /// </summary>
     public class MvvmNanoApplication : Application
     {
         protected override void OnStart()
@@ -11,6 +14,11 @@ namespace MvvmNano.Forms
             SetUpPresenter();
         }
 
+        /// <summary>
+        /// Registers MvvmNanoFormsPresenter. If you're using your own
+        /// custom presenter, override this method for registration (but
+        /// don't call base.SetUpPresenter()!).
+        /// </summary>
         protected virtual void SetUpPresenter()
         {
             MvvmNanoIoC.RegisterConcreteInstance<IPresenter>(

@@ -6,6 +6,11 @@ using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
+    /// <summary>
+    /// The default Presenter implementation for Xamarin.Forms. Pushes each
+    /// new Page to the navigation stack. Derive from this class to implement
+    /// custom navigation for your View Models (and Pages).
+    /// </summary>
     public class MvvmNanoFormsPresenter : IPresenter
     {
         private const string VIEW_MODEL_SUFFIX = "ViewModel";
@@ -13,8 +18,16 @@ namespace MvvmNano.Forms
 
         private readonly Type[] _availableViewTypes;
 
+        /// <summary>
+        /// A read-only reference to our Xamarin.Forms Application instance
+        /// </summary>
         protected readonly Application Application;
 
+        /// <summary>
+        /// Provides the Current Page, which is shown on top of all other
+        /// (either modally, on the navigation stack, or just the app's 
+        /// main page).
+        /// </summary>
         public Page CurrentPage
         {
             get 
@@ -31,6 +44,11 @@ namespace MvvmNano.Forms
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of MvvmNanoFormsPresenter.
+        /// </summary>
+        /// <param name="application">Our current Xamarin.Forms application. 
+        /// Can't be null as it is needed to present our Pages.</param>
         public MvvmNanoFormsPresenter(Application application)
         {
             if (application == null)
@@ -47,6 +65,11 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
+        /// <summary>
+        /// Navigates to a Page and automatically creates a new instance of
+        /// the corresponding View Model. Also passes some parameters of the
+        /// given type.
+        /// </summary>
         public void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
             Type viewModelType = typeof(TViewModel);
@@ -60,6 +83,10 @@ namespace MvvmNano.Forms
             OpenPage(view as Page);
         }
 
+        /// <summary>
+        /// Navigates to a Page and automatically creates a new instance of
+        /// the corresponding View Model, without passing any parameter.
+        /// </summary>
         public void NavigateToViewModel<TViewModel>()
         {
             Type viewModelType = typeof(TViewModel);
@@ -74,6 +101,21 @@ namespace MvvmNano.Forms
             view.SetViewModel(viewModel);
 
             OpenPage(view as Page);
+        }
+
+        /// <summary>
+        /// This method is called whenever a Page should be shown. The default
+        /// implementation pushes the Page to the navigation stack. Override it
+        /// to implement your own navigation magic (for modals etc.).
+        /// </summary>
+        protected virtual void OpenPage(Page page)
+        {
+            if (page == null)
+                throw new ArgumentNullException("page");
+
+            Device.BeginInvokeOnMainThread(async () => 
+                await CurrentPage.Navigation.PushAsync(page, true)
+            );
         }
 
         private static IViewModel CreateViewModel<TViewModel>(Type viewModelType)
@@ -109,16 +151,6 @@ namespace MvvmNano.Forms
                 throw new MvvmNanoFormsPresenterException(viewName + " is not a Xamarin.Forms Page.");
 
             return view;
-        }
-
-        protected virtual void OpenPage(Page page)
-        {
-            if (page == null)
-                throw new ArgumentNullException("page");
-
-            Device.BeginInvokeOnMainThread(async () => 
-                await CurrentPage.Navigation.PushAsync(page, true)
-            );
         }
     }
 }
