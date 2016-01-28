@@ -5,7 +5,7 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 
 ## Why?
 
-Because I found all commonly used MVVM frameworks in the Xamarin space had their flaws and there must be a better, slimmer way to do that.
+Because I found all commonly used MVVM frameworks in the Xamarin space had their flaws and thought there must be a better, slimmer way to do that.
 
 > To be exact: I really like [MvvmCross](https://github.com/MvvmCross/MvvmCross) for Xamarin.iOS and Xamarin.Android, but I think it's a bit too heavy-weight for Xamarin.Forms, which brings its own data-binding for example. [MVVM Light](https://mvvmlight.codeplex.com/)'s lack of a central documentation was also a show-stopper to me. And [FreshMvvm](https://github.com/rid00z/FreshMvvm) brings some concepts I strongly disagree with.
 
