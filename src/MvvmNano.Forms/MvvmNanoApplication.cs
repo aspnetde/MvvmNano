@@ -1,8 +1,4 @@
-﻿/*****************************************************************************
- * Copyright (c) Thomas Bandt (https://thomasbandt.com). Licensed under the 
- * MIT License. See LICENSE file in the project root for detailed information. 
- ****************************************************************************/
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {

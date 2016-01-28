@@ -1,8 +1,4 @@
-﻿/*****************************************************************************
- * Copyright (c) Thomas Bandt (https://thomasbandt.com). Licensed under the 
- * MIT License. See LICENSE file in the project root for detailed information. 
- ****************************************************************************/
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System;
 
 namespace MvvmNano
