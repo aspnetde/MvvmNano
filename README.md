@@ -1,7 +1,14 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/7ts0fqo0vp8fb718?svg=true)](https://ci.appveyor.com/project/ThomasBandt/mvvm-nano)
 
 # MvvmNano
 The small and smart MVVM framework made with ❤ for Xamarin.Forms.
+
+---
+
+[![NuGet version](https://badge.fury.io/nu/MvvmNano.Forms.svg)](https://badge.fury.io/nu/MvvmNano.Forms)
+
+[![Build status](https://ci.appveyor.com/api/projects/status/7ts0fqo0vp8fb718?svg=true)](https://ci.appveyor.com/project/ThomasBandt/mvvm-nano)
+
+---
 
 ## Why?
 
@@ -21,3 +28,9 @@ So, yes, this is a very opinionated framework. Take a look and decide for yourse
 - There is **Dependency Injection baked in**. Just register your dependencies and they are injected in your View Model's constructor. So each View Model becomes **easily testable**.
 - Whether you set up your Pages in **code or XAML, both are supported**.
 - **Both Pages and View Models are disposable** and the framework makes sure they actually are disposed whenever a Page is being popped (or dismissed). This gives you free access to [clean up](https://thomasbandt.com/xamarinios-memory-pitfalls) expensive resources or strong references.
+
+## Great. Where can I download it?
+
+Just fetch it [from NuGet](https://www.nuget.org/packages/MvvmNano.Forms/):
+
+    Install-Package MvvmNano.Forms
