@@ -1,14 +1,11 @@
 
-# MvvmNano
-The small and smart MVVM framework made with ❤ for Xamarin.Forms.
-
-===
-
 | Build Status  | NuGet Package |
 | ------------- | ------------- |
 | [![Build status](https://ci.appveyor.com/api/projects/status/7ts0fqo0vp8fb718?svg=true)](https://ci.appveyor.com/project/ThomasBandt/mvvm-nano)  | [![NuGet version](https://badge.fury.io/nu/MvvmNano.Forms.svg)](https://badge.fury.io/nu/MvvmNano.Forms)  |
 
-===
+
+# MvvmNano
+The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 
 ## Why?
 
