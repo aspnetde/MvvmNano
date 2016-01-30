@@ -43,7 +43,7 @@ namespace MvvmNano
         }
 
         /// <summary>
-        /// Navigates to another View Model and passes a paremter.
+        /// Navigates to another View Model and passes a parameter.
         /// </summary>
         /// <param name="parameter">The parameter you want to pass to the View Model you want to navigate to.</param>
         /// <typeparam name="TNavigationViewModel">The type of the View Model you want to navigate to.</typeparam>
