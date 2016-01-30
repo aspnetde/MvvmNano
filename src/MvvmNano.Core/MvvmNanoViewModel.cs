@@ -10,11 +10,6 @@ namespace MvvmNano
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected static IPresenter Presenter 
-        { 
-            get { return MvvmNanoIoC.Resolve<IPresenter>(); }
-        }
-
         protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
         {
             var handler = PropertyChanged;
@@ -34,14 +29,21 @@ namespace MvvmNano
 
         protected class NavigationStep2<TNavigationViewModel>
         {
+            private readonly IPresenter _presenter;
+
+            public NavigationStep2()
+            {
+                _presenter = MvvmNanoIoC.Resolve<IPresenter>();
+            }
+
             public void WithoutParameter()
             {
-                Presenter.NavigateToViewModel<TNavigationViewModel>();
+                _presenter.NavigateToViewModel<TNavigationViewModel>();
             }
 
             public void WithParameter<TNavigationParameter>(TNavigationParameter parameter)
             {
-                Presenter.NavigateToViewModel<TNavigationViewModel, TNavigationParameter>(parameter);
+                _presenter.NavigateToViewModel<TNavigationViewModel, TNavigationParameter>(parameter);
             }
         }
     }
