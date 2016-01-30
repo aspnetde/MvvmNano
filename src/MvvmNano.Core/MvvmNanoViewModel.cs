@@ -32,12 +32,24 @@ namespace MvvmNano
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Navigates to another View Model.
+        /// </summary>
+        /// <typeparam name="TNavigationViewModel">The type of the View Model you want to navigate to.</typeparam>
         protected void NavigateTo<TNavigationViewModel>()
+            where TNavigationViewModel : IViewModel
         {
             _presenter.NavigateToViewModel<TNavigationViewModel>();
         }
 
+        /// <summary>
+        /// Navigates to another View Model and passes a paremter.
+        /// </summary>
+        /// <param name="parameter">The parameter you want to pass to the View Model you want to navigate to.</param>
+        /// <typeparam name="TNavigationViewModel">The type of the View Model you want to navigate to.</typeparam>
+        /// <typeparam name="TNavigationParameter">The type of the parameter you want to pass to your View Model you are navigating to.</typeparam>
         protected void NavigateTo<TNavigationViewModel, TNavigationParameter>(TNavigationParameter parameter)
+            where TNavigationViewModel : IViewModel<TNavigationParameter>
         {
             _presenter.NavigateToViewModel<TNavigationViewModel, TNavigationParameter>(parameter);
         }
