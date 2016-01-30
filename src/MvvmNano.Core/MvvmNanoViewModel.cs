@@ -8,10 +8,17 @@ namespace MvvmNano
     /// </summary>
     public abstract class MvvmNanoViewModelBase
     {
+        private readonly IPresenter _presenter;
+
         /// <summary>
         /// Raised, whenever NotifyPropertyChanged is called. 
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        protected MvvmNanoViewModelBase()
+        {
+            _presenter = MvvmNanoIoC.Resolve<IPresenter>();
+        }
 
         /// <summary>
         /// Call this, whenever the value of one of your properties changes,
@@ -25,13 +32,14 @@ namespace MvvmNano
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>
-        /// Navigates to another View Model.
-        /// </summary>
-        /// <typeparam name="TNavigationViewModel">The type of the View Model you want to navigate</typeparam>
-        protected NavigationStep2<TNavigationViewModel> NavigateTo<TNavigationViewModel>()
+        protected void NavigateTo<TNavigationViewModel>()
         {
-            return new NavigationStep2<TNavigationViewModel>();
+            _presenter.NavigateToViewModel<TNavigationViewModel>();
+        }
+
+        protected void NavigateTo<TNavigationViewModel, TNavigationParameter>(TNavigationParameter parameter)
+        {
+            _presenter.NavigateToViewModel<TNavigationViewModel, TNavigationParameter>(parameter);
         }
 
         /// <summary>
@@ -40,26 +48,6 @@ namespace MvvmNano
         public virtual void Dispose()
         {
             // Hook
-        }
-
-        protected class NavigationStep2<TNavigationViewModel>
-        {
-            private readonly IPresenter _presenter;
-
-            public NavigationStep2()
-            {
-                _presenter = MvvmNanoIoC.Resolve<IPresenter>();
-            }
-
-            public void WithoutParameter()
-            {
-                _presenter.NavigateToViewModel<TNavigationViewModel>();
-            }
-
-            public void WithParameter<TNavigationParameter>(TNavigationParameter parameter)
-            {
-                _presenter.NavigateToViewModel<TNavigationViewModel, TNavigationParameter>(parameter);
-            }
         }
     }
 
