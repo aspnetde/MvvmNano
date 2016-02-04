@@ -5,26 +5,18 @@
 
 
 # MvvmNano
-The small and smart MVVM framework made with ❤ for Xamarin.Forms.
+The small and smart MVVM framework made with ❤ for Xamarin.Forms. Easy to learn, easy to use and easy to extend.
 
-## Why?
-
-Because I found all commonly used MVVM frameworks in the Xamarin space had their flaws and thought there must be a better, slimmer way to do that.
-
-> To be exact: I really like [MvvmCross](https://github.com/MvvmCross/MvvmCross) for Xamarin.iOS and Xamarin.Android, but I think it's a bit too heavy-weight for Xamarin.Forms, which brings its own data-binding for example. [MVVM Light](https://mvvmlight.codeplex.com/)'s lack of a central documentation was also a show-stopper to me. And [FreshMvvm](https://github.com/rid00z/FreshMvvm) brings some concepts I disagree with. But that may all be a matter of taste and bias, so please build your own opinion.
-
-## What?
-
-So, yes, this is a very opinionated framework. Take a look and decide for yourself, if it meets your requirements. This is in for you:
+## How it works
 
 - Each Page has it's own View Model. They are tied by a **naming convention**: SettingsPage <-> SettingsViewModel.
 - Each Page knows it's View Model, but no View Model knows its Page.
 - Therefore **navigation works from View Model to View Model** without involving the Page (aka View).
-- You can pass whatever complex object you want as a parameter to the View Model you're navigating to, which is of course optional.
+- You can pass whatever complex object you want as a parameter to the View Model you're navigating to.
 - Want to show some pages modally or render them in a completely different way? There's a central Presenter which enables you to **decide per View Model how to present it**.
 - There is **Dependency Injection baked in**. Just register your dependencies and they are injected in your View Model's constructor. So each View Model becomes **easily testable**.
 - Whether you set up your Pages in **code or XAML, both are supported**.
-- **Both Pages and View Models are disposable** and the framework makes sure they actually are disposed whenever a Page is being popped (or dismissed). This gives you free access to [clean up](https://thomasbandt.com/xamarinios-memory-pitfalls) expensive resources or strong references.
+- **Both Pages and View Models are disposable** and the framework makes sure they actually are disposed whenever a Page is being popped (or dismissed). This makes [house-keeping](https://thomasbandt.com/xamarinios-memory-pitfalls) a no-brainer.
 
 ## Great. Where can I download it?
 
