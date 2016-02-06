@@ -47,14 +47,14 @@
     <Reference Include="Xamarin.Forms.Platform">
       <HintPath>..\packages\Xamarin.Forms.2.0.1.6505\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Portable.Ninject.3.3.1\lib\portable-net4+sl5+wp8+win8+wpa81+monotouch+monoandroid+Xamarin.iOS\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="MvvmNano.Core">
-      <HintPath>..\packages\MvvmNano.Forms.1.0.1\lib\portable-net4+sl5+wp8+win8+wpa81+monotouch+monoandroid+Xamarin.iOS\MvvmNano.Core.dll</HintPath>
+      <HintPath>..\packages\MvvmNano.Core.1.0.7\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\MvvmNano.Core.dll</HintPath>
     </Reference>
     <Reference Include="MvvmNano.Forms">
-      <HintPath>..\packages\MvvmNano.Forms.1.0.1\lib\portable-net4+sl5+wp8+win8+wpa81+monotouch+monoandroid+Xamarin.iOS\MvvmNano.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\MvvmNano.Forms.1.0.1\lib\portable-net4+sl5+wp8+win8+wpa81+monotouch+monoandroid+Xamarin.iOS\Ninject.dll</HintPath>
+      <HintPath>..\packages\MvvmNano.Forms.1.0.7\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\MvvmNano.Forms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
