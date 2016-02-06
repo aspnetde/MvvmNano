@@ -52,7 +52,7 @@ namespace MvvmNano
         /// </summary>
         /// <param name="instance">The concrete instance.</param>
         /// <typeparam name="TInterface">The type of the Interface.</typeparam>
-        public static void RegisterConcreteInstance<TInterface>(TInterface instance)
+        public static void RegisterAsSingleton<TInterface>(TInterface instance)
         {
             _kernel.Bind<TInterface>().ToConstant(instance);
         }

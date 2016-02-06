@@ -21,7 +21,7 @@ namespace MvvmNano.Forms
         /// </summary>
         protected virtual void SetUpPresenter()
         {
-            MvvmNanoIoC.RegisterConcreteInstance<IPresenter>(
+            MvvmNanoIoC.RegisterAsSingleton<IPresenter>(
                 new MvvmNanoFormsPresenter(this)
             );
         }
