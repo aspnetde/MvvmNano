@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MvvmNano.Core</id>
-    <version>1.0.2</version>
+    <version>1.0.7</version>
     <authors>Thomas Bandt</authors>
     <owners>Thomas Bandt</owners>
     <licenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</licenseUrl>
@@ -13,7 +13,7 @@
     <copyright>Copyright 2016 Thomas Bandt</copyright>
     <tags>MVVM MvvmNano Xamarin.Forms</tags>
     <dependencies>
-      <dependency id="Portable.Ninject" version="3.3.1" />
+        <dependency id="Portable.Ninject" version="3.3.1" />
     </dependencies>
   </metadata>
 </package>
