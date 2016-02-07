@@ -48,7 +48,7 @@ namespace MvvmNanoDemo
                 return;
 
             _clubList.SelectedItem = null;
-            ViewModel.SelectClubCommand.Execute(e.SelectedItem);
+            ViewModel.ShowClubCommand.Execute(e.SelectedItem);
         }
 
         public override void Dispose()

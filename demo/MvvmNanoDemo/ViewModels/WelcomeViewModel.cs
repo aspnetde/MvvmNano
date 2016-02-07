@@ -21,9 +21,9 @@ namespace MvvmNanoDemo
             new Club("Manchester United", "England")
         };
 
-        public MvvmNanoCommand<Club> SelectClubCommand
+        public MvvmNanoCommand<Club> ShowClubCommand
         {
-            get { return new MvvmNanoCommand<Club>(SelectClub); }
+            get { return new MvvmNanoCommand<Club>(ShowClub); }
         }
 
         public override void Initialize(User parameter)
@@ -31,7 +31,7 @@ namespace MvvmNanoDemo
             Username = parameter.Name;
         }
 
-        private void SelectClub(Club club)
+        private void ShowClub(Club club)
         {
             NavigateTo<ClubViewModel, Club>(club);
         }
