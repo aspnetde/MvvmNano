@@ -72,6 +72,15 @@
     <Reference Include="Xamarin.Forms.Platform">
       <HintPath>..\packages\Xamarin.Forms.2.0.1.6505\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Portable.Ninject.3.3.1\lib\monoandroid\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmNano.Core">
+      <HintPath>..\packages\MvvmNano.Core.1.0.7\lib\MonoAndroid\MvvmNano.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmNano.Forms">
+      <HintPath>..\packages\MvvmNano.Forms.1.0.7\lib\MonoAndroid\MvvmNano.Forms.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MvvmNanoDemo\MvvmNanoDemo.csproj">

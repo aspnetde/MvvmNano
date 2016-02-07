@@ -22,6 +22,13 @@ namespace MvvmNanoDemo
 
             MainPage = new MvvmNanoNavigationPage(page);
         }
+
+        protected override void SetUpPresenter()
+        {
+            MvvmNanoIoC.RegisterAsSingleton<IPresenter>(
+                new DemoPresenter(this)
+            );
+        }
     }
 }
 
