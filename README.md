@@ -5,6 +5,17 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 | ------------- | ------------- |
 | [![Build status](https://ci.appveyor.com/api/projects/status/7ts0fqo0vp8fb718?svg=true)](https://ci.appveyor.com/project/ThomasBandt/mvvm-nano)  | [![NuGet version](https://badge.fury.io/nu/MvvmNano.Forms.svg)](https://badge.fury.io/nu/MvvmNano.Forms)  |
 
+1. [Manifesto](#manifesto)
+2. [Download](#download)
+3. [Demo](#demo)
+4. [Getting started](#getting-started)
+5. [Data Binding](#data-binding)
+6. [Navigation](#navigation)
+7. [Dependency Injection](#di)
+8. [Cleaning up](#cu)
+9. [XAML Support](#xaml-support)
+
+<div id='manifesto'/>
 ## Manifesto
 
 1. Each View (aka Page) must have its own View Model.
@@ -15,14 +26,17 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 6. View Models must be easily testable, so Dependency Injection is a basic prerequisite.
 7. Both Views and View Models must be easy to [clean up](https://thomasbandt.com/xamarinios-memory-pitfalls).
 
+<div id='download'/>
 ## Download
 
     Install-Package MvvmNano.Forms
 
+<div id='demo'/>
 ## Demo
 
 Just download this repo and take a look at the demo app which can be found within the /demo folder.
 
+<div id='getting-started'/>
 ## Getting started
 
 ### Preliminary remarks
@@ -87,6 +101,7 @@ You also want to tell your application the first Page and View Model which shoul
 
 If you now build and run your app(s), you'll see your first Page which is running with it's View Model behind. Nothing spectacular so far, but the fun is just getting started.
 
+<div id='data-binding'/>
 ## Data Binding
 
 Xamarin.Forms comes with really powerful data binding features which you're fully able to leverage with MvvmNano, so we are not reinventing the wheel here.
@@ -161,6 +176,7 @@ Page:
 	BindToViewModel(loginButton, Button.CommandProperty, x => x.LogInCommand);
     BindToViewModel(loginButton, Button.CommandParameterProperty, x => x.Username);
 
+<div id='navigation'/>
 ## Navigation
 
 Navigation works from View Model to View Model only, not involving the View aka Page directly. Instead all work is delegated to a central _Presenter_, which is responsible for creating the Page, its View Model and also passing a parameter, if specified.
@@ -227,6 +243,7 @@ In order to pass every navigation request through it, you have register it withi
         );
     }
 
+<div id='di'/>
 ## Dependency Injection
 
 Having a `Initialize()` or `Initialize(TNavigationParameter parameter)` method in your View Model comes with a benefit: the constructor is still free for parameters being automatically injected.
@@ -271,6 +288,7 @@ In front of it there is a small static helper class called `MvvmNanoIoC`, which 
 
 PS: Usually you won't need the `Resolve<TInterface>()` method, because constructor injection works out of the box.
 
+<div id='cu'/>
 ## Cleaning up
 
 Cleaning up your View Models _and_ your Views aka Pages is a must in order to prevent memory leaks. Read more about it [here](https://thomasbandt.com/xamarinios-memory-pitfalls). Unfortunately Xamarin doesn' think that way, so their whole Xamarin.Forms framework lacks `IDisposable` implementations.
@@ -279,7 +297,8 @@ MvvmNano fixes that. Both `MvvmNanoViewModel` and `MvvmNanoContentPage` implemen
 
 > **Important:** In order to get that `Dispose()` method actually called, you must use `MvvmNanoNavigationPage` instead of the framework's default Navigationpage. It takes care of calling `Dispose()` at the right time whenever a Page is being removed from the stack.
 
-## How about XAML?
+<div id='xaml-support'/>
+## XAML Support
 
 XAML is fully supported, take a look at the demo or this snippets.
 
