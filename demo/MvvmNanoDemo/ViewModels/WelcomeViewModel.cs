@@ -12,18 +12,16 @@ namespace MvvmNanoDemo
             private set { _username = value; NotifyPropertyChanged(); }
         }
 
-        public List<Club> Clubs = new List<Club>
-        {
-            new Club("FC Bayern München", "Germany"),
-            new Club("Borussia Dortmund", "Germany"),
-            new Club("Real Madrid", "Spain"),
-            new Club("FC Barcelona", "Spain"),
-            new Club("Manchester United", "England")
-        };
+        public List<Club> Clubs { get; private set; }
 
         public MvvmNanoCommand<Club> ShowClubCommand
         {
             get { return new MvvmNanoCommand<Club>(ShowClub); }
+        }
+
+        public WelcomeViewModel(IClubRepository clubs)
+        {
+            Clubs = clubs.All();
         }
 
         public override void Initialize(User parameter)

@@ -10,6 +10,7 @@ namespace MvvmNanoDemo
             base.OnStart();
 
             SetUpMainPage();
+            SetUpDependencies();
         }
 
         private void SetUpMainPage()
@@ -21,6 +22,11 @@ namespace MvvmNanoDemo
             page.SetViewModel(viewModel);
 
             MainPage = new MvvmNanoNavigationPage(page);
+        }
+
+        private static void SetUpDependencies()
+        {
+            MvvmNanoIoC.Register<IClubRepository, MockClubRepository>();
         }
 
         protected override void SetUpPresenter()
