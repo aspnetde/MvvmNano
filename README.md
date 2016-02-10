@@ -300,7 +300,7 @@ MvvmNano fixes that. Both `MvvmNanoViewModel` and `MvvmNanoContentPage` implemen
 <div id='xaml-support'/>
 ## XAML Support
 
-XAML is fully supported, take a look at the demo or this snippets.
+XAML is fully supported, take a look at the demo or these snippets.
 
 View Model:
 
