@@ -57,18 +57,21 @@ You can add MvvmNano easily via [NuGet](https://www.nuget.org/packages/MvvmNano.
 
 Your View Model needs to inherit from `MvvmNanoViewModel<TNavigationParameter>` or `MvvmNanoViewModel`. Let's start with the latter and thereby without a parameter.
 
-    public class LoginViewModel : MvvmNanoViewModel
-    {
-        // ...
-    }
+```cs
+public class LoginViewModel : MvvmNanoViewModel
+{
+    // ...
+}
+```
 
 Now add the Page. Note that by convention it needs to be named after your View Model, except for the ViewModel suffix (so `LoginViewModel` becomes `LoginPage`). You also need to inherit from `MvvmNanoContentPage<TViewModel>`.
 
-    public class LoginPage : MvvmNanoContentPage<LoginViewModel>
-    {
-        // ...
-    }
-
+```cs
+public class LoginPage : MvvmNanoContentPage<LoginViewModel>
+{
+    // ...
+}
+```
 
 ### Set up your App class
 
@@ -76,26 +79,28 @@ Each Xamarin.Forms app has an entry point – a class called `App` which is deri
 
 You also want to tell your application the first Page and View Model which should be used when the app gets started for the first time. Put this setup inside of `OnStart()`, but don't forget to call `base.OnStart()`. This is important in order to set up the Presenter correctly (for more on that see below).
 
-    public class App : MvvmNanoApplication
+```cs
+public class App : MvvmNanoApplication
+{
+    protected override void OnStart()
     {
-        protected override void OnStart()
-        {
-            base.OnStart();
+        base.OnStart();
 
-            SetUpMainPage();
-        }
-
-        private void SetUpMainPage()
-        {
-            var viewModel = MvvmNanoIoC.Resolve<LoginViewModel>();
-            viewModel.Initialize();
-
-            var page = new LoginPage();
-            page.SetViewModel(viewModel);
-
-            MainPage = new MvvmNanoNavigationPage(page);
-        }
+        SetUpMainPage();
     }
+
+    private void SetUpMainPage()
+    {
+        var viewModel = MvvmNanoIoC.Resolve<LoginViewModel>();
+        viewModel.Initialize();
+
+        var page = new LoginPage();
+        page.SetViewModel(viewModel);
+
+        MainPage = new MvvmNanoNavigationPage(page);
+    }
+}
+```
 
 ### That's it!
 
@@ -110,17 +115,19 @@ Xamarin.Forms comes with really powerful data binding features which you're full
 
 MvvmNano View Models implement `INotifyPropertyChanged` and offer a small helper method called `NotifyPropertyChanged()` (without the leading I).
 
-    private string _username;
-    public string Username
+```cs
+private string _username;
+public string Username
+{
+    get { return _username; }
+    set
     {
-        get { return _username; }
-        set
-        {
-            _username = value;
-            NotifyPropertyChanged();
-            NotifyPropertyChanged("IsFormValid");
-        }
+        _username = value;
+        NotifyPropertyChanged();
+        NotifyPropertyChanged("IsFormValid");
     }
+}
+```
 
 As you can see, `NotifyPropertyChanged()` can be called with and without the name of the property it should be notifying about. If you leave it out, it will automatically use the name of the property you're calling it from.
 
@@ -130,12 +137,14 @@ As you can see, `NotifyPropertyChanged()` can be called with and without the nam
 
 This is a small helper method baked in to `MvvmNanoContentPage`, which makes binding to your View Model a no-brainer when writing your views (pages) in code:
 
-	var nameEntry = new Entry
-	{
-	    Placeholder = "Your name"
-	};
+```cs
+var nameEntry = new Entry
+{
+    Placeholder = "Your name"
+};
 
-	BindToViewModel(nameEntry, Entry.TextProperty, x => x.Username);
+BindToViewModel(nameEntry, Entry.TextProperty, x => x.Username);
+```
 
 ### Commands
 
@@ -143,38 +152,43 @@ Xamarin.Forms supports `ICommand`, and so does MvvmNano.
 
 View Model:
 
-	public MvvmNanoCommand LogInCommand
-	{
-		get { return new MvvmNanoCommand(LogIn); }
-	}
+```cs
+public MvvmNanoCommand LogInCommand
+{
+	get { return new MvvmNanoCommand(LogIn); }
+}
 
-	private void LogIn()
-	{
-		// ...
-	}
-
+private void LogIn()
+{
+	// ...
+}
+```
 Page:
 
-	BindToViewModel(loginButton, Button.CommandProperty, x => x.LogInCommand);
-
+```cs
+BindToViewModel(loginButton, Button.CommandProperty, x => x.LogInCommand);
+```
 ### Commands with parameters
 
 View Model:
 
-    public MvvmNanoCommand<string> LogInCommand
-    {
-        get { return new MvvmNanoCommand<string>(LogIn); }
-    }
+```cs
+public MvvmNanoCommand<string> LogInCommand
+{
+    get { return new MvvmNanoCommand<string>(LogIn); }
+}
 
-    private void LogIn(string userName)
-    {
-    	// ...
-    }
-
+private void LogIn(string userName)
+{
+	// ...
+}
+```
 Page:
 
-	BindToViewModel(loginButton, Button.CommandProperty, x => x.LogInCommand);
-    BindToViewModel(loginButton, Button.CommandParameterProperty, x => x.Username);
+```cs
+BindToViewModel(loginButton, Button.CommandProperty, x => x.LogInCommand);
+BindToViewModel(loginButton, Button.CommandParameterProperty, x => x.Username);
+```
 
 <div id='navigation'/>
 ## Navigation
@@ -185,7 +199,9 @@ Navigation works from View Model to View Model only, not involving the View aka 
 
 ### Navigation without parameter
 
-	NavigateTo<AboutViewModel>();
+```cs
+NavigateTo<AboutViewModel>();
+```
 
 Navigates to `AboutViewModel` without passing a parameter.
 
@@ -193,19 +209,23 @@ Navigates to `AboutViewModel` without passing a parameter.
 
 Let's say you want to get a parameter of the type `Club` each time your View Model is being called. Then you have to derive from `MvvmNanoViewModel<TViewModel>` and make `TViewModel` `Club`.
 
-	public class ClubViewModel : MvvmNanoViewModel<Club>
-	{
-	    public override void Initialize(Club parameter)
-	    {
-	        // ...
-	    }
-	}
+```cs
+public class ClubViewModel : MvvmNanoViewModel<Club>
+{
+    public override void Initialize(Club parameter)
+    {
+        // ...
+    }
+}
+```
 
 Overriding the `Initialize()` method will now make that `Club` being passed available after the View Model is being created.
 
 To actually pass that parameter, navigate to your `ClubViewModel` from the calling View Model as follows:
 
-	NavigateTo<ClubViewModel, Club>(club);
+```cs
+NavigateTo<ClubViewModel, Club>(club);
+```
 
 ### Opening Pages modally or in a completely customized fashion
 
@@ -213,35 +233,39 @@ The default presenter coming with MvvmNano will push a page to the existing navi
 
 A custom presenter could look like this:
 
-	public class DemoPresenter : MvvmNanoFormsPresenter
-	{
-	    public DemoPresenter(Application app) : base(app)
-	    {
-	    }
+```cs
+public class DemoPresenter : MvvmNanoFormsPresenter
+{
+    public DemoPresenter(Application app) : base(app)
+    {
+    }
 
-	    protected override void OpenPage(Page page)
-	    {
-	        if (page is AboutPage)
-	        {
-	            Device.BeginInvokeOnMainThread(async () =>
-	                await CurrentPage.Navigation.PushModalAsync(new MvvmNanoNavigationPage(page)
-	            ));
+    protected override void OpenPage(Page page)
+    {
+        if (page is AboutPage)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+                await CurrentPage.Navigation.PushModalAsync(new MvvmNanoNavigationPage(page)
+            ));
 
-	            return;
-	        }
+            return;
+        }
 
-	        base.OpenPage(page);
-	    }
-	}
+        base.OpenPage(page);
+    }
+}
+```
 
 In order to pass every navigation request through it, you have register it within your `App` class:
 
-    protected override void SetUpPresenter()
-    {
-        MvvmNanoIoC.RegisterAsSingleton<IPresenter>(
-            new DemoPresenter(this)
-        );
-    }
+```cs
+protected override void SetUpPresenter()
+{
+    MvvmNanoIoC.RegisterAsSingleton<IPresenter>(
+        new DemoPresenter(this)
+    );
+}
+```
 
 <div id='di'/>
 ## Dependency Injection
@@ -259,32 +283,36 @@ In front of it there is a small static helper class called `MvvmNanoIoC`, which 
 
 ### Sample: Registering a dependency
 
-	public class App : MvvmNanoApplication
-	{
-	    protected override void OnStart()
-	    {
-	        base.OnStart();
+```cs
+public class App : MvvmNanoApplication
+{
+    protected override void OnStart()
+    {
+        base.OnStart();
 
-	        SetUpDependencies();
-	    }
+        SetUpDependencies();
+    }
 
-	    private static void SetUpDependencies()
-	    {
-	        MvvmNanoIoC.Register<IClubRepository, MockClubRepository>();
-	    }
-	}
+    private static void SetUpDependencies()
+    {
+        MvvmNanoIoC.Register<IClubRepository, MockClubRepository>();
+    }
+}
+```
 
 ### Sample: Constructor Injection
 
-    public class WelcomeViewModel : MvvmNanoViewModel
-    {
-        public List<Club> Clubs { get; private set; }
+```cs
+public class WelcomeViewModel : MvvmNanoViewModel
+{
+    public List<Club> Clubs { get; private set; }
 
-        public WelcomeViewModel(IClubRepository clubs)
-        {
-            Clubs = clubs.All();
-        }
+    public WelcomeViewModel(IClubRepository clubs)
+    {
+        Clubs = clubs.All();
     }
+}
+```
 
 PS: Usually you won't need the `Resolve<TInterface>()` method, because constructor injection works out of the box.
 
@@ -304,42 +332,46 @@ XAML is fully supported, take a look at the demo or these snippets.
 
 View Model:
 
-    public class ClubViewModel : MvvmNanoViewModel<Club>
+```cs
+public class ClubViewModel : MvvmNanoViewModel<Club>
+{
+    private string _name;
+    public string Name
     {
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            private set { _name = value; NotifyPropertyChanged(); }
-        }
-
-        private string _country;
-        public string Country
-        {
-            get { return _country; }
-            private set { _country = value; NotifyPropertyChanged(); }
-        }
-
-        public override void Initialize(Club parameter)
-        {
-            Name = parameter.Name;
-            Country = parameter.Country;
-        }
+        get { return _name; }
+        private set { _name = value; NotifyPropertyChanged(); }
     }
+
+    private string _country;
+    public string Country
+    {
+        get { return _country; }
+        private set { _country = value; NotifyPropertyChanged(); }
+    }
+
+    public override void Initialize(Club parameter)
+    {
+        Name = parameter.Name;
+        Country = parameter.Country;
+    }
+}
+```
 
 Page:
 
-	<?xml version="1.0" encoding="UTF-8"?>
-	<pages:MvvmNanoContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-	    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	    xmlns:pages="clr-namespace:MvvmNano.Forms"
-	    xmlns:vm="clr-namespace:MvvmNanoDemo"
-	    x:Class="MvvmNanoDemo.ClubPage"
-	    x:TypeArguments="vm:ClubViewModel"
-	    Title="{Binding Name}">
-	    <ContentPage.Content>
-	        <StackLayout>
-	            <Label Text="{Binding Country}" />
-	        </StackLayout>
-	    </ContentPage.Content>
-	</pages:MvvmNanoContentPage>
+```xaml
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:MvvmNanoContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:MvvmNano.Forms"
+    xmlns:vm="clr-namespace:MvvmNanoDemo"
+    x:Class="MvvmNanoDemo.ClubPage"
+    x:TypeArguments="vm:ClubViewModel"
+    Title="{Binding Name}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding Country}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:MvvmNanoContentPage>
+```
