@@ -5,4 +5,4 @@
 [assembly: AssemblyProduct("MvvmNano")]
 [assembly: AssemblyCopyright("Thomas Bandt")]
 
-[assembly: AssemblyVersion("1.0.2")]
+[assembly: AssemblyVersion("2.0.0")]
