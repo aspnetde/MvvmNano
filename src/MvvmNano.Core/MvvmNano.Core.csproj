@@ -39,6 +39,8 @@
     <Compile Include="MvvmNanoCommand.cs" />
     <Compile Include="MvvmNanoIoC.cs" />
     <Compile Include="MvvmNanoException.cs" />
+    <Compile Include="IMessage.cs" />
+    <Compile Include="IMessenger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

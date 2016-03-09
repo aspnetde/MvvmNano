@@ -21,9 +21,17 @@ namespace MvvmNano.Forms
         /// </summary>
         protected virtual void SetUpPresenter()
         {
-            MvvmNanoIoC.RegisterAsSingleton<IPresenter>(
-                new MvvmNanoFormsPresenter(this)
-            );
+            MvvmNanoIoC.RegisterAsSingleton<IPresenter>(new MvvmNanoFormsPresenter(this));
+        }
+
+        /// <summary>
+        /// Registers MvvmNanoFormsMessenger. If you're using your own
+        /// custom messenger, override this method for registration (but
+        /// don't call base.SetUpMessenger()!).
+        /// </summary>
+        protected virtual void SetUpMessenger()
+        {
+            MvvmNanoIoC.RegisterAsSingleton<IMessenger, MvvmNanoFormsMessenger>();
         }
     }
 }
