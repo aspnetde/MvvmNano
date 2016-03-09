@@ -20,6 +20,11 @@ namespace MvvmNano
             _presenter = MvvmNanoIoC.Resolve<IPresenter>();
         }
 
+        protected MvvmNanoViewModelBase(IPresenter presenter)
+        {
+            _presenter = presenter;
+        }
+
         /// <summary>
         /// Call this, whenever the value of one of your properties changes,
         /// so the UI can be notified.
