@@ -87,18 +87,7 @@ public class App : MvvmNanoApplication
     {
         base.OnStart();
 
-        SetUpMainPage();
-    }
-
-    private void SetUpMainPage()
-    {
-        var viewModel = MvvmNanoIoC.Resolve<LoginViewModel>();
-        viewModel.Initialize();
-
-        var page = new LoginPage();
-        page.SetViewModel(viewModel);
-
-        MainPage = new MvvmNanoNavigationPage(page);
+		SetUpMainPage<LoginViewModel>();
     }
 }
 ```
