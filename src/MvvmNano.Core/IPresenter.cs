@@ -10,16 +10,17 @@
         /// <summary>
         /// Navigates to the View Model of the given type.
         /// </summary>
-        /// <typeparam name="TViewModel">The type of the View Model which should be shown.</typeparam>
         void NavigateToViewModel<TViewModel>();
 
         /// <summary>
         /// Navigates to the View Model of the given type and passes a parameter.
         /// </summary>
-        /// <param name="parameter">The parameter which is passed to the View Model's Initialize() method.</param>
-        /// <typeparam name="TViewModel">The type of the View Model which should be shown.</typeparam>
-        /// <typeparam name="TNavigationParameter">The type of the parameter which should be passed to the View Model's Initialize() method.</typeparam>
         void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter);
+
+        /// <summary>
+        /// Creates the view for the given view model type.
+        /// </summary>
+        IView CreateViewFor<TViewModel>();
     }
 }
 

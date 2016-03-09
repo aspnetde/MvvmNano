@@ -34,6 +34,34 @@ namespace MvvmNano.Forms
         {
             MvvmNanoIoC.RegisterAsSingleton<IMessenger, MvvmNanoFormsMessenger>();
         }
+
+        /// <summary>
+        /// Sets up the main page for the given View Model type.
+        /// </summary>
+        protected void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
+        {        
+            MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel>());
+        }
+
+        /// <summary>
+        /// Creates a MvvmNanoContentPage for the given View Model type.
+        /// </summary>
+        protected MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
+        {
+            var viewModel = MvvmNanoIoC.Resolve<TViewModel>();
+            viewModel.Initialize();
+
+            var page = MvvmNanoIoC
+                .Resolve<IPresenter>()
+                .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
+
+            if (page == null)
+                throw new MvvmNanoException("Could not create a MvvmNanoContentPage for View Model of type " + typeof(TViewModel) + ".");
+
+            page.SetViewModel(viewModel);
+
+            return page;
+        }
     }
 }
 

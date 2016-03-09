@@ -72,12 +72,10 @@ namespace MvvmNano.Forms
         /// </summary>
         public void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
-            Type viewModelType = typeof(TViewModel);
-
-            var viewModel = CreateViewModel<TViewModel, TNavigationParameter>(viewModelType);
+            var viewModel = CreateViewModel<TViewModel, TNavigationParameter>();
             viewModel.Initialize(parameter);
 
-            IView view = CreateView(viewModelType);
+            IView view = CreateViewFor<TViewModel>();
             view.SetViewModel(viewModel);
 
             OpenPage(view as Page);
@@ -89,18 +87,36 @@ namespace MvvmNano.Forms
         /// </summary>
         public void NavigateToViewModel<TViewModel>()
         {
-            Type viewModelType = typeof(TViewModel);
-
-            var viewModel = CreateViewModel<TViewModel>(viewModelType) as MvvmNanoViewModel;
+            var viewModel = CreateViewModel<TViewModel>() as MvvmNanoViewModel;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(viewModelType + " is not a MvvmNanoViewModel (without parameter).");
+                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " is not a MvvmNanoViewModel (without parameter).");
             
             viewModel.Initialize();
 
-            IView view = CreateView(viewModelType);
+            IView view = CreateViewFor<TViewModel>();
             view.SetViewModel(viewModel);
 
             OpenPage(view as Page);
+        }
+
+        /// <summary>
+        /// Creates a View of the given type.
+        /// </summary>
+        public IView CreateViewFor<TViewModel>()
+        {
+            string viewName = typeof(TViewModel).Name.Replace(VIEW_MODEL_SUFFIX, VIEW_SUFFIX);
+            Type pageType = _availableViewTypes
+                .FirstOrDefault(t => t.Name == viewName);
+
+            var view = Activator.CreateInstance(pageType) as IView;
+
+            if (view == null)
+                throw new MvvmNanoFormsPresenterException(viewName + " could not be found. Does it implement IView?");
+
+            if (!(view is Page))
+                throw new MvvmNanoFormsPresenterException(viewName + " is not a Xamarin.Forms Page.");
+
+            return view;
         }
 
         /// <summary>
@@ -118,39 +134,22 @@ namespace MvvmNano.Forms
             );
         }
 
-        private static IViewModel CreateViewModel<TViewModel>(Type viewModelType)
+        private static IViewModel CreateViewModel<TViewModel>()
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(viewModelType + " does not implement IViewModel.");
+                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " does not implement IViewModel.");
 
             return viewModel;
         }
 
-        private static IViewModel<TNavigationParameter> CreateViewModel<TViewModel, TNavigationParameter>(Type viewModelType)
+        private static IViewModel<TNavigationParameter> CreateViewModel<TViewModel, TNavigationParameter>()
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TNavigationParameter>;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(viewModelType + " does not implement IViewModel<" + typeof(TNavigationParameter).Name + ">");
+                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " does not implement IViewModel<" + typeof(TNavigationParameter).Name + ">");
 
             return viewModel;
-        }
-
-        private IView CreateView(Type viewModelType)
-        {
-            string viewName = viewModelType.Name.Replace(VIEW_MODEL_SUFFIX, VIEW_SUFFIX);
-            Type pageType = _availableViewTypes
-                .FirstOrDefault(t => t.Name == viewName);
-
-            var view = Activator.CreateInstance(pageType) as IView;
-
-            if (view == null)
-                throw new MvvmNanoFormsPresenterException(viewName + " could not be found. Does it implement IView?");
-
-            if (!(view is Page))
-                throw new MvvmNanoFormsPresenterException(viewName + " is not a Xamarin.Forms Page.");
-
-            return view;
         }
     }
 }

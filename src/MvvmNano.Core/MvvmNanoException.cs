@@ -7,7 +7,7 @@ namespace MvvmNano
     /// </summary>
     public class MvvmNanoException : Exception
     {
-        internal MvvmNanoException(string message) : base(message)
+        public MvvmNanoException(string message) : base(message)
         {
         }
     }
