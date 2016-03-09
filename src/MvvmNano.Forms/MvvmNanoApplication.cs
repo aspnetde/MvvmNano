@@ -12,6 +12,7 @@ namespace MvvmNano.Forms
             base.OnStart();
 
             SetUpPresenter();
+            SetUpMessenger();
         }
 
         /// <summary>
