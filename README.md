@@ -12,8 +12,9 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 5. [Data Binding](#data-binding)
 6. [Navigation](#navigation)
 7. [Dependency Injection](#di)
-8. [Cleaning up](#cu)
-9. [XAML Support](#xaml-support)
+8. [Messaging](#messaging)
+9. [Cleaning up](#cu)
+10. [XAML Support](#xaml-support)
 
 <div id='manifesto'/>
 ## Manifesto
@@ -315,6 +316,70 @@ public class WelcomeViewModel : MvvmNanoViewModel
 ```
 
 PS: Usually you won't need the `Resolve<TInterface>()` method, because constructor injection works out of the box.
+
+<div id='messaging'/>
+## Messaging
+
+This is very opinionated and certainly optional, but the official interface for messaging within Xamarin.Forms seems a bit odd. See more about it [here](https://thomasbandt.com/a-nicer-messaging-interface-for-xamarinforms).
+
+The solution of `IMessenger` presented in that blog post comes with MvvmNano and is automatically registered in `MvvmNanoApplication`.
+
+### Inject IPresenter to your View Model
+
+```cs
+public class MyViewModel : MvvmNanoViewModel
+{
+    private readonly IMessenger _messenger;
+
+    public WelcomeViewModel(IMessenger messenger)
+    {
+        _messenger = messenger;
+    }
+}
+```
+
+### Define your message
+
+```cs
+public class AlbumCreatedMessage : IMessage
+{
+    public readonly Album Album;
+
+    public AlbumCreatedMessage(Album album)
+    {
+        Album = album;
+    }
+}
+```
+
+### Send it around
+
+```cs
+var album = new Album
+{
+    Id = Guid.NewGuid(),
+    Title = "Hello World"
+};
+
+_messenger.Send(new AlbumCreatedMessage(album));
+```
+
+### Subscribe to it
+
+```cs
+_messenger.Subscribe<AlbumCreatedMessage>(this, AlbumAdded);
+
+private void AlbumAdded(object sender, AlbumCreatedMessage message)
+{
+    // Do something
+}
+```
+
+### When you're done, unsubscribe
+
+```cs
+_messenger.Unsubscribe<AlbumCreatedMessage>(this);
+```
 
 <div id='cu'/>
 ## Cleaning up
