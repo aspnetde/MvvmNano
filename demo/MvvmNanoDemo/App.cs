@@ -5,23 +5,20 @@ namespace MvvmNanoDemo
 {
     public class App : MvvmNanoApplication
     {
+        private static bool _hasBeenStarted;
+
         protected override void OnStart()
         {
             base.OnStart();
 
-            SetUpMainPage();
+            SetUpMainPage<LoginViewModel>();
+
+            if (_hasBeenStarted)
+                return;
+            
             SetUpDependencies();
-        }
 
-        private void SetUpMainPage()
-        {
-            var viewModel = MvvmNanoIoC.Resolve<LoginViewModel>();
-            viewModel.Initialize();
-
-            var page = new LoginPage();
-            page.SetViewModel(viewModel);
-
-            MainPage = new MvvmNanoNavigationPage(page);
+            _hasBeenStarted = true;
         }
 
         private static void SetUpDependencies()
