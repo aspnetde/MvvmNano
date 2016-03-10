@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/aspnetde/MvvmNano</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The small and smart MVVM framework made with ❤ for Xamarin.Forms.</description>
-    <releaseNotes>Initial stable release.</releaseNotes>
+    <releaseNotes>Adds a simpler MainPage registration. Adds a second constructor to MvvmNanoViewModel, which accepts an IPresenter – so testing gets easier. Prevents crashes when the app is being tombstoned.</releaseNotes>
     <copyright>Copyright 2016 Thomas Bandt</copyright>
     <tags>MVVM MvvmNano Xamarin.Forms</tags>
     <dependencies>
