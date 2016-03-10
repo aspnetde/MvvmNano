@@ -7,19 +7,12 @@ namespace MvvmNano.Forms
     /// </summary>
     public class MvvmNanoApplication : Application
     {
-        protected static bool HasBeenStarted;
-
         protected override void OnStart()
         {
             base.OnStart();
 
-            if (HasBeenStarted)
-                return;
-
             SetUpPresenter();
             SetUpMessenger();
-
-            HasBeenStarted = true;
         }
 
         /// <summary>
