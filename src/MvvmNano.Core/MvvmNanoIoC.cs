@@ -27,6 +27,7 @@ namespace MvvmNano
         public static void Register<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
+            _kernel.Unbind<TInterface>();
             _kernel.Bind<TInterface>().To<TImplementation>();
         }
 
@@ -42,6 +43,7 @@ namespace MvvmNano
         public static void RegisterAsSingleton<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
+            _kernel.Unbind<TInterface>();
             _kernel.Bind<TInterface>().To<TImplementation>().InSingletonScope();
         }
 
@@ -54,6 +56,7 @@ namespace MvvmNano
         /// <typeparam name="TInterface">The type of the Interface.</typeparam>
         public static void RegisterAsSingleton<TInterface>(TInterface instance)
         {
+            _kernel.Unbind<TInterface>();
             _kernel.Bind<TInterface>().ToConstant(instance);
         }
 
