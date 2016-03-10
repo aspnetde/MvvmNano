@@ -5,20 +5,13 @@ namespace MvvmNanoDemo
 {
     public class App : MvvmNanoApplication
     {
-        private static bool _hasBeenStarted;
-
         protected override void OnStart()
         {
             base.OnStart();
 
-            SetUpMainPage<LoginViewModel>();
-
-            if (_hasBeenStarted)
-                return;
-            
             SetUpDependencies();
 
-            _hasBeenStarted = true;
+            SetUpMainPage<LoginViewModel>();
         }
 
         private static void SetUpDependencies()
