@@ -46,7 +46,7 @@ namespace MvvmNano.Forms
         /// <summary>
         /// Creates a MvvmNanoContentPage for the given View Model type.
         /// </summary>
-        protected MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
+        public MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>();
             viewModel.Initialize();
