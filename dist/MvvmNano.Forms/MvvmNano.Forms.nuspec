@@ -2,18 +2,18 @@
 <package >
   <metadata>
     <id>MvvmNano.Forms</id>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
     <authors>Thomas Bandt</authors>
     <owners>Thomas Bandt</owners>
     <licenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/aspnetde/MvvmNano</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The small and smart MVVM framework made with ❤ for Xamarin.Forms.</description>
-    <releaseNotes>Makes MvvmNanoApplication.GetPageFor() public, so it can be used outside.</releaseNotes>
+    <releaseNotes>Adds MvvmNanoTabbedPage</releaseNotes>
     <copyright>Copyright 2016 Thomas Bandt</copyright>
     <tags>MVVM MvvmNano Xamarin.Forms</tags>
     <dependencies>
-      <dependency id="Xamarin.Forms" version="2.1.0.6526" />
+      <dependency id="Xamarin.Forms" version="2.1.0.6529" />
       <dependency id="MvvmNano.Core" version="2.0.0" />
     </dependencies>
   </metadata>
