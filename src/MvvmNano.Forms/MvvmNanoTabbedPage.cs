@@ -1,13 +1,13 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Linq.Expressions;
+using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
     /// <summary>
-    /// The base class for all of your Content Pages
+    /// The base class for all of your Tabbed Pages
     /// </summary>
-    public abstract class MvvmNanoContentPage<TViewModel> : ContentPage, IView
+    public abstract class MvvmNanoTabbedPage<TViewModel> : TabbedPage, IView
         where TViewModel : IViewModel
     {
         /// <summary>
@@ -28,7 +28,7 @@ namespace MvvmNano.Forms
         {
             self.SetBinding(targetProperty, sourceProperty, mode, converter, stringFormat);
         }
-            
+
         /// <summary>
         /// Sets the View Model for this Page. Automatically 
         /// called by MvvmNano.
@@ -57,7 +57,15 @@ namespace MvvmNano.Forms
         {
             ViewModel.Dispose();
             BindingContext = null;
-            Content = null;
+
+            foreach (var child in Children)
+            {
+                var disposable = child as IDisposable;
+                if (disposable != null)
+                {
+                    disposable.Dispose();
+                }
+            }
         }
     }
 }
