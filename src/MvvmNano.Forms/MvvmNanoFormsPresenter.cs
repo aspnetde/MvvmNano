@@ -28,19 +28,32 @@ namespace MvvmNano.Forms
         /// (either modally, on the navigation stack, or just the app's 
         /// main page).
         /// </summary>
-        public Page CurrentPage
+        public new Page CurrentPage
         {
             get 
             { 
-                Page modalPage = Application.MainPage.Navigation.ModalStack.LastOrDefault();
-                if (modalPage != null)
-                    return modalPage;
+                Func<Page> getCurrentPage = () =>
+                {
+                    Page modalPage = Application.MainPage.Navigation
+                        .ModalStack
+                        .LastOrDefault();
 
-                Page contentPage = Application.MainPage.Navigation.NavigationStack.LastOrDefault();
-                if (contentPage != null)
-                    return contentPage;
+                    if (modalPage != null)
+                        return modalPage;
 
-                return Application.MainPage;
+                    Page contentPage = Application.MainPage.Navigation
+                        .NavigationStack
+                        .LastOrDefault();
+
+                    return contentPage ?? Application.MainPage;
+                };
+
+                Page currentPage = getCurrentPage();
+                var tabbedPage = currentPage as TabbedPage;
+
+                return tabbedPage != null 
+                    ? tabbedPage.CurrentPage 
+                        : currentPage;
             }
         }
 
