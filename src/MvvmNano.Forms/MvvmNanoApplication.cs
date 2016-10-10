@@ -8,16 +8,21 @@ namespace MvvmNano.Forms
     /// </summary>
     public class MvvmNanoApplication : Application
     {
+
+        /// <summary>
+        /// A collection of MasterDetailData that represents available detail pages.
+        /// </summary>
         public ObservableCollection<MasterDetailData> MasterDetails { get; set; } = new ObservableCollection<MasterDetailData>();
 
-        public BetterMasterDetailPage MasterPage
-        {
-            get
-            {
-                return this.MainPage as BetterMasterDetailPage;
-            }
-        }
+        /// <summary>
+        /// The <see cref="BetterMasterDetailPage"/> if one is set. 
+        /// </summary>
+        public BetterMasterDetailPage MasterPage => MainPage as BetterMasterDetailPage;
 
+        /// <summary>
+        /// Add a site to the <see cref="MasterDetails"/>.
+        /// </summary>
+        /// <param name="data"><see cref="MasterDetailData"/> with information for the detail site.</param>
         public void AddSiteToDetailPages(MasterDetailData data)
         {
             MasterDetails.Add(data);
@@ -59,6 +64,9 @@ namespace MvvmNano.Forms
             MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel>());
         }
 
+        /// <summary>
+        /// Sets up the main page as a <see cref="MvvmNanoMasterDetailPage{TViewModel}"/> for the given view model type.
+        /// </summary> 
         public void SetUpMasterDetailPage<TViewModel>() where TViewModel : MvvmNanoViewModel
         {
             this.MainPage = (Page)this.GetMasterDetailPageFor<TViewModel>();
@@ -87,6 +95,9 @@ namespace MvvmNano.Forms
             return page;
         }
 
+        /// <summary>
+        /// Creates a <see cref="MvvmNanoMasterDetailPage{TViewModel}"/> for the given view model.
+        /// </summary> 
         public MvvmNanoMasterDetailPage<TViewModel> GetMasterDetailPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
         {
             TViewModel viewModel = MvvmNanoIoC.Resolve<TViewModel>();

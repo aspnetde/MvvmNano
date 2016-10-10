@@ -13,7 +13,7 @@ namespace MvvmNano.Forms
     /// </summary>
     public class MvvmNanoFormsPresenter : IPresenter
     {
-        private const string VIEW_MODEL_SUFFIX = "ViewModel";
+        private const string VIEW_MODEL_SUFFIX = "ViewModelType";
         private const string VIEW_SUFFIX = "Page";
 
         private readonly Type[] _availableViewTypes;
@@ -83,7 +83,7 @@ namespace MvvmNano.Forms
 
         public string GetViewNameByViewModel(Type viewModelType)
         {
-            return viewModelType.Name.Replace("ViewModel", "Page");
+            return viewModelType.Name.Replace("ViewModelType", "Page");
         }
 
 
@@ -101,10 +101,13 @@ namespace MvvmNano.Forms
             OpenPage<TViewModel>(viewFor as Page);
         }
 
+        /// <summary>
+        /// Opens the page a <see cref="MasterDetailData.ViewModelType"/> is referencing to.
+        /// </summary>
+        /// <param name="data"></param>
         public void SetDetail(MasterDetailData data)
-        {
-
-            typeof(MvvmNanoFormsPresenter).GetRuntimeMethod("NavigateToViewModel", parameters: new Type[0]).MakeGenericMethod(data.ViewModel).Invoke(this, (object[])null);
+        { 
+            typeof(MvvmNanoFormsPresenter).GetRuntimeMethod("NavigateToViewModel", parameters: new Type[0]).MakeGenericMethod(data.ViewModelType).Invoke(this, (object[])null);
         }
 
         /// <summary>
@@ -157,9 +160,15 @@ namespace MvvmNano.Forms
             );
         }
 
+        /// <summary>
+        /// Makes sure that a detail page gets opened as detail page if a MasterDetailPage is set as MainPage.
+        /// This method should be called bevore <see cref="OpenPage"/>. 
+        /// </summary>
+        /// <typeparam name="TViewModel"></typeparam>
+        /// <param name="page"></param>
         private void OpenPage<TViewModel>(Page page)
         {
-            if (Application.MasterPage != null && Application.MasterDetails.FirstOrDefault<MasterDetailData>((o => o.ViewModel == typeof(TViewModel))) != null)
+            if (Application.MasterPage != null && Application.MasterDetails.FirstOrDefault<MasterDetailData>((o => o.ViewModelType == typeof(TViewModel))) != null)
                 Application.MasterPage.SetDetail(page);
             else
                 this.OpenPage(page);

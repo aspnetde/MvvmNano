@@ -100,12 +100,12 @@ namespace MvvmNano.Forms
                 Detail = new MvvmNanoNavigationPage(page);
                 IsPresented = false;
             }
-            if (DetailListView.SelectedItem == null || Presenter.GetViewNameByViewModel(((MasterDetailData) DetailListView.SelectedItem).ViewModel) !=
+            if (DetailListView.SelectedItem == null || Presenter.GetViewNameByViewModel(((MasterDetailData) DetailListView.SelectedItem).ViewModelType) !=
                 page.GetType().Name)
             {
                 DetailListView.SelectedItem =
                     Application.MasterDetails.FirstOrDefault(
-                        o => Presenter.GetViewNameByViewModel(o.ViewModel) == page.GetType().Name);
+                        o => Presenter.GetViewNameByViewModel(o.ViewModelType) == page.GetType().Name);
             }
         }
     }
