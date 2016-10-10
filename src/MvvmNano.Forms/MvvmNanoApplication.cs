@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.ObjectModel;
+using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
@@ -7,6 +8,21 @@ namespace MvvmNano.Forms
     /// </summary>
     public class MvvmNanoApplication : Application
     {
+        public ObservableCollection<MasterDetailData> MasterDetails { get; set; } = new ObservableCollection<MasterDetailData>();
+
+        public BetterMasterDetailPage MasterPage
+        {
+            get
+            {
+                return this.MainPage as BetterMasterDetailPage;
+            }
+        }
+
+        public void AddSiteToDetailPages(MasterDetailData data)
+        {
+            MasterDetails.Add(data);
+        }
+
         protected override void OnStart()
         {
             base.OnStart();
@@ -39,8 +55,16 @@ namespace MvvmNano.Forms
         /// Sets up the main page for the given View Model type.
         /// </summary>
         protected void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
-        {        
+        {
             MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel>());
+        }
+
+        public void SetUpMasterDetailPage<TViewModel>() where TViewModel : MvvmNanoViewModel
+        {
+            this.MainPage = (Page)this.GetMasterDetailPageFor<TViewModel>();
+            if (this.MasterDetails.Count <= 0)
+                return;
+            ((MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>()).SetDetail(this.MasterDetails[0]);
         }
 
         /// <summary>
@@ -61,6 +85,17 @@ namespace MvvmNano.Forms
             page.SetViewModel(viewModel);
 
             return page;
+        }
+
+        public MvvmNanoMasterDetailPage<TViewModel> GetMasterDetailPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
+        {
+            TViewModel viewModel = MvvmNanoIoC.Resolve<TViewModel>();
+            viewModel.Initialize();
+            MvvmNanoMasterDetailPage<TViewModel> viewFor = MvvmNanoIoC.Resolve<IPresenter>().CreateViewFor<TViewModel>() as MvvmNanoMasterDetailPage<TViewModel>;
+            if (viewFor == null)
+                throw new MvvmNanoException("Could not create a MvvmNanoMasterDetailPage for View Model of type " + (object)typeof(TViewModel) + ".");
+            viewFor.SetViewModel((IViewModel)viewModel);
+            return viewFor;
         }
     }
 }

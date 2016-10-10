@@ -1,8 +1,8 @@
-﻿using System;
+﻿ 
+using System;
 using System.Linq;
 using System.Reflection;
-using MvvmNano;
-using Xamarin.Forms;
+using Xamarin.Forms; 
 
 namespace MvvmNano.Forms
 {
@@ -21,7 +21,7 @@ namespace MvvmNano.Forms
         /// <summary>
         /// A read-only reference to our Xamarin.Forms Application instance
         /// </summary>
-        protected readonly Application Application;
+        protected readonly MvvmNanoApplication Application;
 
         /// <summary>
         /// Provides the Current Page, which is shown on top of all other
@@ -30,8 +30,8 @@ namespace MvvmNano.Forms
         /// </summary>
         public new Page CurrentPage
         {
-            get 
-            { 
+            get
+            {
                 Func<Page> getCurrentPage = () =>
                 {
                     Page modalPage = Application.MainPage.Navigation
@@ -50,9 +50,12 @@ namespace MvvmNano.Forms
 
                 Page currentPage = getCurrentPage();
                 var tabbedPage = currentPage as TabbedPage;
+                BetterMasterDetailPage masterDetailPage = currentPage as BetterMasterDetailPage;
+                if (masterDetailPage != null)
+                    return masterDetailPage.Detail.Navigation.NavigationStack.LastOrDefault<Page>();
 
-                return tabbedPage != null 
-                    ? tabbedPage.CurrentPage 
+                return tabbedPage != null
+                    ? tabbedPage.CurrentPage
                         : currentPage;
             }
         }
@@ -62,7 +65,7 @@ namespace MvvmNano.Forms
         /// </summary>
         /// <param name="application">Our current Xamarin.Forms application. 
         /// Can't be null as it is needed to present our Pages.</param>
-        public MvvmNanoFormsPresenter(Application application)
+        public MvvmNanoFormsPresenter(MvvmNanoApplication application)
         {
             if (application == null)
                 throw new ArgumentNullException("application");
@@ -78,6 +81,12 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
+        public string GetViewNameByViewModel(Type viewModelType)
+        {
+            return viewModelType.Name.Replace("ViewModel", "Page");
+        }
+
+
         /// <summary>
         /// Navigates to a Page and automatically creates a new instance of
         /// the corresponding View Model. Also passes some parameters of the
@@ -85,13 +94,17 @@ namespace MvvmNano.Forms
         /// </summary>
         public void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
-            var viewModel = CreateViewModel<TViewModel, TNavigationParameter>();
+            IViewModel<TNavigationParameter> viewModel = CreateViewModel<TViewModel, TNavigationParameter>();
             viewModel.Initialize(parameter);
+            IView viewFor = CreateViewFor<TViewModel>();
+            viewFor.SetViewModel((IViewModel)viewModel);
+            OpenPage<TViewModel>(viewFor as Page);
+        }
 
-            IView view = CreateViewFor<TViewModel>();
-            view.SetViewModel(viewModel);
+        public void SetDetail(MasterDetailData data)
+        {
 
-            OpenPage(view as Page);
+            typeof(MvvmNanoFormsPresenter).GetRuntimeMethod("NavigateToViewModel", parameters: new Type[0]).MakeGenericMethod(data.ViewModel).Invoke(this, (object[])null);
         }
 
         /// <summary>
@@ -100,16 +113,13 @@ namespace MvvmNano.Forms
         /// </summary>
         public void NavigateToViewModel<TViewModel>()
         {
-            var viewModel = CreateViewModel<TViewModel>() as MvvmNanoViewModel;
+            MvvmNanoViewModel viewModel = MvvmNanoFormsPresenter.CreateViewModel<TViewModel>() as MvvmNanoViewModel;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " is not a MvvmNanoViewModel (without parameter).");
-            
+                throw new MvvmNanoFormsPresenterException(typeof(TViewModel).ToString() + " is not a MvvmNanoViewModel (without parameter).");
             viewModel.Initialize();
-
-            IView view = CreateViewFor<TViewModel>();
-            view.SetViewModel(viewModel);
-
-            OpenPage(view as Page);
+            IView viewFor = this.CreateViewFor<TViewModel>();
+            viewFor.SetViewModel((IViewModel)viewModel);
+            this.OpenPage<TViewModel>(viewFor as Page);
         }
 
         /// <summary>
@@ -142,9 +152,17 @@ namespace MvvmNano.Forms
             if (page == null)
                 throw new ArgumentNullException("page");
 
-            Device.BeginInvokeOnMainThread(async () => 
+            Device.BeginInvokeOnMainThread(async () =>
                 await CurrentPage.Navigation.PushAsync(page, true)
             );
+        }
+
+        private void OpenPage<TViewModel>(Page page)
+        {
+            if (Application.MasterPage != null && Application.MasterDetails.FirstOrDefault<MasterDetailData>((o => o.ViewModel == typeof(TViewModel))) != null)
+                Application.MasterPage.SetDetail(page);
+            else
+                this.OpenPage(page);
         }
 
         private static IViewModel CreateViewModel<TViewModel>()
