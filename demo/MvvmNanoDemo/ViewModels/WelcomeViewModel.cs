@@ -29,9 +29,9 @@ namespace MvvmNanoDemo
             Username = parameter.Name;
         }
 
-        private void ShowClub(Club club)
+        private async void ShowClub(Club club)
         {
-            NavigateTo<ClubViewModel, Club>(club);
+            await NavigateToAsync<ClubViewModel, Club>(club);
         }
     }
 }
