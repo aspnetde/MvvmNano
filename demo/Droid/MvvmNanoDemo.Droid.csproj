@@ -45,12 +45,6 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Portable.Ninject.3.3.1\lib\monoandroid\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmNano.Core">
-      <HintPath>..\packages\MvvmNano.Core.2.0.0\lib\MonoAndroid\MvvmNano.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmNano.Forms">
-      <HintPath>..\packages\MvvmNano.Forms.2.0.3\lib\MonoAndroid\MvvmNano.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.23.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -89,6 +83,12 @@
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.2.127\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmNano.Core">
+      <HintPath>..\packages\MvvmNano.Core.2.1.0\lib\MonoAndroid\MvvmNano.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmNano.Forms">
+      <HintPath>..\packages\MvvmNano.Forms.2.1.0\lib\MonoAndroid\MvvmNano.Forms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
