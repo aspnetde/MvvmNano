@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using MvvmNano;
 using Xamarin.Forms;
 
@@ -96,6 +97,22 @@ namespace MvvmNano.Forms
 
         /// <summary>
         /// Navigates to a Page and automatically creates a new instance of
+        /// the corresponding View Model. Also passes some parameters of the
+        /// given type.
+        /// </summary>
+        public Task NavigateToViewModelAsync<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
+        {
+            var viewModel = CreateViewModel<TViewModel, TNavigationParameter>();
+            viewModel.Initialize(parameter);
+
+            IView view = CreateViewFor<TViewModel>();
+            view.SetViewModel(viewModel);
+
+            return OpenPageAsync(view as Page);
+        }
+
+        /// <summary>
+        /// Navigates to a Page and automatically creates a new instance of
         /// the corresponding View Model, without passing any parameter.
         /// </summary>
         public void NavigateToViewModel<TViewModel>()
@@ -110,6 +127,24 @@ namespace MvvmNano.Forms
             view.SetViewModel(viewModel);
 
             OpenPage(view as Page);
+        }
+
+        /// <summary>
+        /// Navigates to a Page and automatically creates a new instance of
+        /// the corresponding View Model, without passing any parameter.
+        /// </summary>
+        public Task NavigateToViewModelAsync<TViewModel>()
+        {
+            var viewModel = CreateViewModel<TViewModel>() as MvvmNanoViewModel;
+            if (viewModel == null)
+                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " is not a MvvmNanoViewModel (without parameter).");
+
+            viewModel.Initialize();
+
+            IView view = CreateViewFor<TViewModel>();
+            view.SetViewModel(viewModel);
+
+            return OpenPageAsync(view as Page);
         }
 
         /// <summary>
@@ -145,6 +180,19 @@ namespace MvvmNano.Forms
             Device.BeginInvokeOnMainThread(async () => 
                 await CurrentPage.Navigation.PushAsync(page, true)
             );
+        }
+
+        /// <summary>
+        /// This method is called whenever a Page should be shown. The default
+        /// implementation pushes the Page to the navigation stack. Override it
+        /// to implement your own navigation magic (for modals etc.).
+        /// </summary>
+        protected virtual Task OpenPageAsync(Page page)
+        {
+            if (page == null)
+                throw new ArgumentNullException("page");
+
+            return CurrentPage.Navigation.PushAsync(page, true);
         }
 
         private static IViewModel CreateViewModel<TViewModel>()
