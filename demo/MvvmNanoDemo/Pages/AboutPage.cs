@@ -1,13 +1,10 @@
 ﻿using MvvmNano.Forms;
 using Xamarin.Forms;
-using System;
 
 namespace MvvmNanoDemo
 {
     public class AboutPage : MvvmNanoContentPage<AboutViewModel>
     {
-        private readonly ToolbarItem _doneButtpn;
-
         public AboutPage()
         {
             Title = "About this App";
@@ -23,27 +20,6 @@ namespace MvvmNanoDemo
                     }
                 }
             };
-
-            _doneButtpn = new ToolbarItem();
-            _doneButtpn.Text = "Done";
-            _doneButtpn.Clicked += Done;
-
-            ToolbarItems.Add(_doneButtpn);
-        }
-
-        private void Done(object sender, EventArgs e)
-        {
-            Device.BeginInvokeOnMainThread(async () => 
-                await Navigation.PopModalAsync()
-            );
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-
-            if (_doneButtpn != null)
-                _doneButtpn.Clicked -= Done;
         }
     }
 }
