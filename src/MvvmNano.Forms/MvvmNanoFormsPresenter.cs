@@ -17,12 +17,12 @@ namespace MvvmNano.Forms
         private const string VIEW_MODEL_SUFFIX = "ViewModel";
         private const string VIEW_SUFFIX = "Page";
 
-        private readonly Type[] _availableViewTypes;
+        private Type[] _availableViewTypes;
 
         /// <summary>
         /// A read-only reference to our Xamarin.Forms Application instance
         /// </summary>
-        protected readonly Application Application;
+        protected Application Application { get; private set; }
 
         /// <summary>
         /// Provides the Current Page, which is shown on top of all other
@@ -68,6 +68,14 @@ namespace MvvmNano.Forms
             if (application == null)
                 throw new ArgumentNullException("application");
 
+            SetApplication(application);
+        }
+
+        /// <summary>
+        /// Replaces the application instance which we're using for navigation
+        /// </summary>
+        public void SetApplication(Application application)
+        {
             Application = application;
 
             _availableViewTypes = Application
