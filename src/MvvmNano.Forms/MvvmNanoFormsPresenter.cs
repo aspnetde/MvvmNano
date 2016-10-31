@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using MvvmNano;
 using Xamarin.Forms;
 
 namespace MvvmNano.Forms
@@ -29,7 +28,7 @@ namespace MvvmNano.Forms
         /// (either modally, on the navigation stack, or just the app's 
         /// main page).
         /// </summary>
-        public new Page CurrentPage
+        public Page CurrentPage
         {
             get 
             { 
@@ -66,7 +65,9 @@ namespace MvvmNano.Forms
         public MvvmNanoFormsPresenter(Application application)
         {
             if (application == null)
-                throw new ArgumentNullException("application");
+            {
+                throw new ArgumentNullException(nameof(application));
+            }
 
             SetApplication(application);
         }
@@ -127,7 +128,9 @@ namespace MvvmNano.Forms
         {
             var viewModel = CreateViewModel<TViewModel>() as MvvmNanoViewModel;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " is not a MvvmNanoViewModel (without parameter).");
+            {
+                throw new MvvmNanoFormsPresenterException($"{typeof(TViewModel)} is not a MvvmNanoViewModel (without parameter).");
+            }
             
             viewModel.Initialize();
 
@@ -145,7 +148,9 @@ namespace MvvmNano.Forms
         {
             var viewModel = CreateViewModel<TViewModel>() as MvvmNanoViewModel;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " is not a MvvmNanoViewModel (without parameter).");
+            {
+                throw new MvvmNanoFormsPresenterException($"{typeof(TViewModel)} is not a MvvmNanoViewModel (without parameter).");
+            }
 
             viewModel.Initialize();
 
@@ -167,10 +172,14 @@ namespace MvvmNano.Forms
             var view = Activator.CreateInstance(pageType) as IView;
 
             if (view == null)
-                throw new MvvmNanoFormsPresenterException(viewName + " could not be found. Does it implement IView?");
+            {
+                throw new MvvmNanoFormsPresenterException($"{viewName} could not be found. Does it implement IView?");
+            }
 
             if (!(view is Page))
-                throw new MvvmNanoFormsPresenterException(viewName + " is not a Xamarin.Forms Page.");
+            {
+                throw new MvvmNanoFormsPresenterException($"{viewName} is not a Xamarin.Forms Page.");
+            }
 
             return view;
         }
@@ -183,7 +192,9 @@ namespace MvvmNano.Forms
         protected virtual void OpenPage(Page page)
         {
             if (page == null)
-                throw new ArgumentNullException("page");
+            {
+                throw new ArgumentNullException(nameof(page));
+            }
 
             Device.BeginInvokeOnMainThread(async () => 
                 await CurrentPage.Navigation.PushAsync(page, true)
@@ -198,7 +209,9 @@ namespace MvvmNano.Forms
         protected virtual Task OpenPageAsync(Page page)
         {
             if (page == null)
-                throw new ArgumentNullException("page");
+            {
+                throw new ArgumentNullException(nameof(page));
+            }
 
             return CurrentPage.Navigation.PushAsync(page, true);
         }
@@ -207,7 +220,9 @@ namespace MvvmNano.Forms
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " does not implement IViewModel.");
+            {
+                throw new MvvmNanoFormsPresenterException($"{typeof(TViewModel)} does not implement IViewModel.");
+            }
 
             return viewModel;
         }
@@ -216,7 +231,9 @@ namespace MvvmNano.Forms
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TNavigationParameter>;
             if (viewModel == null)
-                throw new MvvmNanoFormsPresenterException(typeof(TViewModel) + " does not implement IViewModel<" + typeof(TNavigationParameter).Name + ">");
+            {
+                throw new MvvmNanoFormsPresenterException($"{typeof(TViewModel)} does not implement IViewModel<{typeof(TNavigationParameter).Name}>");
+            }
 
             return viewModel;
         }
