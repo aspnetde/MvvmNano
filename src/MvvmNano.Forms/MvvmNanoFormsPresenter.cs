@@ -50,7 +50,7 @@ namespace MvvmNano.Forms
 
                 Page currentPage = getCurrentPage();
                 var tabbedPage = currentPage as TabbedPage;
-                BetterMasterDetailPage masterDetailPage = currentPage as BetterMasterDetailPage;
+                NanoMasterDetailPage masterDetailPage = currentPage as NanoMasterDetailPage;
                 if (masterDetailPage != null)
                     return masterDetailPage.Detail.Navigation.NavigationStack.LastOrDefault<Page>();
 

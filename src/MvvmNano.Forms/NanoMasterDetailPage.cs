@@ -6,7 +6,7 @@ namespace MvvmNano.Forms
     /// <summary>
     /// A MasterDetailPage implementation that fits to the MvvmNano framework.
     /// </summary>
-    public class BetterMasterDetailPage :  MasterDetailPage
+    public class NanoMasterDetailPage :  MasterDetailPage
     {
         private MvvmNanoApplication Application => Xamarin.Forms.Application.Current as MvvmNanoApplication;
 
@@ -31,7 +31,7 @@ namespace MvvmNano.Forms
             set { Master.Content = value; }
         }
 
-        public BetterMasterDetailPage()
+        public NanoMasterDetailPage()
         {
             DetailListView.ItemsSource = Application.MasterDetails;
             DetailListView.ItemTemplate = new DataTemplate(() =>

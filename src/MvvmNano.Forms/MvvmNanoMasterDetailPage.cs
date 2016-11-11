@@ -11,7 +11,7 @@ namespace MvvmNano.Forms
     /// Add details in your App.cs by calling AddSiteToDetailPages(new MasterDetailData(typeof (YourViewModel), "PageTitle"));  
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract class MvvmNanoMasterDetailPage<TViewModel> : BetterMasterDetailPage, IView where TViewModel : IViewModel
+    public abstract class MvvmNanoMasterDetailPage<TViewModel> : NanoMasterDetailPage, IView where TViewModel : IViewModel
     {
         /// <summary>
         /// The current instance of this Pages's View Model.

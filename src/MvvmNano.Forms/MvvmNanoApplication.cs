@@ -15,9 +15,9 @@ namespace MvvmNano.Forms
         public ObservableCollection<MasterDetailData> MasterDetails { get; set; } = new ObservableCollection<MasterDetailData>();
 
         /// <summary>
-        /// The <see cref="BetterMasterDetailPage"/> if one is set. 
+        /// The <see cref="NanoMasterDetailPage"/> if one is set. 
         /// </summary>
-        public BetterMasterDetailPage MasterPage => MainPage as BetterMasterDetailPage;
+        public NanoMasterDetailPage MasterPage => MainPage as NanoMasterDetailPage;
 
         /// <summary>
         /// Add a site to the <see cref="MasterDetails"/>.
