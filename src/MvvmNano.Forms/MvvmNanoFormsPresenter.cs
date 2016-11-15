@@ -168,10 +168,19 @@ namespace MvvmNano.Forms
         /// <param name="page"></param>
         private void OpenPage<TViewModel>(Page page)
         {
-            if (Application.MasterPage != null && Application.MasterDetails.FirstOrDefault<MasterDetailData>((o => o.ViewModelType == typeof(TViewModel))) != null)
+            if (Application.MasterPage != null && 
+                Application.MasterDetails.FirstOrDefault(o => o.ViewModelType == typeof (TViewModel)) != null) //Check if the new page is a detail page
+            {
+                //Check if the current page is opened as modal page and close it if that is the case.
+                if (Application.MasterPage.Detail.Navigation.ModalStack.Any()
+                    && Application.MasterPage.Detail.Navigation.ModalStack.FirstOrDefault() == CurrentPage)
+                {
+                    Device.BeginInvokeOnMainThread(async () => await Application.MasterPage.Detail.Navigation.PopModalAsync());
+                }
                 Application.MasterPage.SetDetail(page);
+            } 
             else
-                this.OpenPage(page);
+                OpenPage(page);
         }
 
         private static IViewModel CreateViewModel<TViewModel>()
