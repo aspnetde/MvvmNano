@@ -26,12 +26,19 @@ namespace MvvmNano.Forms
         public void AddSiteToDetailPages(MasterDetailData data)
         {
             MasterDetails.Add(data);
+
+            //Check if a MasterPage is already set up and set the new Detail page as Detail if there is no Detail set yet.
+            if (MasterPage != null)
+            {
+                var presenter = MvvmNanoIoC.Resolve<IPresenter>() as MvvmNanoFormsPresenter;
+                if (presenter != null && presenter.CurrentPage == null)
+                    presenter.SetDetail(data);
+            } 
         }
 
         protected override void OnStart()
         {
-            base.OnStart();
-
+            base.OnStart(); 
             SetUpPresenter();
             SetUpMessenger();
         }
@@ -69,10 +76,9 @@ namespace MvvmNano.Forms
         /// </summary> 
         public void SetUpMasterDetailPage<TViewModel>() where TViewModel : MvvmNanoViewModel
         {
-            this.MainPage = (Page)this.GetMasterDetailPageFor<TViewModel>();
-            if (this.MasterDetails.Count <= 0)
-                return;
-            ((MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>()).SetDetail(this.MasterDetails[0]);
+            MainPage = GetMasterDetailPageFor<TViewModel>();
+            if (MasterDetails.Count > 0) 
+                ((MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>()).SetDetail(this.MasterDetails[0]);
         }
 
         /// <summary>
