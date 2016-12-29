@@ -43,12 +43,12 @@ namespace MvvmNanoDemo
             get { return new MvvmNanoCommand(NavigateTo<AboutViewModel>); }
         }
 
-        private void LogIn()
+        private async void LogIn()
         {
             if (!IsFormValid)
                 return;
 
-            NavigateTo<WelcomeViewModel, User>(new User(Username));
+            await NavigateToAsync<WelcomeViewModel, User>(new User(Username));
         }
     }
 }

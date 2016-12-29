@@ -1,4 +1,5 @@
-﻿using MvvmNano.Forms;
+﻿using System.Threading.Tasks;
+using MvvmNano.Forms;
 using Xamarin.Forms;
 
 namespace MvvmNanoDemo
@@ -9,29 +10,20 @@ namespace MvvmNanoDemo
         {
         }
 
-        protected override void OpenPage(Page page)
+        protected override Task OpenPageAsync(Page page)
         {
             if (page is AboutPage)
             {
-                Device.BeginInvokeOnMainThread(async () => 
-                    await CurrentPage.Navigation.PushModalAsync(new MvvmNanoNavigationPage(page)
-                ));
-
-                return;
+                return CurrentPage.Navigation.PushModalAsync(new MvvmNanoNavigationPage(page));
             }
 
             if (page is WelcomePage)
             {
-                Device.BeginInvokeOnMainThread(async () => 
-                {
-                    Application.MainPage = new MvvmNanoNavigationPage(page);
-                    await CurrentPage.Navigation.PopToRootAsync(false);
-                });
-
-                return;
+                Application.MainPage = new MvvmNanoNavigationPage(page);
+                return CurrentPage.Navigation.PopToRootAsync(false);
             }
 
-            base.OpenPage(page);
+            return base.OpenPageAsync(page);
         }
     }
 }
