@@ -6,7 +6,7 @@ namespace MvvmNanoDemo
 {
     public class DemoPresenter : MvvmNanoFormsPresenter
     {
-        public DemoPresenter(Application app) : base(app)
+        public DemoPresenter(MvvmNanoApplication app) : base(app)
         {
         }
 

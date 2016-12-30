@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -75,6 +75,12 @@
     <MtouchProfiling>true</MtouchProfiling>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MvvmNano.Core">
+      <HintPath>..\..\src\MvvmNano.Forms\bin\Debug\MvvmNano.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmNano.Forms">
+      <HintPath>..\..\src\MvvmNano.Forms\bin\Debug\MvvmNano.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -94,12 +100,6 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.2.127\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmNano.Core">
-      <HintPath>..\packages\MvvmNano.Core.2.1.0\lib\Xamarin.iOS\MvvmNano.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmNano.Forms">
-      <HintPath>..\packages\MvvmNano.Forms.2.1.0\lib\Xamarin.iOS\MvvmNano.Forms.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MvvmNanoDemo\MvvmNanoDemo.csproj">
@@ -108,7 +108,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />

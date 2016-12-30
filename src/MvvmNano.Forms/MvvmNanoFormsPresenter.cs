@@ -22,7 +22,7 @@ namespace MvvmNano.Forms
         /// <summary>
         /// A read-only reference to our Xamarin.Forms Application instance
         /// </summary>
-        protected Application Application { get; private set; }
+        protected MvvmNanoApplication Application { get; private set; }
 
         /// <summary>
         /// Provides the Current Page, which is shown on top of all other
@@ -79,7 +79,7 @@ namespace MvvmNano.Forms
         /// <summary>
         /// Replaces the application instance which we're using for navigation
         /// </summary>
-        public void SetApplication(Application application)
+        public void SetApplication(MvvmNanoApplication application)
         {
             Application = application;
 
@@ -103,23 +103,14 @@ namespace MvvmNano.Forms
         /// the corresponding View Model. Also passes some parameters of the
         /// given type.
         /// </summary>
-        public void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
+        public async void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
             IViewModel<TNavigationParameter> viewModel = CreateViewModel<TViewModel, TNavigationParameter>();
             viewModel.Initialize(parameter);
             IView viewFor = CreateViewFor<TViewModel>();
             viewFor.SetViewModel((IViewModel)viewModel);
-            OpenPage<TViewModel>(viewFor as Page);
-        }
-
-        /// <summary>
-        /// Opens the page a <see cref="MasterDetailData.ViewModelType"/> is referencing to.
-        /// </summary>
-        /// <param name="data"></param>
-        public void SetDetail(MasterDetailData data)
-        { 
-            typeof(MvvmNanoFormsPresenter).GetRuntimeMethod("NavigateToViewModel", parameters: new Type[0]).MakeGenericMethod(data.ViewModelType).Invoke(this, (object[])null);
-        }
+            await OpenPageAsync<TViewModel>(viewFor as Page);
+        } 
 
         /// <summary>
         /// Navigates to a Page and automatically creates a new instance of
@@ -138,6 +129,15 @@ namespace MvvmNano.Forms
         }
 
         /// <summary>
+        /// Opens the page a <see cref="MasterDetailData.ViewModelType"/> is referencing to.
+        /// </summary>
+        /// <param name="data"></param>
+        public void SetDetail(MasterDetailData data)
+        {
+            typeof(MvvmNanoFormsPresenter).GetRuntimeMethod("NavigateToViewModel", parameters: new Type[0]).MakeGenericMethod(data.ViewModelType).Invoke(this, (object[])null);
+        }
+
+        /// <summary>
         /// Navigates to a Page and automatically creates a new instance of
         /// the corresponding View Model, without passing any parameter.
         /// </summary>
@@ -151,7 +151,7 @@ namespace MvvmNano.Forms
             viewModel.Initialize();
             IView viewFor = this.CreateViewFor<TViewModel>();
             viewFor.SetViewModel((IViewModel)viewModel);
-            this.OpenPage<TViewModel>(viewFor as Page);
+            this.OpenPageAsync<TViewModel>(viewFor as Page);
         }
 
         /// <summary>
@@ -210,6 +210,7 @@ namespace MvvmNano.Forms
             }
 
             return CurrentPage.Navigation.PushAsync(page, true);
+        }
 
         /// <summary> 
         /// Makes sure that a detail page gets opened as detail page if a MasterDetailPage is set as MainPage.
@@ -217,7 +218,7 @@ namespace MvvmNano.Forms
         /// </summary>
         /// <typeparam name="TViewModel"></typeparam>
         /// <param name="page"></param>
-        private Task OpenPage<TViewModel>(Page page)
+        private async Task OpenPageAsync<TViewModel>(Page page)
         {
             if (Application.MasterPage != null && 
                 Application.MasterDetails.FirstOrDefault(o => o.ViewModelType == typeof (TViewModel)) != null) //Check if the new page is a detail page
@@ -226,12 +227,12 @@ namespace MvvmNano.Forms
                 if (Application.MasterPage.Detail.Navigation.ModalStack.Any()
                     && Application.MasterPage.Detail.Navigation.ModalStack.FirstOrDefault() == CurrentPage)
                 {
-                    Device.BeginInvokeOnMainThread(async () => await Application.MasterPage.Detail.Navigation.PopModalAsync());
+                    await Application.MasterPage.Detail.Navigation.PopModalAsync();
                 }
                 Application.MasterPage.SetDetail(page);
             } 
             else
-                return OpenPageAsync(page); 
+                await OpenPageAsync(page); 
         }
 
         private static IViewModel CreateViewModel<TViewModel>()
