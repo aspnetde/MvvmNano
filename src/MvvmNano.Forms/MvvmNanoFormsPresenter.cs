@@ -53,7 +53,7 @@ namespace MvvmNano.Forms
                 var tabbedPage = currentPage as TabbedPage;
                 NanoMasterDetailPage masterDetailPage = currentPage as NanoMasterDetailPage;
                 if (masterDetailPage != null)
-                    return masterDetailPage.Detail.Navigation.NavigationStack.LastOrDefault<Page>();
+                    return masterDetailPage.Detail.Navigation.NavigationStack.LastOrDefault();
 
                 return tabbedPage != null
                     ? tabbedPage.CurrentPage
@@ -103,13 +103,13 @@ namespace MvvmNano.Forms
         /// the corresponding View Model. Also passes some parameters of the
         /// given type.
         /// </summary>
-        public async void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
+        public void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
             IViewModel<TNavigationParameter> viewModel = CreateViewModel<TViewModel, TNavigationParameter>();
             viewModel.Initialize(parameter);
             IView viewFor = CreateViewFor<TViewModel>();
             viewFor.SetViewModel((IViewModel)viewModel);
-            await OpenPageAsync<TViewModel>(viewFor as Page);
+            StartOpeningPage<TViewModel>(viewFor as Page);
         } 
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace MvvmNano.Forms
             IView view = CreateViewFor<TViewModel>();
             view.SetViewModel(viewModel);
 
-            return OpenPageAsync(view as Page);
+            return StartOpeningPage<TViewModel>(view as Page);
         }
 
         /// <summary>
@@ -150,8 +150,8 @@ namespace MvvmNano.Forms
             }
             viewModel.Initialize();
             IView viewFor = this.CreateViewFor<TViewModel>();
-            viewFor.SetViewModel((IViewModel)viewModel);
-            this.OpenPageAsync<TViewModel>(viewFor as Page);
+            viewFor.SetViewModel(viewModel);
+            StartOpeningPage<TViewModel>(viewFor as Page);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace MvvmNano.Forms
             IView view = CreateViewFor<TViewModel>();
             view.SetViewModel(viewModel);
 
-            return OpenPageAsync(view as Page);
+            return StartOpeningPage<TViewModel>(view as Page);
         }
 
         /// <summary>
@@ -198,6 +198,7 @@ namespace MvvmNano.Forms
             return view;
         }
 
+        /// <summary>
         /// This method is called whenever a Page should be shown. The default
         /// implementation pushes the Page to the navigation stack. Override it
         /// to implement your own navigation magic (for modals etc.).
@@ -214,11 +215,11 @@ namespace MvvmNano.Forms
 
         /// <summary> 
         /// Makes sure that a detail page gets opened as detail page if a MasterDetailPage is set as MainPage.
-        /// This method should be called bevore <see cref="OpenPage"/>. 
+        /// This method should be called bevore <see cref="OpenPageAsync"/>. 
         /// </summary>
         /// <typeparam name="TViewModel"></typeparam>
         /// <param name="page"></param>
-        private async Task OpenPageAsync<TViewModel>(Page page)
+        private async Task StartOpeningPage<TViewModel>(Page page)
         {
             if (Application.MasterPage != null && 
                 Application.MasterDetails.FirstOrDefault(o => o.ViewModelType == typeof (TViewModel)) != null) //Check if the new page is a detail page
