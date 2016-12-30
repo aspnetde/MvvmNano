@@ -1,4 +1,6 @@
 ﻿using MvvmNano;
+using MvvmNano.Forms;
+using Xamarin.Forms;
 
 namespace MvvmNanoDemo
 {
@@ -43,12 +45,16 @@ namespace MvvmNanoDemo
             get { return new MvvmNanoCommand(NavigateTo<AboutViewModel>); }
         }
 
-        private async void LogIn()
+        private void LogIn()
         {
             if (!IsFormValid)
                 return;
 
-            await NavigateToAsync<WelcomeViewModel, User>(new User(Username));
+            var application = Application.Current as MvvmNanoApplication;
+             
+            application.SetUpMasterDetailPage<MasterViewModel>();
+
+            ((MasterViewModel) application.MasterPage.BindingContext).Username = Username;  
         }
     }
 }

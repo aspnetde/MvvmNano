@@ -10,14 +10,7 @@ namespace MvvmNanoDemo
         private ListView _clubList;
 
         public WelcomePage()
-        {
-            BindToViewModel(
-                this, 
-                Page.TitleProperty, 
-                x => x.Username,
-                converter: new TitleConverter()
-            );
-
+        { 
             NavigationPage.SetBackButtonTitle(this, string.Empty);
         }
 
