@@ -8,9 +8,9 @@ namespace MvvmNano.Forms
     /// </summary>
     public class NanoMasterDetailPage :  MasterDetailPage
     {
-        private MvvmNanoApplication Application => Xamarin.Forms.Application.Current as MvvmNanoApplication;
+        private MvvmNanoApplication _application;
 
-        private MvvmNanoFormsPresenter Presenter => (MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>();
+        private MvvmNanoFormsPresenter _presenter;
  
         /// <summary>
         /// This ListView contains all detail entrys. Add it to your custom master.
@@ -33,7 +33,10 @@ namespace MvvmNano.Forms
 
         public NanoMasterDetailPage()
         {
-            DetailListView.ItemsSource = Application.MasterDetails;
+            _application = Application.Current as MvvmNanoApplication;
+            _presenter = (MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>();
+
+            DetailListView.ItemsSource = _application.MasterDetails;
             DetailListView.ItemTemplate = new DataTemplate(() =>
             {
                 Label titleLabel = new Label
@@ -73,7 +76,7 @@ namespace MvvmNano.Forms
         private void MenuEntrySelected(object sender, SelectedItemChangedEventArgs selectedItemChangedEventArgs)
         {
             var data = DetailListView.SelectedItem as MasterDetailData;
-            Presenter.SetDetail(data);
+            _presenter.SetDetail(data);
         }
 
         /// <summary>
@@ -100,12 +103,12 @@ namespace MvvmNano.Forms
                 Detail = new MvvmNanoNavigationPage(page);
                 IsPresented = false;
             }
-            if (DetailListView.SelectedItem == null || Presenter.GetViewNameByViewModel(((MasterDetailData) DetailListView.SelectedItem).ViewModelType) !=
+            if (DetailListView.SelectedItem == null || _presenter.GetViewNameByViewModel(((MasterDetailData) DetailListView.SelectedItem).ViewModelType) !=
                 page.GetType().Name)
             {
                 DetailListView.SelectedItem =
-                    Application.MasterDetails.FirstOrDefault(
-                        o => Presenter.GetViewNameByViewModel(o.ViewModelType) == page.GetType().Name);
+                    _application.MasterDetails.FirstOrDefault(
+                        o => _presenter.GetViewNameByViewModel(o.ViewModelType) == page.GetType().Name);
             }
         }
     }
