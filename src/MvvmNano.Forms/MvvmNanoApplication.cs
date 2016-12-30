@@ -23,8 +23,9 @@ namespace MvvmNano.Forms
         /// Add a site to the <see cref="MasterDetails"/>.
         /// </summary>
         /// <param name="data"><see cref="MasterDetailData"/> with information for the detail site.</param>
-        public void AddSiteToDetailPages(MasterDetailData data)
+        public void AddSiteToDetailPages<TViewModel>(MasterDetailData data) where TViewModel : MvvmNanoViewModelBase
         {
+            data.ViewModelType = typeof(TViewModel);
             MasterDetails.Add(data);
 
             //Check if a MasterPage is already set up and set the new Detail page as Detail if there is no Detail set yet.
@@ -66,7 +67,7 @@ namespace MvvmNano.Forms
         /// <summary>
         /// Sets up the main page for the given View Model type.
         /// </summary>
-        protected void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
+        public void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
         {
             MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel>());
         }

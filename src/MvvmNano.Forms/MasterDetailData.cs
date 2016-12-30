@@ -8,13 +8,12 @@ namespace MvvmNano.Forms
     ///  </summary>
     public class MasterDetailData 
     {
-        public Type ViewModelType { get; private set; }
+        public Type ViewModelType { get; set; }
         public string Title { get; private set; }
 
-        public MasterDetailData(Type viewModelTypeType,string pageTitle)
+        public MasterDetailData(string pageTitle)
         {
             Title = pageTitle;
-            ViewModelType = viewModelTypeType;
         }
     }
 }
