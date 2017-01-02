@@ -22,8 +22,6 @@ namespace MvvmNano
         /// Registers an Interface and the Implementation type which should be used
         /// at runtime for this Interface when Resolve<TInterface>() is called.
         /// </summary>
-        /// <typeparam name="TInterface">The type of the interface, for example IUserRepository.</typeparam>
-        /// <typeparam name="TImplementation">The type of the implementation, for example SqliteUserRepository.</typeparam>
         public static void Register<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
@@ -34,12 +32,7 @@ namespace MvvmNano
         /// <summary>
         /// Registers an Interface and the Implementation type which should be used
         /// at runtime for this Interface when Resolve<TInterface>() is called.
-        /// 
-        /// The Implementation is only crated once and then being held in memory
-        /// for the lifetime of this application.
         /// </summary>
-        /// <typeparam name="TInterface">The type of the interface, for example IUserRepository.</typeparam>
-        /// <typeparam name="TImplementation">The type of the implementation, for example SqliteUserRepository.</typeparam>
         public static void RegisterAsSingleton<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
@@ -52,8 +45,6 @@ namespace MvvmNano
         /// interface, so the instance is not created when resolving the Interface
         /// but it is passed this concrete instance back.
         /// </summary>
-        /// <param name="instance">The concrete instance.</param>
-        /// <typeparam name="TInterface">The type of the Interface.</typeparam>
         public static void RegisterAsSingleton<TInterface>(TInterface instance)
         {
             _kernel.Unbind<TInterface>();
@@ -63,7 +54,6 @@ namespace MvvmNano
         /// <summary>
         /// Resolves the implemenation of the Interface, if properly registered before.
         /// </summary>
-        /// <typeparam name="TInterface">The type of the Interface.</typeparam>
         public static TInterface Resolve<TInterface>()
         {
             return _kernel.Get<TInterface>();
