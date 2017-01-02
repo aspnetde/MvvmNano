@@ -64,6 +64,28 @@ namespace MvvmNano.Forms
 
             return page;
         }
+
+        /// <summary>
+        /// reates a MvvmNanoContentPage for the given View Model type and parameter
+        /// </summary>
+        public MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : IViewModel<TNavigationParameter>
+        {
+            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TNavigationParameter>;
+            viewModel.Initialize(navigationParameter);
+
+            var page = MvvmNanoIoC
+                .Resolve<IPresenter>()
+                .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
+
+            if (page == null)
+            {
+                throw new MvvmNanoException($"Could not create a MvvmNanoContentPage for View Model of type {typeof(TViewModel)}.");
+            }
+
+            page.SetViewModel(viewModel);
+
+            return page;
+        }
     }
 }
 
