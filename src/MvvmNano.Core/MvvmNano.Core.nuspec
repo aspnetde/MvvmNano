@@ -2,15 +2,14 @@
 <package >
   <metadata>
     <id>MvvmNano.Core</id>
-    <version>2.3.1</version>
+    <version>3.0.0</version>
     <authors>Thomas Bandt</authors>
     <owners>Thomas Bandt</owners>
     <licenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/aspnetde/MvvmNano</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The small and smart MVVM framework made with ❤ for Xamarin.Forms.</description>
-    <releaseNotes>Extends the IPresenter interface and changes the behavior of MvvmNanoIoc: Interfaces are now unregistered (unbound) before registration. So there won't occur exceptions when a registration is done for the second time.</releaseNotes>
-    <copyright>Copyright 2016 Thomas Bandt</copyright>
+    <copyright>Copyright 2016-2017 Thomas Bandt</copyright>
     <tags>MVVM MvvmNano Xamarin.Forms</tags>
   </metadata>
 </package>
