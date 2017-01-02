@@ -83,7 +83,7 @@ public class LoginPage : MvvmNanoContentPage<LoginViewModel>
 
 Each Xamarin.Forms app has an entry point – a class called `App` which is derived from `Application`. Change that base class to `MvvmNanoApplication`.
 
-Next you are asked to implement the method `SetUpIoCAdapter()` which is expected to return an implementation of `IMvvmNanoIoCAdapter`.
+Next you are asked to implement the method `GetIoCAdapter()` which is expected to return an implementation of `IMvvmNanoIoCAdapter`.
 
 You also want to tell your application the first Page and View Model which should be used when the app gets started for the first time. Put this setup inside of `OnStart()`, but don't forget to call `base.OnStart()`. This is important in order to set up the Presenter correctly (for more on that see below).
 
@@ -97,7 +97,7 @@ public class App : MvvmNanoApplication
 		SetUpMainPage<LoginViewModel>();
     }
     
-    protected override IMvvmNanoIoCAdapter SetUpIoCAdapter()
+    protected override IMvvmNanoIoCAdapter GetIoCAdapter()
 	{
 	    return new MvvmNanoNinjectAdapter();
 	}
@@ -320,7 +320,7 @@ PS: Usually you won't need the `Resolve<TInterface>()` method, because construct
 
 ### Using another IoC Container than Ninject
 
-If you want to use another IoC Container, just implement `IMvvmNanoIoCAdapter` and return an instance of this implementation in your App's class `SetUpIoCAdapter()` method.
+If you want to use another IoC Container, just implement `IMvvmNanoIoCAdapter` and return an instance of this implementation in your App's class `GetIoCAdapter()` method.
 
 <div id='messaging'/>
 ## Messaging

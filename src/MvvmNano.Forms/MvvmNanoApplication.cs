@@ -20,14 +20,14 @@ namespace MvvmNano.Forms
         /// Provide the right IoC Container implementation, for example
         /// from package MvvmNano.Ninject (default)
         /// </summary>
-        protected abstract IMvvmNanoIoCAdapter SetUpIoCAdapter();
+        protected abstract IMvvmNanoIoCAdapter GetIoCAdapter();
 
         /// <summary>
         /// Calls MvvmNanoIoC.SetUp() and passes the result of SetUpIoCAdapter();
         /// </summary>
         protected virtual void SetUpIoC()
         {
-            MvvmNanoIoC.SetUp(SetUpIoCAdapter());
+            MvvmNanoIoC.SetUp(GetIoCAdapter());
         }
 
         /// <summary>
