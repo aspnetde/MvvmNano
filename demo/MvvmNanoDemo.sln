@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Core", "..\src\Mvv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Forms", "..\src\MvvmNano.Forms\MvvmNano.Forms.csproj", "{DB140B3E-0A15-4923-A07E-AD0C73523E27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Ninject", "..\src\MvvmNano.Ninject\MvvmNano.Ninject.csproj", "{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{DB140B3E-0A15-4923-A07E-AD0C73523E27}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{DB140B3E-0A15-4923-A07E-AD0C73523E27}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{DB140B3E-0A15-4923-A07E-AD0C73523E27}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|iPhone.Build.0 = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CCE96A80-7604-4523-A9A8-332CE803FB53} = {61804840-D98F-44DD-B495-11B1B9E4C952}
@@ -92,5 +106,6 @@ Global
 		{BEB15DC6-3B70-409F-8CF6-952F7582A84F} = {61804840-D98F-44DD-B495-11B1B9E4C952}
 		{20702C2E-24BF-417E-9EFB-B68CEC360FA3} = {BC8AB73B-94A6-439E-9C32-08463B012887}
 		{DB140B3E-0A15-4923-A07E-AD0C73523E27} = {BC8AB73B-94A6-439E-9C32-08463B012887}
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44} = {BC8AB73B-94A6-439E-9C32-08463B012887}
 	EndGlobalSection
 EndGlobal

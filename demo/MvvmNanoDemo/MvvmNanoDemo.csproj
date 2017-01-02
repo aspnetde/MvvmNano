@@ -88,6 +88,10 @@
       <Project>{DB140B3E-0A15-4923-A07E-AD0C73523E27}</Project>
       <Name>MvvmNano.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\MvvmNano.Ninject\MvvmNano.Ninject.csproj">
+      <Project>{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}</Project>
+      <Name>MvvmNano.Ninject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.2.3.3.175\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.175\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
 </Project>

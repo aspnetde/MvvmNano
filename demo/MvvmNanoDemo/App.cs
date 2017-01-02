@@ -1,5 +1,6 @@
 ﻿using MvvmNano.Forms;
 using MvvmNano;
+using MvvmNano.Ninject;
 
 namespace MvvmNanoDemo
 {
@@ -24,6 +25,11 @@ namespace MvvmNanoDemo
             MvvmNanoIoC.RegisterAsSingleton<IPresenter>(
                 new DemoPresenter(this)
             );
+        }
+
+        protected override IMvvmNanoIoCAdapter SetUpIoCAdapter()
+        {
+            return new MvvmNanoNinjectAdapter();
         }
     }
 }
