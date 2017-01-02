@@ -83,7 +83,7 @@ public class LoginPage : MvvmNanoContentPage<LoginViewModel>
 
 Each Xamarin.Forms app has an entry point – a class called `App` which is derived from `Application`. Change that base class to `MvvmNanoApplication`.
 
-Next you are asked to implement the method `GetIoCAdapter()` which is expected to return an implementation of `IMvvmNanoIoCAdapter`.
+Next you are asked to implement the method `GetIoCAdapter()` which is expected to return an implementation of `IMvvmNanoIoCAdapter`. Just go with our default choice (MvvmNano.Ninject, which uses [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)), or go [with your own](http://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison).
 
 You also want to tell your application the first Page and View Model which should be used when the app gets started for the first time. Put this setup inside of `OnStart()`, but don't forget to call `base.OnStart()`. This is important in order to set up the Presenter correctly (for more on that see below).
 
