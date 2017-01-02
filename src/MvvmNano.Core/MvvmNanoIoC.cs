@@ -1,43 +1,56 @@
-﻿using Ninject;
-
-namespace MvvmNano
+﻿namespace MvvmNano
 {
     /// <summary>
     /// A simple Service Locator, which is mainly used to enable
     /// Dependency Injection within the View Models, so they can
     /// be built in a testable fashion.
     /// 
-    /// Static and unique within the whole application.
+    /// Static and unique within the whole application. SetUp()
+    /// needs to be called at app startup!
     /// </summary>
     public static class MvvmNanoIoC
     {
-        private static readonly StandardKernel _kernel;
+        private static IMvvmNanoIoCAdapter _adapter;
 
-        static MvvmNanoIoC()
+        private static IMvvmNanoIoCAdapter Adapter
         {
-            _kernel = new StandardKernel();
+            get
+            {
+                if (_adapter == null)
+                {
+                    throw new MvvmNanoException("Please Call MvvmNanoIoC.SetUp() first, before using MvvmNanoIoC.");
+                }
+
+                return _adapter;
+            }
+        }
+
+        /// <summary>
+        /// Provides the IoC Container implementation, for example MvvmNano.Ninject
+        /// </summary>
+        public static void SetUp(IMvvmNanoIoCAdapter adapter)
+        {
+            _adapter = adapter;
         }
 
         /// <summary>
         /// Registers an Interface and the Implementation type which should be used
-        /// at runtime for this Interface when Resolve<TInterface>() is called.
+        /// at runtime for this Interface when Resolve() is being called.
         /// </summary>
         public static void Register<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
-            _kernel.Unbind<TInterface>();
-            _kernel.Bind<TInterface>().To<TImplementation>();
+            Adapter.Register<TInterface, TImplementation>();
         }
 
         /// <summary>
         /// Registers an Interface and the Implementation type which should be used
-        /// at runtime for this Interface when Resolve<TInterface>() is called.
+        /// at runtime for this Interface when Resolve() is being called.
         /// </summary>
         public static void RegisterAsSingleton<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
-            _kernel.Unbind<TInterface>();
-            _kernel.Bind<TInterface>().To<TImplementation>().InSingletonScope();
+            Adapter.RegisterAsSingleton<TInterface, TImplementation>();
         }
 
         /// <summary>
@@ -47,8 +60,7 @@ namespace MvvmNano
         /// </summary>
         public static void RegisterAsSingleton<TInterface>(TInterface instance)
         {
-            _kernel.Unbind<TInterface>();
-            _kernel.Bind<TInterface>().ToConstant(instance);
+            Adapter.RegisterAsSingleton(instance);
         }
 
         /// <summary>
@@ -56,7 +68,7 @@ namespace MvvmNano
         /// </summary>
         public static TInterface Resolve<TInterface>()
         {
-            return _kernel.Get<TInterface>();
+            return Adapter.Resolve<TInterface>();
         }
     }
 }
