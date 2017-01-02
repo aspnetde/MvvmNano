@@ -50,5 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="MvvmNano.Core.nuspec" />
   </ItemGroup>
 </Project>
