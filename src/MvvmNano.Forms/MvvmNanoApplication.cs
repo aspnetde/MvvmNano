@@ -44,6 +44,14 @@ namespace MvvmNano.Forms
         }
 
         /// <summary>
+        /// Sets up the main page for the given View Model type and parameter.
+        /// </summary>
+        protected void SetUpMainPage<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : IViewModel<TNavigationParameter>
+        {
+            MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel, TNavigationParameter>(navigationParameter));
+        }
+
+        /// <summary>
         /// Creates a MvvmNanoContentPage for the given View Model type.
         /// </summary>
         public MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
