@@ -56,7 +56,9 @@ namespace MvvmNano.Forms
                 .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
 
             if (page == null)
-                throw new MvvmNanoException("Could not create a MvvmNanoContentPage for View Model of type " + typeof(TViewModel) + ".");
+            {
+                throw new MvvmNanoException($"Could not create a MvvmNanoContentPage for View Model of type {typeof(TViewModel)}.");
+            }
 
             page.SetViewModel(viewModel);
 

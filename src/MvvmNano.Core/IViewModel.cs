@@ -13,7 +13,7 @@ namespace MvvmNano
     /// <summary>
     /// The View Model, all View-related logic belongs here.
     /// </summary>
-    public interface IViewModel<TNavigationParameter> : IViewModel
+    public interface IViewModel<in TNavigationParameter> : IViewModel
     {
         /// <summary>
         /// Initializes the View Model when it is called by the Presenter,
