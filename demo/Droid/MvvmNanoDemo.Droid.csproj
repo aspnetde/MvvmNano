@@ -38,14 +38,6 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MvvmNano.Core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\src\MvvmNano.Forms\bin\Debug\MvvmNano.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmNano.Forms, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\src\MvvmNano.Forms\bin\Debug\MvvmNano.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -94,6 +86,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\MvvmNano.Core\MvvmNano.Core.csproj">
+      <Project>{20702c2e-24bf-417e-9efb-b68cec360fa3}</Project>
+      <Name>MvvmNano.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MvvmNano.Forms\MvvmNano.Forms.csproj">
+      <Project>{db140b3e-0a15-4923-a07e-ad0c73523e27}</Project>
+      <Name>MvvmNano.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvvmNanoDemo\MvvmNanoDemo.csproj">
       <Project>{CCE96A80-7604-4523-A9A8-332CE803FB53}</Project>
       <Name>MvvmNanoDemo</Name>

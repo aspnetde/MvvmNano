@@ -54,12 +54,6 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <ItemGroup>
-    <Reference Include="MvvmNano.Core">
-      <HintPath>..\..\src\MvvmNano.Forms\bin\Debug\MvvmNano.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmNano.Forms">
-      <HintPath>..\..\src\MvvmNano.Forms\bin\Debug\MvvmNano.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Portable.Ninject.3.3.1\lib\portable-net4+sl5+wp8+win8+wpa81+monotouch+monoandroid+Xamarin.iOS\Ninject.dll</HintPath>
     </Reference>
@@ -76,7 +70,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MvvmNano.Core\MvvmNano.Core.csproj">
+      <Project>{20702c2e-24bf-417e-9efb-b68cec360fa3}</Project>
+      <Name>MvvmNano.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MvvmNano.Forms\MvvmNano.Forms.csproj">
+      <Project>{db140b3e-0a15-4923-a07e-ad0c73523e27}</Project>
+      <Name>MvvmNano.Forms</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\ClubPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
