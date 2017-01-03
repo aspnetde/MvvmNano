@@ -84,7 +84,9 @@ namespace MvvmNano
         /// </summary>
         public void RaiseCanExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            var handler = CanExecuteChanged;
+            if (handler != null)
+                handler(this, EventArgs.Empty);
         }
     }
 }

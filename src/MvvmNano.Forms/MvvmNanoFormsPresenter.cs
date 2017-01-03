@@ -40,9 +40,7 @@ namespace MvvmNano.Forms
                         .LastOrDefault();
 
                     if (modalPage != null)
-                    {
                         return modalPage;
-                    }
 
                     Page contentPage = Application.MainPage.Navigation
                         .NavigationStack

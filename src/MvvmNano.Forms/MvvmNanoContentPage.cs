@@ -13,7 +13,10 @@ namespace MvvmNano.Forms
         /// <summary>
         /// The current instance of this Pages's View Model.
         /// </summary>
-        protected TViewModel ViewModel => (TViewModel)BindingContext;
+        protected TViewModel ViewModel
+        {
+            get { return (TViewModel)BindingContext; }
+        }
 
         /// <summary>
         /// Convenience helper, which enables you to bind any property

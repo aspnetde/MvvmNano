@@ -31,7 +31,6 @@
     <DocumentationFile>bin\Release\MvvmNano.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IMvvmNanoIoCAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IPresenter.cs" />
     <Compile Include="IViewModel.cs" />
@@ -50,6 +49,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MvvmNano.Core.nuspec" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

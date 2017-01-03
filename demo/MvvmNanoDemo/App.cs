@@ -1,6 +1,6 @@
 ﻿using MvvmNano.Forms;
 using MvvmNano;
-using MvvmNano.Ninject;
+using MvvmNanoDemo.Data;
 
 namespace MvvmNanoDemo
 {
@@ -32,11 +32,6 @@ namespace MvvmNanoDemo
             MvvmNanoIoC.RegisterAsSingleton<IUserData>(
                 new UserData()
             );
-        }
-
-        protected override IMvvmNanoIoCAdapter SetUpIoCAdapter()
-        {
-            return new MvvmNanoNinjectAdapter();
         }
     }
 }

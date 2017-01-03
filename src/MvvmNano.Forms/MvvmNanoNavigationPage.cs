@@ -47,7 +47,10 @@ namespace MvvmNano.Forms
 
         private static void DisposePage(IDisposable page)
         {
-            page?.Dispose();
+            if (page == null)
+                return;
+
+            page.Dispose();
         }
     }
 }

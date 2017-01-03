@@ -13,7 +13,10 @@ namespace MvvmNano.Forms
         /// <summary>
         /// The current instance of this Pages's View Model.
         /// </summary>
-        protected TViewModel ViewModel => (TViewModel)BindingContext;
+        protected TViewModel ViewModel
+        {
+            get { return (TViewModel)BindingContext; }
+        }
 
         /// <summary>
         /// Convenience helper, which enables you to bind any property
@@ -57,7 +60,11 @@ namespace MvvmNano.Forms
 
             foreach (var child in Children)
             {
-                (child as IDisposable)?.Dispose();
+                var disposable = child as IDisposable;
+                if (disposable != null)
+                {
+                    disposable.Dispose();
+                }
             }
         }
     }

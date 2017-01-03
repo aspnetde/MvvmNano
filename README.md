@@ -35,17 +35,16 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 <div id='demo'/>
 ## Demo
 
-Just download this repo and take a look at the demo app which can be found within the /demo folder. Note: It's not using the NuGet packages.
+Just download this repo and take a look at the demo app which can be found within the /demo folder.
 
 <div id='getting-started'/>
 ## Getting started
 
 ### Preliminary remarks
 
-- MvvmNano comes as three Portable Class Libraries (PCL) with profile 78 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms)
+- MvvmNano comes as two Portable Class Libraries (PCL) with profile 78 (MvvmNano.Core and MvvmNano.Forms)
 - MvvmNano.Forms references [Xamarin.Forms](https://www.nuget.org/packages/Xamarin.Forms/)
-- MvvmNano.Ninject references [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)
-- MvvmNano.Core does not have and external dependency
+- MvvmNano.Core references [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)
 
 ### Add the NuGet package
 
@@ -54,10 +53,6 @@ You can add MvvmNano easily via [NuGet](https://www.nuget.org/packages/MvvmNano.
     Install-Package MvvmNano.Forms
 
 > **Important:** Add it to your Xamarin.Forms library as well as to your native app projects, so NuGet can resolve the right assemblies of the dependencies Xamarin.Forms and Portable.Ninject on each target (for example PCL, Xamarin.iOS, Xamarin.Android).
-
-If you want to use our default IoC container (Ninject Portable), also add MvvmNano.Ninject:
-    
-    Install-Package MvvmNano.Ninject
 
 ### Add your first View Model and its Page
 
@@ -83,8 +78,6 @@ public class LoginPage : MvvmNanoContentPage<LoginViewModel>
 
 Each Xamarin.Forms app has an entry point – a class called `App` which is derived from `Application`. Change that base class to `MvvmNanoApplication`.
 
-Next you are asked to implement the method `GetIoCAdapter()` which is expected to return an implementation of `IMvvmNanoIoCAdapter`. Just go with our default choice (MvvmNano.Ninject, which uses [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)), or go [with your own](http://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison).
-
 You also want to tell your application the first Page and View Model which should be used when the app gets started for the first time. Put this setup inside of `OnStart()`, but don't forget to call `base.OnStart()`. This is important in order to set up the Presenter correctly (for more on that see below).
 
 ```cs
@@ -96,11 +89,6 @@ public class App : MvvmNanoApplication
 
 		SetUpMainPage<LoginViewModel>();
     }
-    
-    protected override IMvvmNanoIoCAdapter GetIoCAdapter()
-	{
-	    return new MvvmNanoNinjectAdapter();
-	}
 }
 ```
 
@@ -317,10 +305,6 @@ public class WelcomeViewModel : MvvmNanoViewModel
 ```
 
 PS: Usually you won't need the `Resolve<TInterface>()` method, because constructor injection works out of the box.
-
-### Using another IoC Container than Ninject
-
-If you want to use another IoC Container, just implement `IMvvmNanoIoCAdapter` and return an instance of this implementation in your App's class `GetIoCAdapter()` method.
 
 <div id='messaging'/>
 ## Messaging
