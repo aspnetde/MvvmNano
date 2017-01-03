@@ -8,7 +8,7 @@ namespace MvvmNano.Forms
     /// </summary>
     public class NanoMasterDetailPage :  MasterDetailPage
     {
-        private MvvmNanoApplication _application;
+        private MvvmNanoMasterDetailApplication _application;
 
         private MvvmNanoFormsPresenter _presenter;
 
@@ -35,7 +35,7 @@ namespace MvvmNano.Forms
 
         public NanoMasterDetailPage()
         {
-            _application = Application.Current as MvvmNanoApplication;
+            _application = Application.Current as MvvmNanoMasterDetailApplication;
             _presenter = (MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>();
 
             DetailListView.ItemsSource = _application.MasterDetails;

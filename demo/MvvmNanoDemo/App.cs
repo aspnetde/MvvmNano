@@ -4,7 +4,7 @@ using MvvmNanoDemo.Data;
 
 namespace MvvmNanoDemo
 {
-    public class App : MvvmNanoApplication
+    public class App : MvvmNanoMasterDetailApplication
     {
         protected override void OnStart()
         {
