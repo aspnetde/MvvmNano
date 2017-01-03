@@ -5,11 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Core", "MvvmNano.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Forms", "MvvmNano.Forms\MvvmNano.Forms.csproj", "{DB140B3E-0A15-4923-A07E-AD0C73523E27}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dist", "dist", "{5747ED60-AEA6-4261-873C-997980506AE2}"
-	ProjectSection(SolutionItems) = preProject
-		..\dist\MvvmNano.Core\MvvmNano.Core.nuspec = ..\dist\MvvmNano.Core\MvvmNano.Core.nuspec
-		..\dist\MvvmNano.Forms\MvvmNano.Forms.nuspec = ..\dist\MvvmNano.Forms\MvvmNano.Forms.nuspec
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Ninject", "MvvmNano.Ninject\MvvmNano.Ninject.csproj", "{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +21,10 @@ Global
 		{DB140B3E-0A15-4923-A07E-AD0C73523E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB140B3E-0A15-4923-A07E-AD0C73523E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB140B3E-0A15-4923-A07E-AD0C73523E27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

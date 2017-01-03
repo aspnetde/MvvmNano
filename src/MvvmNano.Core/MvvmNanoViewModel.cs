@@ -33,9 +33,7 @@ namespace MvvmNano
         /// <param name="propertyName">Name of the property, usually optional to be set manually</param>
         protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
