@@ -1,11 +1,12 @@
 ﻿using MvvmNano.Forms;
+using MvvmNanoDemo.ViewModels;
 using Xamarin.Forms;
 
 namespace MvvmNanoDemo.Pages
 {
     public class MasterPage : MvvmNanoMasterDetailPage<MasterViewModel>
     {
-        Label _usernameLabel = new Label
+        private Label _usernameLabel = new Label
         {
             VerticalOptions = LayoutOptions.Center,
             HorizontalOptions = LayoutOptions.Center,
@@ -16,8 +17,7 @@ namespace MvvmNanoDemo.Pages
         private Button _logoutButton = new Button
         {
             Text = "Logout"
-        };
-
+        }; 
 
         public override void OnViewModelSet()
         {
@@ -26,11 +26,13 @@ namespace MvvmNanoDemo.Pages
             BindToViewModel(_usernameLabel,
                 Label.TextProperty,
                 model => model.Username,
-                stringFormat: "Hello, {0}!");
+                stringFormat: "Hello, {0}!"
+            );
 
             BindToViewModel(_logoutButton,
                 Button.CommandProperty,
-                model => model.LogoutCommand);
+                model => model.LogoutCommand
+            );
 
             MasterContent = new Grid()
             {

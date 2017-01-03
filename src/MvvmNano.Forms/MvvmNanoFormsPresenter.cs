@@ -92,11 +92,30 @@ namespace MvvmNano.Forms
                 .ToArray();
         }
 
+        public void ChangeRootViewModel<TViewModel>() where TViewModel : MvvmNanoViewModel
+        {
+            var viewName = GetViewNameByViewModel(typeof(TViewModel));
+            Type viewType = GetViewTypeByName(viewName); 
+            if(viewType.GetTypeInfo().IsSubclassOf(typeof(NanoMasterDetailPage)))
+                Application.SetUpMasterDetailPage<TViewModel>();    
+            else
+                Application.SetUpMainPage<TViewModel>();
+        } 
+
         public string GetViewNameByViewModel(Type viewModelType)
         {
             return viewModelType.Name.Replace(VIEW_MODEL_SUFFIX, VIEW_SUFFIX);
         }
-
+         
+        public void SetPageRoot<TViewModel>() where TViewModel : MvvmNanoViewModel
+        {
+            Application.SetUpMainPage<TViewModel>();
+        }
+         
+        public void SetMasterDetailPageRoot<TViewModel>() where TViewModel : MvvmNanoViewModel
+        {
+            Application.SetUpMasterDetailPage<TViewModel>();
+        }
 
         /// <summary>
         /// Navigates to a Page and automatically creates a new instance of
@@ -180,8 +199,7 @@ namespace MvvmNano.Forms
         public IView CreateViewFor<TViewModel>()
         {
             string viewName = GetViewNameByViewModel(typeof(TViewModel));
-            Type pageType = _availableViewTypes
-                .FirstOrDefault(t => t.Name == viewName);
+            Type pageType = GetViewTypeByName(viewName);
 
             var view = Activator.CreateInstance(pageType) as IView;
 
@@ -196,6 +214,12 @@ namespace MvvmNano.Forms
             }
 
             return view;
+        }
+
+        private Type GetViewTypeByName(string viewName)
+        {
+            return _availableViewTypes
+                .FirstOrDefault(t => t.Name == viewName);
         }
 
         /// <summary>
@@ -256,7 +280,6 @@ namespace MvvmNano.Forms
             }
 
             return viewModel;
-        }
+        } 
     }
-}
-
+} 

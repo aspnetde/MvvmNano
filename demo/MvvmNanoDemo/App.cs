@@ -1,5 +1,6 @@
 ﻿using MvvmNano.Forms;
 using MvvmNano;
+using MvvmNanoDemo.Data;
 
 namespace MvvmNanoDemo
 {
@@ -11,8 +12,8 @@ namespace MvvmNanoDemo
 
             SetUpDependencies();
 
-            AddSiteToDetailPages<WelcomeViewModel>(new MasterDetailData("Welcome"));
-            AddSiteToDetailPages<AboutViewModel>(new MasterDetailData("About"));
+            AddPageToDetailPages<WelcomeViewModel>(new MasterDetailData("Welcome"));
+            AddPageToDetailPages<AboutViewModel>(new MasterDetailData("About"));
 
             SetUpMainPage<LoginViewModel>();
         }
@@ -26,6 +27,10 @@ namespace MvvmNanoDemo
         {
             MvvmNanoIoC.RegisterAsSingleton<IPresenter>(
                 new DemoPresenter(this)
+            );
+
+            MvvmNanoIoC.RegisterAsSingleton<IUserData>(
+                new UserData()
             );
         }
     }

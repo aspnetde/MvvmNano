@@ -1,5 +1,7 @@
 ﻿using MvvmNano;
 using MvvmNano.Forms;
+using MvvmNanoDemo.Data;
+using MvvmNanoDemo.ViewModels;
 using Xamarin.Forms;
 
 namespace MvvmNanoDemo
@@ -7,6 +9,8 @@ namespace MvvmNanoDemo
     public class LoginViewModel : MvvmNanoViewModel
     {
         private string _username;
+        private string _password;
+
         public string Username 
         {
             get { return _username; }
@@ -17,8 +21,7 @@ namespace MvvmNanoDemo
                 NotifyPropertyChanged("IsFormValid"); 
             }
         }
-
-        private string _password;
+         
         public string Password 
         {
             get { return _password; }
@@ -50,12 +53,9 @@ namespace MvvmNanoDemo
             if (!IsFormValid)
                 return;
 
-            var application = Application.Current as MvvmNanoApplication;
-             
-            application.SetUpMasterDetailPage<MasterViewModel>();
+            MvvmNanoIoC.Resolve<IUserData>().User = new User(Username);
 
-            ((MasterViewModel) application.MasterPage.BindingContext).Username = Username;  
+            MvvmNanoIoC.Resolve<IPresenter>().ChangeRootViewModel<MasterViewModel>();
         }
     }
 }
-

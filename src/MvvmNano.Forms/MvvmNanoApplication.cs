@@ -23,7 +23,7 @@ namespace MvvmNano.Forms
         /// Add a site to the <see cref="MasterDetails"/>.
         /// </summary>
         /// <param name="data"><see cref="MasterDetailData"/> with information for the detail site.</param>
-        public void AddSiteToDetailPages<TViewModel>(MasterDetailData data) where TViewModel : MvvmNanoViewModelBase
+        public void AddPageToDetailPages<TViewModel>(MasterDetailData data) where TViewModel : MvvmNanoViewModelBase
         {
             data.ViewModelType = typeof(TViewModel);
             MasterDetails.Add(data);

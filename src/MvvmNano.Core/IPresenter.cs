@@ -10,6 +10,12 @@ namespace MvvmNano
     public interface IPresenter
     {
         /// <summary>
+        /// Changes the root page to the view of the given View model.
+        /// </summary>
+        /// <typeparam name="TViewModel"></typeparam>
+        void ChangeRootViewModel<TViewModel>() where TViewModel : MvvmNanoViewModel;
+
+        /// <summary>
         /// Navigates to the View Model of the given type.
         /// </summary>
         void NavigateToViewModel<TViewModel>();

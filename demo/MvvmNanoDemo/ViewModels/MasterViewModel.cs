@@ -1,9 +1,7 @@
-﻿using System;
-using MvvmNano;
-using MvvmNano.Forms;
-using Xamarin.Forms;
+﻿using MvvmNano;
+using MvvmNanoDemo.Data;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.ViewModels
 {
     public class MasterViewModel : MvvmNanoViewModel
     {
@@ -26,7 +24,12 @@ namespace MvvmNanoDemo
 
         private void Logout()
         {
-            ((MvvmNanoApplication)Application.Current).SetUpMainPage<LoginViewModel>();
+            MvvmNanoIoC.Resolve<IPresenter>().ChangeRootViewModel<LoginViewModel>();
+        }
+
+        public MasterViewModel()
+        {
+            Username = MvvmNanoIoC.Resolve<IUserData>().User.Name;
         }
     }
 }

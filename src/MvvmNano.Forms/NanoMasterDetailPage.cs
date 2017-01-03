@@ -11,11 +11,13 @@ namespace MvvmNano.Forms
         private MvvmNanoApplication _application;
 
         private MvvmNanoFormsPresenter _presenter;
- 
+
+        private Page _detail;
+
         /// <summary>
         /// This ListView contains all detail entrys. Add it to your custom master.
         /// </summary>
-        protected ListView DetailListView { get; private set; }= new ListView();
+        protected ListView DetailListView { get; }= new ListView();
 
         /// <summary>
         /// ContentPage that represents the menu.
@@ -54,8 +56,7 @@ namespace MvvmNano.Forms
             Detail = new ContentPage() {Title = "Default content page."};
             DetailListView.ItemSelected += MenuEntrySelected;
             DetailListView.ItemTapped += MenuEntryTapped;
-        }  
-        
+        }   
 
         /// <summary>
         /// Hide the menu if an item is tapped that is already selected. 
@@ -87,9 +88,7 @@ namespace MvvmNano.Forms
             DetailListView.ItemSelected -= MenuEntrySelected;
             DetailListView.ItemTapped -= MenuEntryTapped;
             base.OnDisappearing(); 
-        }
-
-        private Page _detail;
+        } 
 
         /// <summary>
         /// Set the Detail, hide the menu and make sure, that the correct menu entry is selected.

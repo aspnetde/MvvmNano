@@ -30,6 +30,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\IUserData.cs" />
+    <Compile Include="Data\UserData.cs" />
     <Compile Include="Pages\MasterPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
