@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MvvmNano.Ninject</id>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <authors>Thomas Bandt</authors>
     <owners>Thomas Bandt</owners>
     <licenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</licenseUrl>
@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The small and smart MVVM framework made with ❤ for Xamarin.Forms.</description>
     <copyright>Copyright 2016-2017 Thomas Bandt</copyright>
-    <tags>MVVM MvvmNano Xamarin.Forms</tags>
+    <tags>MVVM MvvmNano Xamarin.Forms Ninject</tags>
     <dependencies>
       <dependency id="Portable.Ninject" version="3.3.1" />
     </dependencies>
