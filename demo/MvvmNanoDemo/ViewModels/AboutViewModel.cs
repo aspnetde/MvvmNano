@@ -1,6 +1,6 @@
 ﻿using MvvmNano;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.ViewModels
 {
     public class AboutViewModel : MvvmNanoViewModel
     {

@@ -1,6 +1,8 @@
 ﻿using MvvmNano.Forms;
 using MvvmNano;
+using MvvmNano.Ninject;
 using MvvmNanoDemo.Data;
+using MvvmNanoDemo.ViewModels;
 
 namespace MvvmNanoDemo
 {
@@ -33,6 +35,10 @@ namespace MvvmNanoDemo
                 new UserData()
             );
         }
+
+        protected override IMvvmNanoIoCAdapter GetIoCAdapter()
+        {
+            return new MvvmNanoNinjectAdapter();
+        }
     }
 }
-

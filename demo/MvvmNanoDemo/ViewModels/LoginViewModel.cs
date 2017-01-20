@@ -1,10 +1,8 @@
 ﻿using MvvmNano;
-using MvvmNano.Forms;
 using MvvmNanoDemo.Data;
-using MvvmNanoDemo.ViewModels;
-using Xamarin.Forms;
+using MvvmNanoDemo.Model;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.ViewModels
 {
     public class LoginViewModel : MvvmNanoViewModel
     {

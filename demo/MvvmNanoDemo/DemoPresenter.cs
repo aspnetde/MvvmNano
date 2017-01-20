@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MvvmNano.Forms;
+using MvvmNanoDemo.Pages;
 using Xamarin.Forms;
 
 namespace MvvmNanoDemo

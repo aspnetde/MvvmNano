@@ -1,7 +1,9 @@
-﻿using MvvmNano;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MvvmNano;
+using MvvmNanoDemo.Data;
+using MvvmNanoDemo.Model;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.ViewModels
 {
     public class WelcomeViewModel : MvvmNanoViewModel
     {  
@@ -23,4 +25,3 @@ namespace MvvmNanoDemo
         }
     }
 }
-

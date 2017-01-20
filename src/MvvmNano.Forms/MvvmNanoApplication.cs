@@ -6,13 +6,29 @@ namespace MvvmNano.Forms
     /// <summary>
     /// The entry point of your XF application
     /// </summary>
-    public class MvvmNanoApplication : Application
+    public abstract class MvvmNanoApplication : Application
     { 
         protected override void OnStart()
         {
-            base.OnStart(); 
+            base.OnStart();
+
+            SetUpIoC();
             SetUpPresenter();
             SetUpMessenger();
+        }
+
+        /// <summary>
+        /// Provide the right IoC Container implementation, for example
+        /// from package MvvmNano.Ninject (default)
+        /// </summary>
+        protected abstract IMvvmNanoIoCAdapter GetIoCAdapter();
+
+        /// <summary>
+        /// Calls MvvmNanoIoC.SetUp() and passes the result of SetUpIoCAdapter();
+        /// </summary>
+        protected virtual void SetUpIoC()
+        {
+            MvvmNanoIoC.SetUp(GetIoCAdapter());
         }
 
         /// <summary>

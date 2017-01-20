@@ -1,18 +1,14 @@
-﻿using MvvmNano.Forms;
-using Xamarin.Forms;
-using System;
+﻿using System;
 using System.Globalization;
+using MvvmNano.Forms;
+using MvvmNanoDemo.ViewModels;
+using Xamarin.Forms;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.Pages
 {
     public class WelcomePage : MvvmNanoContentPage<WelcomeViewModel>
     {
-        private ListView _clubList;
-
-        public WelcomePage()
-        { 
-            NavigationPage.SetBackButtonTitle(this, string.Empty);
-        }
+        private ListView _clubList; 
 
         public override void OnViewModelSet()
         {
@@ -40,8 +36,8 @@ namespace MvvmNanoDemo
             if (e.SelectedItem == null)
                 return;
 
-            _clubList.SelectedItem = null;
             ViewModel.ShowClubCommand.Execute(e.SelectedItem);
+            _clubList.SelectedItem = null; 
         }
 
         public override void Dispose()
@@ -49,20 +45,7 @@ namespace MvvmNanoDemo
             base.Dispose();
 
             _clubList.ItemSelected -= ClubSelected;
-        }
-
-        private class TitleConverter : IValueConverter
-        {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                return string.Format("Hi {0}!", value);
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                throw new NotImplementedException();
-            }
-        }
+        } 
     }
 }
 

@@ -1,6 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using MvvmNanoDemo.Model;
+using Xamarin.Forms;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.Pages
 {
     public class ClubCell : TextCell
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using MvvmNanoDemo.Model;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.Data
 {
     public interface IClubRepository
     {

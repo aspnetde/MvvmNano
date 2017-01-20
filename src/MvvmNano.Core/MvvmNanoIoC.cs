@@ -1,50 +1,56 @@
-﻿using Ninject;
-
-namespace MvvmNano
+﻿namespace MvvmNano
 {
     /// <summary>
     /// A simple Service Locator, which is mainly used to enable
     /// Dependency Injection within the View Models, so they can
     /// be built in a testable fashion.
     /// 
-    /// Static and unique within the whole application.
+    /// Static and unique within the whole application. SetUp()
+    /// needs to be called at app startup!
     /// </summary>
     public static class MvvmNanoIoC
     {
-        private static readonly StandardKernel _kernel;
+        private static IMvvmNanoIoCAdapter _adapter;
 
-        static MvvmNanoIoC()
+        private static IMvvmNanoIoCAdapter Adapter
         {
-            _kernel = new StandardKernel();
+            get
+            {
+                if (_adapter == null)
+                {
+                    throw new MvvmNanoException("Please Call MvvmNanoIoC.SetUp() first, before using MvvmNanoIoC.");
+                }
+
+                return _adapter;
+            }
+        }
+
+        /// <summary>
+        /// Provides the IoC Container implementation, for example MvvmNano.Ninject
+        /// </summary>
+        public static void SetUp(IMvvmNanoIoCAdapter adapter)
+        {
+            _adapter = adapter;
         }
 
         /// <summary>
         /// Registers an Interface and the Implementation type which should be used
-        /// at runtime for this Interface when Resolve<TInterface>() is called.
+        /// at runtime for this Interface when Resolve() is being called.
         /// </summary>
-        /// <typeparam name="TInterface">The type of the interface, for example IUserRepository.</typeparam>
-        /// <typeparam name="TImplementation">The type of the implementation, for example SqliteUserRepository.</typeparam>
         public static void Register<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
-            _kernel.Unbind<TInterface>();
-            _kernel.Bind<TInterface>().To<TImplementation>();
+            Adapter.Register<TInterface, TImplementation>();
         }
 
         /// <summary>
         /// Registers an Interface and the Implementation type which should be used
-        /// at runtime for this Interface when Resolve<TInterface>() is called.
-        /// 
-        /// The Implementation is only crated once and then being held in memory
-        /// for the lifetime of this application.
+        /// at runtime for this Interface when Resolve() is being called.
         /// </summary>
-        /// <typeparam name="TInterface">The type of the interface, for example IUserRepository.</typeparam>
-        /// <typeparam name="TImplementation">The type of the implementation, for example SqliteUserRepository.</typeparam>
         public static void RegisterAsSingleton<TInterface, TImplementation>()
             where TImplementation : TInterface
         {
-            _kernel.Unbind<TInterface>();
-            _kernel.Bind<TInterface>().To<TImplementation>().InSingletonScope();
+            Adapter.RegisterAsSingleton<TInterface, TImplementation>();
         }
 
         /// <summary>
@@ -52,21 +58,17 @@ namespace MvvmNano
         /// interface, so the instance is not created when resolving the Interface
         /// but it is passed this concrete instance back.
         /// </summary>
-        /// <param name="instance">The concrete instance.</param>
-        /// <typeparam name="TInterface">The type of the Interface.</typeparam>
         public static void RegisterAsSingleton<TInterface>(TInterface instance)
         {
-            _kernel.Unbind<TInterface>();
-            _kernel.Bind<TInterface>().ToConstant(instance);
+            Adapter.RegisterAsSingleton(instance);
         }
 
         /// <summary>
         /// Resolves the implemenation of the Interface, if properly registered before.
         /// </summary>
-        /// <typeparam name="TInterface">The type of the Interface.</typeparam>
         public static TInterface Resolve<TInterface>()
         {
-            return _kernel.Get<TInterface>();
+            return Adapter.Resolve<TInterface>();
         }
     }
 }

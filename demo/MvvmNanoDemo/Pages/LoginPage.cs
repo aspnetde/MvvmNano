@@ -1,7 +1,8 @@
 ﻿using MvvmNano.Forms;
+using MvvmNanoDemo.ViewModels;
 using Xamarin.Forms;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.Pages
 {
     public class LoginPage : MvvmNanoContentPage<LoginViewModel>
     {

@@ -5,7 +5,7 @@ namespace MvvmNano.Forms
     /// <summary>
     /// The entry point of you XF application that support master detail pages.
     /// </summary>
-    public class MvvmNanoMasterDetailApplication : MvvmNanoApplication 
+    public abstract class MvvmNanoMasterDetailApplication : MvvmNanoApplication 
     {
         /// <summary>
         /// A collection of MasterDetailData that represents available detail pages.
