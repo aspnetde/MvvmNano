@@ -3,7 +3,7 @@
 namespace MvvmNano.Forms
 {
     /// <summary>
-    /// The entry point of you XF application that support master detail pages.
+    /// The entry point of you XF application, if you want to use master detail (fly out menu) navigation.
     /// </summary>
     public abstract class MvvmNanoMasterDetailApplication : MvvmNanoApplication 
     {
