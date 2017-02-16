@@ -24,7 +24,7 @@ namespace MvvmNanoDemo.ViewModels
 
         private void Logout()
         {
-            MvvmNanoIoC.Resolve<IPresenter>().ChangeRootViewModel<LoginViewModel>();
+            NavigateTo<LoginViewModel>();
         }
 
         public MasterViewModel()

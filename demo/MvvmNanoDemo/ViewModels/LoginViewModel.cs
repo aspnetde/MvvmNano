@@ -1,4 +1,5 @@
-﻿using MvvmNano;
+﻿using System.Threading.Tasks;
+using MvvmNano;
 using MvvmNanoDemo.Data;
 using MvvmNanoDemo.Model;
 
@@ -53,7 +54,7 @@ namespace MvvmNanoDemo.ViewModels
 
             MvvmNanoIoC.Resolve<IUserData>().User = new User(Username);
 
-            MvvmNanoIoC.Resolve<IPresenter>().ChangeRootViewModel<MasterViewModel>();
+            NavigateTo<MasterViewModel>();
         }
     }
 }

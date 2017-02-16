@@ -13,6 +13,12 @@ namespace MvvmNanoDemo
 
         protected override Task OpenPageAsync(Page page)
         {
+            if (page is LoginPage)
+                Application.MainPage = page;
+
+            if(page is MasterPage)
+                Application.MainPage = page;
+
             if (page is AboutPage)
             {
                 return CurrentPage.Navigation.PushModalAsync(new MvvmNanoNavigationPage(page));
