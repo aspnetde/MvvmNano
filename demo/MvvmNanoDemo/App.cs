@@ -19,7 +19,7 @@ namespace MvvmNanoDemo
             AddPageToDetailPages<WelcomeViewModel>(new MasterDetailData("Welcome"));
             AddPageToDetailPages<AboutViewModel>(new MasterDetailData("About"));
 
-            SetUpMainPage<LoginViewModel>();
+            ((MvvmNanoApplication)this).SetUpMainPage<LoginViewModel>();
         }
 
         private static void SetUpDependencies()

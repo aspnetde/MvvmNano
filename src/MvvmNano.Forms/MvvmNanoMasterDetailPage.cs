@@ -10,7 +10,7 @@ namespace MvvmNano.Forms
     /// Add details in your App.cs by calling AddSiteToDetailPages(new MasterDetailData(typeof (YourViewModel), "PageTitle"));  
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
-    public abstract class MvvmNanoMasterDetailPage<TViewModel> : NanoMasterDetailPage, IView where TViewModel : IViewModel
+    public abstract class MvvmNanoMasterDetailPage<TViewModel> : MvvmNanoMasterDetailPage, IView where TViewModel : IViewModel
     {
         /// <summary>
         /// The current instance of this Pages's View Model.
@@ -63,7 +63,7 @@ namespace MvvmNano.Forms
     /// <summary>
     /// A MasterDetailPage implementation that fits to the MvvmNano framework.
     /// </summary>
-    public class NanoMasterDetailPage : MasterDetailPage
+    public class MvvmNanoMasterDetailPage : MasterDetailPage
     {
         private MvvmNanoMasterDetailApplication _application;
 
@@ -90,7 +90,7 @@ namespace MvvmNano.Forms
             set { Master.Content = value; }
         }
 
-        public NanoMasterDetailPage()
+        public MvvmNanoMasterDetailPage()
         {
             _application = Application.Current as MvvmNanoMasterDetailApplication;
             _presenter = (MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>();
@@ -142,7 +142,7 @@ namespace MvvmNano.Forms
         {
             base.OnAppearing();
             DetailListView.ItemSelected += MenuEntrySelected;
-            DetailListView.ItemTapped += MenuEntryTapped;
+            DetailListView.ItemTapped += MenuEntryTapped; 
         }
 
         /// <summary>

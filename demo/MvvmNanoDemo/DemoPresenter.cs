@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MvvmNano.Forms;
 using MvvmNanoDemo.Pages;
+using MvvmNanoDemo.ViewModels;
 using Xamarin.Forms;
 
 namespace MvvmNanoDemo
@@ -14,10 +15,14 @@ namespace MvvmNanoDemo
         protected override Task OpenPageAsync(Page page)
         {
             if (page is LoginPage)
+            {
+                return Task.FromResult(Application.MainPage = page); 
+            }  
+            if (page is MasterPage)
+            {
                 Application.MainPage = page;
-
-            if(page is MasterPage)
-                Application.MainPage = page;
+                return NavigateToViewModelAsync<WelcomeViewModel>();
+;            } 
 
             if (page is AboutPage)
             {

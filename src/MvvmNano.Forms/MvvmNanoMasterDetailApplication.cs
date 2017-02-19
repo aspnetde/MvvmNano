@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 
 namespace MvvmNano.Forms
 {
@@ -13,18 +14,18 @@ namespace MvvmNano.Forms
         public ObservableCollection<MasterDetailData> MasterDetails { get; set; } = new ObservableCollection<MasterDetailData>();
 
         /// <summary>
-        /// The <see cref="NanoMasterDetailPage"/> if one is set. 
+        /// The <see cref="MvvmNanoMasterDetailPage"/> if one is set. 
         /// </summary>
-        public NanoMasterDetailPage MasterPage => MainPage as NanoMasterDetailPage;
+        public MvvmNanoMasterDetailPage MasterPage => MainPage as MvvmNanoMasterDetailPage;
 
         /// <summary>
         /// Sets up the main page as a <see cref="MvvmNanoMasterDetailPage{TViewModel}"/> for the given view model type.
         /// </summary> 
-        public void SetUpMasterDetailPage<TViewModel>() where TViewModel : MvvmNanoViewModel
-        {
+        public new void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
+        { 
             MainPage = GetMasterDetailPageFor<TViewModel>();
             if (MasterDetails.Count > 0)
-                ((MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>()).SetDetail(this.MasterDetails[0]);
+                ((MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>()).SetDetail(MasterDetails[0]); 
         }
 
         /// <summary>
@@ -54,8 +55,8 @@ namespace MvvmNano.Forms
             viewModel.Initialize();
             MvvmNanoMasterDetailPage<TViewModel> viewFor = MvvmNanoIoC.Resolve<IPresenter>().CreateViewFor<TViewModel>() as MvvmNanoMasterDetailPage<TViewModel>;
             if (viewFor == null)
-                throw new MvvmNanoException("Could not create a MvvmNanoMasterDetailPage for View Model of type " + (object)typeof(TViewModel) + ".");
-            viewFor.SetViewModel((IViewModel)viewModel);
+                throw new MvvmNanoException("Could not create a MvvmNanoMasterDetailPage for View Model of type " + typeof(TViewModel) + ".");
+            viewFor.SetViewModel(viewModel);
             return viewFor;
         }
     }

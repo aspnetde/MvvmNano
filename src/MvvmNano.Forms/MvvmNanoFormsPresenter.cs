@@ -52,7 +52,7 @@ namespace MvvmNano.Forms
                 Page currentPage = getCurrentPage();
 
                 //Check if the current page is a master detail page
-                NanoMasterDetailPage masterDetailPage = currentPage as NanoMasterDetailPage;
+                MvvmNanoMasterDetailPage masterDetailPage = currentPage as MvvmNanoMasterDetailPage;
                 if (masterDetailPage != null)
                     return masterDetailPage.Detail.Navigation.NavigationStack.LastOrDefault();
 
@@ -199,6 +199,11 @@ namespace MvvmNano.Forms
             if (!(view is Page))
             {
                 throw new MvvmNanoFormsPresenterException($"{viewName} is not a Xamarin.Forms Page.");
+            }
+
+            if (view is MvvmNanoMasterDetailPage && !(Application is MvvmNanoMasterDetailApplication))
+            {
+                throw new MvvmNanoFormsPresenterException($"A {nameof(MvvmNanoMasterDetailPage)} can only be used within a {nameof(MvvmNanoMasterDetailApplication)}.");
             }
 
             return view;
