@@ -116,7 +116,7 @@ namespace MvvmNano.Forms
             viewModel.Initialize(parameter);
             IView viewFor = CreateViewFor<TViewModel>();
             viewFor.SetViewModel((IViewModel)viewModel);
-            StartOpeningPageAsync<TViewModel>(viewFor as Page).GetAwaiter().GetResult();
+            StartOpeningPageAsync<TViewModel>(viewFor as Page);
         } 
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace MvvmNano.Forms
             viewModel.Initialize();
             IView viewFor = this.CreateViewFor<TViewModel>();
             viewFor.SetViewModel(viewModel);
-            StartOpeningPageAsync<TViewModel>(viewFor as Page).GetAwaiter().GetResult();
+            StartOpeningPageAsync<TViewModel>(viewFor as Page);
         }
 
         /// <summary>

@@ -3,7 +3,9 @@ using MvvmNano;
 using MvvmNano.Ninject;
 using MvvmNanoDemo.Data;
 using MvvmNanoDemo.ViewModels;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MvvmNanoDemo
 {
     public class App : MvvmNanoMasterDetailApplication

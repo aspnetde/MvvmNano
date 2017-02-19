@@ -3,7 +3,7 @@ using MvvmNanoDemo.ViewModels;
 
 namespace MvvmNanoDemo.Pages
 {
-    public partial class ClubPage : MvvmNanoContentPage<ClubViewModel>
+    public partial class ClubPage
     {
         public ClubPage()
         {

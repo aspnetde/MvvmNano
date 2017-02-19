@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,7 +15,7 @@
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>MvvmNanoDemo.Droid</AssemblyName>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,9 +42,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Portable.Ninject.3.3.1\lib\monoandroid\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.23.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -86,10 +83,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvvmNanoDemo\MvvmNanoDemo.csproj">
-      <Project>{CCE96A80-7604-4523-A9A8-332CE803FB53}</Project>
-      <Name>MvvmNanoDemo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\MvvmNano.Core\MvvmNano.Core.csproj">
       <Project>{20702C2E-24BF-417E-9EFB-B68CEC360FA3}</Project>
       <Name>MvvmNano.Core</Name>
@@ -101,6 +94,10 @@
     <ProjectReference Include="..\..\src\MvvmNano.Ninject\MvvmNano.Ninject.csproj">
       <Project>{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}</Project>
       <Name>MvvmNano.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvvmNanoDemo\MvvmNanoDemo.csproj">
+      <Project>{cce96a80-7604-4523-a9a8-332ce803fb53}</Project>
+      <Name>MvvmNanoDemo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
