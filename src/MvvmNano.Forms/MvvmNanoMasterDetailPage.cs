@@ -94,8 +94,11 @@ namespace MvvmNano.Forms
         public MvvmNanoMasterDetailPage()
         {
             _application = Application.Current as MvvmNanoMasterDetailApplication;
-            _presenter = (MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>();
 
+            if (_application == null) throw new MvvmNanoException($"App needs to derive from {nameof(MvvmNanoMasterDetailApplication)}.");
+
+            _presenter = (MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>();
+            
             DetailListView.ItemsSource = _application.MasterDetails;
             DetailListView.ItemTemplate = new DataTemplate(() =>
             {

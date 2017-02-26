@@ -36,7 +36,7 @@ namespace MvvmNanoDemo.Pages
             BindToViewModel(passwordEntry, Entry.TextProperty, x => x.Password);
 
             BindToViewModel(loginButton, Button.CommandProperty, x => x.LogInCommand);
-            BindToViewModel(loginButton, VisualElement.IsEnabledProperty, x => x.IsFormValid);
+            BindToViewModel(loginButton, IsEnabledProperty, x => x.IsFormValid);
 
             BindToViewModel(aboutButton, Button.CommandProperty, x => x.ShowAboutCommand);
 

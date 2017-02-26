@@ -15,8 +15,8 @@ namespace MvvmNanoDemo.ViewModels
             set 
             { 
                 _username = value; 
-                NotifyPropertyChanged(); 
-                NotifyPropertyChanged("IsFormValid"); 
+                NotifyPropertyChanged();  
+                NotifyPropertyChanged(nameof(IsFormValid)); 
             }
         }
          
@@ -27,7 +27,7 @@ namespace MvvmNanoDemo.ViewModels
             { 
                 _password = value; 
                 NotifyPropertyChanged(); 
-                NotifyPropertyChanged("IsFormValid"); 
+                NotifyPropertyChanged(nameof(IsFormValid)); 
             }
         }
 

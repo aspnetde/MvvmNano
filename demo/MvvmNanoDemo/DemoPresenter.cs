@@ -18,11 +18,12 @@ namespace MvvmNanoDemo
             {
                 return Task.FromResult(Application.MainPage = page); 
             }  
+
             if (page is MasterPage)
             {
                 Application.MainPage = page;
                 return NavigateToViewModelAsync<WelcomeViewModel>();
-;            } 
+            } 
 
             if (page is AboutPage)
             {
@@ -39,4 +40,3 @@ namespace MvvmNanoDemo
         }
     }
 }
-
