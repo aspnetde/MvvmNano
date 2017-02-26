@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using MvvmNano;
+﻿using MvvmNano;
 using MvvmNanoDemo.Data;
 using MvvmNanoDemo.Model;
 

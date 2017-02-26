@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq.Expressions;
 
 namespace MvvmNano.Forms
 {
@@ -9,9 +8,9 @@ namespace MvvmNano.Forms
     public abstract class MvvmNanoMasterDetailApplication : MvvmNanoApplication 
     {
         /// <summary>
-        /// A collection of MasterDetailData that represents available detail pages.
+        /// A collection of MvvmNanoMasterDetailData that represents available detail pages.
         /// </summary>
-        public ObservableCollection<MasterDetailData> MasterDetails { get; set; } = new ObservableCollection<MasterDetailData>();
+        public ObservableCollection<MvvmNanoMasterDetailData> MasterDetails { get; set; } = new ObservableCollection<MvvmNanoMasterDetailData>();
 
         /// <summary>
         /// The <see cref="MvvmNanoMasterDetailPage"/> if one is set. 
@@ -25,14 +24,14 @@ namespace MvvmNano.Forms
         { 
             MainPage = GetMasterDetailPageFor<TViewModel>();
             if (MasterDetails.Count > 0)
-                ((MvvmNanoFormsPresenter)MvvmNanoIoC.Resolve<IPresenter>()).SetDetail(MasterDetails[0]); 
+                MasterPage.SetDetail(MasterDetails[0]); 
         }
 
         /// <summary>
         /// Add a site to the <see cref="MasterDetails"/>.
         /// </summary>
-        /// <param name="data"><see cref="MasterDetailData"/> with information for the detail site.</param>
-        public void AddPageToDetailPages<TViewModel>(MasterDetailData data) where TViewModel : MvvmNanoViewModelBase
+        /// <param name="data"><see cref="MvvmNanoMasterDetailData"/> with information for the detail site.</param>
+        public void AddPageToDetailPages<TViewModel>(MvvmNanoMasterDetailData data) where TViewModel : MvvmNanoViewModelBase
         {
             data.ViewModelType = typeof(TViewModel);
             MasterDetails.Add(data);
@@ -42,9 +41,9 @@ namespace MvvmNano.Forms
             {
                 var presenter = MvvmNanoIoC.Resolve<IPresenter>() as MvvmNanoFormsPresenter;
                 if (presenter != null && presenter.CurrentPage == null)
-                    presenter.SetDetail(data);
+                    MasterPage.SetDetail(data);
             }
-        }
+        } 
 
         /// <summary>
         /// Creates a <see cref="MvvmNanoMasterDetailPage{TViewModel}"/> for the given view model.

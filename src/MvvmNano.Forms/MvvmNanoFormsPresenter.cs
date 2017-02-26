@@ -19,6 +19,8 @@ namespace MvvmNano.Forms
 
         private Type[] _availableViewTypes;
 
+        bool IsMasterDetailApplication() => Application is MvvmNanoMasterDetailApplication;
+
         /// <summary>
         /// A read-only reference to our Xamarin.Forms Application instance
         /// </summary>
@@ -93,14 +95,9 @@ namespace MvvmNano.Forms
                 .DefinedTypes
                 .Select(t => t.AsType())
                 .ToArray();
-        }
-
-        bool IsMasterDetailApplication()
-        {
-            return Application is MvvmNanoMasterDetailApplication;
         } 
 
-        public string GetViewNameByViewModel(Type viewModelType)
+        internal string GetViewNameByViewModel(Type viewModelType)
         {
             return viewModelType.Name.Replace(VIEW_MODEL_SUFFIX, VIEW_SUFFIX);
         } 
@@ -110,13 +107,13 @@ namespace MvvmNano.Forms
         /// the corresponding View Model. Also passes some parameters of the
         /// given type.
         /// </summary>
-        public void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
+        public async void NavigateToViewModel<TViewModel, TNavigationParameter>(TNavigationParameter parameter)
         {
             IViewModel<TNavigationParameter> viewModel = CreateViewModel<TViewModel, TNavigationParameter>();
             viewModel.Initialize(parameter);
             IView viewFor = CreateViewFor<TViewModel>();
-            viewFor.SetViewModel((IViewModel)viewModel);
-            StartOpeningPageAsync<TViewModel>(viewFor as Page);
+            viewFor.SetViewModel(viewModel);
+            await StartOpeningPageAsync<TViewModel>(viewFor as Page);
         } 
 
         /// <summary>
@@ -133,32 +130,23 @@ namespace MvvmNano.Forms
             view.SetViewModel(viewModel);
 
             return StartOpeningPageAsync<TViewModel>(view as Page);
-        }
-
-        /// <summary>
-        /// Opens the page a <see cref="MasterDetailData.ViewModelType"/> is referencing to.
-        /// </summary>
-        /// <param name="data"></param>
-        public void SetDetail(MasterDetailData data)
-        {
-            typeof(MvvmNanoFormsPresenter).GetRuntimeMethod("NavigateToViewModel", parameters: new Type[0]).MakeGenericMethod(data.ViewModelType).Invoke(this, (object[])null);
-        }
+        } 
 
         /// <summary>
         /// Navigates to a Page and automatically creates a new instance of
         /// the corresponding View Model, without passing any parameter.
         /// </summary>
-        public void NavigateToViewModel<TViewModel>()
+        public async void NavigateToViewModel<TViewModel>()
         {
-            MvvmNanoViewModel viewModel = MvvmNanoFormsPresenter.CreateViewModel<TViewModel>() as MvvmNanoViewModel;
+            MvvmNanoViewModel viewModel = CreateViewModel<TViewModel>() as MvvmNanoViewModel;
             if (viewModel == null)
             {
                 throw new MvvmNanoFormsPresenterException($"{typeof(TViewModel)} is not a MvvmNanoViewModel (without parameter).");
             }
             viewModel.Initialize();
-            IView viewFor = this.CreateViewFor<TViewModel>();
+            IView viewFor = CreateViewFor<TViewModel>();
             viewFor.SetViewModel(viewModel);
-            StartOpeningPageAsync<TViewModel>(viewFor as Page);
+            await StartOpeningPageAsync<TViewModel>(viewFor as Page);
         }
 
         /// <summary>

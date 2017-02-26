@@ -34,8 +34,9 @@ namespace MvvmNanoDemo.Pages
                 model => model.LogoutCommand
             );
 
-            MasterContent = new Grid()
+            MasterContent = new Grid
             {
+                Padding = new Thickness(0, 20, 0, 0),
                 RowDefinitions =
                 {
                     new RowDefinition{Height = new GridLength(1, GridUnitType.Auto)},

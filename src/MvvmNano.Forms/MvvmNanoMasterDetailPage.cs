@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
     /// <summary>
     /// The MvvmNano MasterDetailPage that allows easy adding of detail pages within the MvvmNano context.
-    /// Add details in your App.cs by calling AddSiteToDetailPages(new MasterDetailData(typeof (YourViewModel), "PageTitle"));  
+    /// Add details in your App.cs by calling AddSiteToDetailPages(new MvvmNanoMasterDetailData(typeof (YourViewModel), "PageTitle"));  
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
     public abstract class MvvmNanoMasterDetailPage<TViewModel> : MvvmNanoMasterDetailPage, IView where TViewModel : IViewModel
@@ -109,8 +110,8 @@ namespace MvvmNano.Forms
                     View = titleLabel
                 };
             });
-            base.Master = new ContentPage() { Title = "Master", Content = DetailListView };
-            Detail = new ContentPage() { Title = "Default content page." };
+            base.Master = new ContentPage { Title = "Master", Content = DetailListView }; 
+            Detail = new ContentPage { Title = "Default content page." };
         }
 
         /// <summary>
@@ -131,8 +132,8 @@ namespace MvvmNano.Forms
         /// <param name="selectedItemChangedEventArgs"></param>
         private void MenuEntrySelected(object sender, SelectedItemChangedEventArgs selectedItemChangedEventArgs)
         {
-            var data = DetailListView.SelectedItem as MasterDetailData;
-            _presenter.SetDetail(data);
+            var data = DetailListView.SelectedItem as MvvmNanoMasterDetailData;
+            SetDetail(data);
         }
 
         /// <summary>
@@ -161,19 +162,52 @@ namespace MvvmNano.Forms
         /// <param name="page">The new detail.</param>
         public void SetDetail(Page page)
         {
+            //Show the page if it is not already presented
             if (_detail != page)
             {
                 _detail = page;
                 Detail = new MvvmNanoNavigationPage(page);
                 IsPresented = false;
             }
-            if (DetailListView.SelectedItem == null || _presenter.GetViewNameByViewModel(((MasterDetailData)DetailListView.SelectedItem).ViewModelType) !=
+
+            //Highlight the new page
+            if (DetailListView.SelectedItem == null || _presenter.GetViewNameByViewModel(((MvvmNanoMasterDetailData)DetailListView.SelectedItem).ViewModelType) !=
                 page.GetType().Name)
             {
                 DetailListView.SelectedItem =
                     _application.MasterDetails.FirstOrDefault(
                         o => _presenter.GetViewNameByViewModel(o.ViewModelType) == page.GetType().Name);
             }
+        }
+
+        /// <summary>
+        /// Set the page of <see cref="TViewModel"/> as Detail.
+        /// </summary>
+        /// <typeparam name="TViewModel"></typeparam>
+        public void SetDetail<TViewModel>() where TViewModel : MvvmNanoViewModel
+        { 
+            var viewModel = MvvmNanoIoC.Resolve<TViewModel>();
+            viewModel.Initialize();
+
+            var page = MvvmNanoIoC
+                .Resolve<IPresenter>()
+                .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
+
+            if (page == null)
+                throw new MvvmNanoException("Could not create a MvvmNanoContentPage for View Model of type " + typeof(TViewModel) + ".");
+
+            page.SetViewModel(viewModel);
+
+            SetDetail(page);
+        }
+
+        /// <summary>
+        /// Opens the page a <see cref="MvvmNanoMasterDetailData.ViewModelType"/> is referencing to.
+        /// </summary>
+        /// <param name="data"></param>
+        public void SetDetail(MvvmNanoMasterDetailData data)
+        {
+            typeof(MvvmNanoMasterDetailPage).GetRuntimeMethod("SetDetail", new Type[0]).MakeGenericMethod(data.ViewModelType).Invoke(this, null);
         }
     }
 }

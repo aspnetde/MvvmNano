@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using MvvmNano.Forms;
+﻿using MvvmNano.Forms;
 using MvvmNanoDemo.ViewModels;
 using Xamarin.Forms;
 

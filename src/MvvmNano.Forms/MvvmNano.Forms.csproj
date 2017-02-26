@@ -33,7 +33,7 @@
     <DocumentationFile>bin\Release\MvvmNano.Forms.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MasterDetailData.cs" />
+    <Compile Include="MvvmNanoMasterDetailData.cs" />
     <Compile Include="MvvmNanoApplication.cs" />
     <Compile Include="MvvmNanoFormsPresenter.cs" />
     <Compile Include="MvvmNanoMasterDetailApplication.cs" />

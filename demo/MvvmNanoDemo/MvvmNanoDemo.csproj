@@ -40,7 +40,6 @@
       <DependentUpon>ClubPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.cs" />
-    <Compile Include="Pages\MasterDetailPage.cs" />
     <Compile Include="Pages\MasterPage.cs" />
     <Compile Include="Pages\WelcomePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
