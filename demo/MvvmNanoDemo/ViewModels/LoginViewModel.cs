@@ -1,22 +1,25 @@
 ﻿using MvvmNano;
+using MvvmNanoDemo.Data;
+using MvvmNanoDemo.Model;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.ViewModels
 {
     public class LoginViewModel : MvvmNanoViewModel
     {
         private string _username;
+        private string _password;
+
         public string Username 
         {
             get { return _username; }
             set 
             { 
                 _username = value; 
-                NotifyPropertyChanged(); 
-                NotifyPropertyChanged("IsFormValid"); 
+                NotifyPropertyChanged();  
+                NotifyPropertyChanged(nameof(IsFormValid)); 
             }
         }
-
-        private string _password;
+         
         public string Password 
         {
             get { return _password; }
@@ -24,7 +27,7 @@ namespace MvvmNanoDemo
             { 
                 _password = value; 
                 NotifyPropertyChanged(); 
-                NotifyPropertyChanged("IsFormValid"); 
+                NotifyPropertyChanged(nameof(IsFormValid)); 
             }
         }
 
@@ -43,13 +46,14 @@ namespace MvvmNanoDemo
             get { return new MvvmNanoCommand(NavigateTo<AboutViewModel>); }
         }
 
-        private async void LogIn()
+        private void LogIn()
         {
             if (!IsFormValid)
                 return;
 
-            await NavigateToAsync<WelcomeViewModel, User>(new User(Username));
+            MvvmNanoIoC.Resolve<IUserData>().User = new User(Username);
+
+            NavigateTo<MasterViewModel>();
         }
     }
 }
-

@@ -1,7 +1,8 @@
 ﻿using MvvmNano.Forms;
+using MvvmNanoDemo.ViewModels;
 using Xamarin.Forms;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.Pages
 {
     public class LoginPage : MvvmNanoContentPage<LoginViewModel>
     {
@@ -35,7 +36,7 @@ namespace MvvmNanoDemo
             BindToViewModel(passwordEntry, Entry.TextProperty, x => x.Password);
 
             BindToViewModel(loginButton, Button.CommandProperty, x => x.LogInCommand);
-            BindToViewModel(loginButton, VisualElement.IsEnabledProperty, x => x.IsFormValid);
+            BindToViewModel(loginButton, IsEnabledProperty, x => x.IsFormValid);
 
             BindToViewModel(aboutButton, Button.CommandProperty, x => x.ShowAboutCommand);
 

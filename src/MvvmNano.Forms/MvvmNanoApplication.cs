@@ -6,7 +6,7 @@ namespace MvvmNano.Forms
     /// The entry point of your XF application
     /// </summary>
     public abstract class MvvmNanoApplication : Application
-    {
+    { 
         protected override void OnStart()
         {
             base.OnStart();
@@ -53,18 +53,10 @@ namespace MvvmNano.Forms
         /// <summary>
         /// Sets up the main page for the given View Model type.
         /// </summary>
-        protected void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
-        {        
-            MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel>());
-        }
-
-        /// <summary>
-        /// Sets up the main page for the given View Model type and parameter.
-        /// </summary>
-        protected void SetUpMainPage<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : IViewModel<TNavigationParameter>
+        public void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
         {
-            MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel, TNavigationParameter>(navigationParameter));
-        }
+            MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel>());
+        } 
 
         /// <summary>
         /// Creates a MvvmNanoContentPage for the given View Model type.
@@ -79,36 +71,11 @@ namespace MvvmNano.Forms
                 .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
 
             if (page == null)
-            {
-                throw new MvvmNanoException($"Could not create a MvvmNanoContentPage for View Model of type {typeof(TViewModel)}.");
-            }
+                throw new MvvmNanoException("Could not create a MvvmNanoContentPage for View Model of type " + typeof(TViewModel) + ".");
 
             page.SetViewModel(viewModel);
 
             return page;
-        }
-
-        /// <summary>
-        /// reates a MvvmNanoContentPage for the given View Model type and parameter
-        /// </summary>
-        public MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : IViewModel<TNavigationParameter>
-        {
-            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TNavigationParameter>;
-            viewModel.Initialize(navigationParameter);
-
-            var page = MvvmNanoIoC
-                .Resolve<IPresenter>()
-                .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
-
-            if (page == null)
-            {
-                throw new MvvmNanoException($"Could not create a MvvmNanoContentPage for View Model of type {typeof(TViewModel)}.");
-            }
-
-            page.SetViewModel(viewModel);
-
-            return page;
-        }
+        } 
     }
 }
-

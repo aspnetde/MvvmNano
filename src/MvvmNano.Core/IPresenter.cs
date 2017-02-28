@@ -8,7 +8,7 @@ namespace MvvmNano
     /// the navigation stack.
     /// </summary>
     public interface IPresenter
-    {
+    { 
         /// <summary>
         /// Navigates to the View Model of the given type.
         /// </summary>

@@ -1,4 +1,4 @@
-﻿namespace MvvmNanoDemo
+﻿namespace MvvmNanoDemo.Model
 {
     public class Club
     {

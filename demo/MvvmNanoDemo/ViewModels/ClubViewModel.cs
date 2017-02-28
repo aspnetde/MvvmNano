@@ -1,6 +1,7 @@
 ﻿using MvvmNano;
+using MvvmNanoDemo.Model;
 
-namespace MvvmNanoDemo
+namespace MvvmNanoDemo.ViewModels
 {
     public class ClubViewModel : MvvmNanoViewModel<Club>
     {

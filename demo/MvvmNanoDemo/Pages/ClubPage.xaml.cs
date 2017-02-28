@@ -1,8 +1,6 @@
-﻿using MvvmNano.Forms;
-
-namespace MvvmNanoDemo
+﻿namespace MvvmNanoDemo.Pages
 {
-    public partial class ClubPage : MvvmNanoContentPage<ClubViewModel>
+    public partial class ClubPage
     {
         public ClubPage()
         {
@@ -10,4 +8,3 @@ namespace MvvmNanoDemo
         }
     }
 }
-
