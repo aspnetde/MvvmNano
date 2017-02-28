@@ -16,7 +16,7 @@ namespace MvvmNanoDemo
         {
             if (page is LoginPage)
             {
-                return Task.FromResult(Application.MainPage = page); 
+                return Task.FromResult(Application.MainPage = new MvvmNanoNavigationPage(page)); 
             }  
 
             if (page is MasterPage)
@@ -28,12 +28,6 @@ namespace MvvmNanoDemo
             if (page is AboutPage)
             {
                 return CurrentPage.Navigation.PushModalAsync(new MvvmNanoNavigationPage(page));
-            }
-
-            if (page is WelcomePage)
-            {
-                Application.MainPage = new MvvmNanoNavigationPage(page);
-                return CurrentPage.Navigation.PopToRootAsync(false);
             }
 
             return base.OpenPageAsync(page);

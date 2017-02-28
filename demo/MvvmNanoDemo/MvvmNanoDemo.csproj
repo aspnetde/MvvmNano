@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\MasterPage.cs" />
+    <Compile Include="Pages\SecondDetailPage.cs" />
     <Compile Include="Pages\WelcomePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="ViewModels\ClubViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
+    <Compile Include="ViewModels\SecondDetailViewModel.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
