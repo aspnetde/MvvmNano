@@ -165,6 +165,17 @@ namespace MvvmNano.Forms
         /// <param name="page">The new detail.</param>
         public void SetDetail(Page page)
         {
+            MvvmNanoMasterDetailData selectedPageData = null;
+
+            //Set the title if the page does not have one
+            if (string.IsNullOrEmpty(page.Title))
+            {
+                selectedPageData =
+                    _application.MasterDetails.FirstOrDefault(
+                        o => _presenter.GetViewNameByViewModel(o.ViewModelType) == page.GetType().Name);
+                page.Title = selectedPageData.Title;
+            }
+
             //Show the page if it is not already presented
             if (_detail != page)
             {
@@ -177,9 +188,12 @@ namespace MvvmNano.Forms
             if (DetailListView.SelectedItem == null || _presenter.GetViewNameByViewModel(((MvvmNanoMasterDetailData)DetailListView.SelectedItem).ViewModelType) !=
                 page.GetType().Name)
             {
-                DetailListView.SelectedItem =
-                    _application.MasterDetails.FirstOrDefault(
-                        o => _presenter.GetViewNameByViewModel(o.ViewModelType) == page.GetType().Name);
+                if(selectedPageData == null)
+                    selectedPageData =
+                        _application.MasterDetails.FirstOrDefault(
+                            o => _presenter.GetViewNameByViewModel(o.ViewModelType) == page.GetType().Name);
+                 
+                DetailListView.SelectedItem = selectedPageData;
             }
         }
 
