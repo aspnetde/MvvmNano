@@ -82,25 +82,9 @@ namespace MvvmNanoDemo.Pages
 
             private void RandomMove()
             {
-                var random = new Random((int)DateTime.Now.Ticks);
-                int next = random.Next(0, 3); //0 left, 1 right, 2 top, 3 bottom
+                var random = new Random((int)DateTime.Now.Ticks); 
                 int x = random.Next(size, (int) _parent.Width - 20);
-                int y = random.Next(size, (int) _parent.Height - 20);
-                switch (next)
-                {
-                    case 0:
-                        x = 0;
-                        break;
-                    case 1:
-                        x = (int)_parent.Width - size;
-                        break;
-                    case 2:
-                        y = 0;
-                        break;
-                    case 3:
-                        y = (int)_parent.Height - size;
-                        break;
-                }
+                int y = random.Next(size, (int) _parent.Height - 20); 
                 
                 var animation = new Animation(d =>
                 {
