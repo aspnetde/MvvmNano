@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MvvmNano.Ninject</id>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
     <authors>Thomas Bandt</authors>
     <owners>Thomas Bandt</owners>
     <licenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</licenseUrl>
