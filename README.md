@@ -17,6 +17,7 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 10. [XAML Support](#xaml-support)
 
 <div id='manifesto'/>
+
 ## Manifesto
 
 1. Each View (aka Page) must have its own View Model.
@@ -28,16 +29,19 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 7. Both Views and View Models must be easy to [clean up](https://thomasbandt.com/xamarinios-memory-pitfalls).
 
 <div id='download'/>
+
 ## Download
 
     Install-Package MvvmNano.Forms
 
 <div id='demo'/>
+
 ## Demo
 
 Just download this repo and take a look at the demo app which can be found within the /demo folder. Note: It's not using the NuGet packages.
 
 <div id='getting-started'/>
+
 ## Getting started
 
 ### Preliminary remarks
@@ -109,6 +113,7 @@ public class App : MvvmNanoApplication
 If you now build and run your app(s), you'll see your first Page which is running with it's View Model behind. Nothing spectacular so far, but the fun is just getting started.
 
 <div id='data-binding'/>
+
 ## Data Binding
 
 Xamarin.Forms comes with really powerful data binding features which you're fully able to leverage with MvvmNano, so we are not reinventing the wheel here.
@@ -193,6 +198,7 @@ BindToViewModel(loginButton, Button.CommandParameterProperty, x => x.Username);
 ```
 
 <div id='navigation'/>
+
 ## Navigation
 
 Navigation works from View Model to View Model only, not involving the View aka Page directly. Instead all work is delegated to a central _Presenter_, which is responsible for creating the Page, its View Model and also passing a parameter, if specified.
@@ -270,6 +276,7 @@ protected override void SetUpPresenter()
 ```
 
 <div id='di'/>
+
 ## Dependency Injection
 
 Having a `Initialize()` or `Initialize(TNavigationParameter parameter)` method in your View Model comes with a benefit: the constructor is still free for parameters being automatically injected.
@@ -323,6 +330,7 @@ PS: Usually you won't need the `Resolve<TInterface>()` method, because construct
 If you want to use another IoC Container, just implement `IMvvmNanoIoCAdapter` and return an instance of this implementation in your App's class `GetIoCAdapter()` method.
 
 <div id='messaging'/>
+
 ## Messaging
 
 This is very opinionated and certainly optional, but the official interface for messaging within Xamarin.Forms seems a bit odd. See more about it [here](https://thomasbandt.com/a-nicer-messaging-interface-for-xamarinforms).
@@ -387,6 +395,7 @@ _messenger.Unsubscribe<AlbumCreatedMessage>(this);
 ```
 
 <div id='cu'/>
+
 ## Cleaning up
 
 Cleaning up your View Models _and_ your Views aka Pages is a must in order to prevent memory leaks. Read more about it [here](https://thomasbandt.com/xamarinios-memory-pitfalls). Unfortunately Xamarin doesn' think that way, so their whole Xamarin.Forms framework lacks `IDisposable` implementations.
@@ -396,6 +405,7 @@ MvvmNano fixes that. Both `MvvmNanoViewModel` and `MvvmNanoContentPage` implemen
 > **Important:** In order to get that `Dispose()` method actually called, you must use `MvvmNanoNavigationPage` instead of the framework's default Navigationpage. It takes care of calling `Dispose()` at the right time whenever a Page is being removed from the stack.
 
 <div id='xaml-support'/>
+
 ## XAML Support
 
 XAML is fully supported, take a look at the demo or these snippets.

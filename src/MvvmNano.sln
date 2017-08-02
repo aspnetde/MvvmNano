@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Core", "MvvmNano.Core\MvvmNano.Core.csproj", "{20702C2E-24BF-417E-9EFB-B68CEC360FA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNano.Forms", "MvvmNano.Forms\MvvmNano.Forms.csproj", "{DB140B3E-0A15-4923-A07E-AD0C73523E27}"
@@ -26,6 +28,7 @@ Global
 		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C6EFDD3-14DA-410E-8026-AB452C5E1E44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
