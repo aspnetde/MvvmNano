@@ -12,7 +12,7 @@
     <copyright>Copyright 2016-2017 Thomas Bandt</copyright>
     <tags>MVVM MvvmNano Xamarin.Forms</tags>
     <dependencies>
-      <dependency id="Xamarin.Forms" version="2.3.3.175" />
+      <dependency id="Xamarin.Forms" version="2.3.4.247" />
       <dependency id="MvvmNano.Core" version="3.0.2" />
     </dependencies>
   </metadata>
