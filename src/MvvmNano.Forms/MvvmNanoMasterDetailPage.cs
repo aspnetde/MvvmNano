@@ -1,31 +1,44 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Linq.Expressions;
+using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
     /// <summary>
-    /// The base class for all of your MasterContent Pages
+    /// The MvvmNano MasterDetailPage that allows easy adding of detail pages within the MvvmNano context.
+    /// Add details in your App.cs by calling AddSiteToDetailPages(new MvvmNanoMasterDetailData(typeof (YourViewModel), "PageTitle"));  
     /// </summary>
-    public abstract class MvvmNanoContentPage<TViewModel> : ContentPage, IView
-        where TViewModel : IViewModel
+    /// <typeparam name="TViewModel"></typeparam>
+    public class MvvmNanoMasterDetailPage<TViewModel> : MvvmNanoMasterDetailPageBase, IView where TViewModel : IViewModel
     {
         /// <summary>
         /// The current instance of this Pages's View Model.
         /// </summary>
-        protected TViewModel ViewModel => (TViewModel)BindingContext;
+        protected TViewModel ViewModel
+        {
+            get { return (TViewModel)BindingContext; }
+        }
+
+        /// <summary>
+        /// Cleans up the View Model aka BindingContext and the content.
+        /// </summary>
+        public void Dispose()
+        {
+            ViewModel.Dispose();
+            Master.BindingContext = null;
+        }
 
         /// <summary>
         /// Convenience helper, which enables you to bind any property
         /// of your View Model to an object you pass in. 
         /// </summary>
-        protected void BindToViewModel(BindableObject self, BindableProperty targetProperty, 
-            Expression<Func<TViewModel, object>> sourceProperty, BindingMode mode = BindingMode.Default, 
+        protected void BindToViewModel(BindableObject self, BindableProperty targetProperty,
+            Expression<Func<TViewModel, object>> sourceProperty, BindingMode mode = BindingMode.Default,
             IValueConverter converter = null, string stringFormat = null)
-        {
+        { 
             self.SetBinding(targetProperty, sourceProperty, mode, converter, stringFormat);
         }
-            
+
         /// <summary>
         /// Sets the View Model for this Page. Automatically 
         /// called by MvvmNano.
@@ -34,7 +47,6 @@ namespace MvvmNano.Forms
         public void SetViewModel(IViewModel viewModel)
         {
             BindingContext = viewModel;
-
             OnViewModelSet();
         }
 
@@ -44,18 +56,6 @@ namespace MvvmNano.Forms
         /// </summary>
         public virtual void OnViewModelSet()
         {
-            // Hook
-        }
-
-        /// <summary>
-        /// Cleans up the View Model aka BindingContext and the content.
-        /// </summary>
-        public virtual void Dispose()
-        {
-            ViewModel.Dispose();
-            BindingContext = null;
-            Content = null;
         }
     }
 }
-

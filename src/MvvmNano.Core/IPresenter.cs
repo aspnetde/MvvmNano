@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MvvmNano
 {
@@ -33,6 +34,11 @@ namespace MvvmNano
         /// Creates the view for the given view model type.
         /// </summary>
         IView CreateViewFor<TViewModel>();
+
+        /// <summary>
+        /// Creates the view for the given view model type.
+        /// </summary>
+        IView CreateViewFor(Type viewModelType);
     }
 }
 
