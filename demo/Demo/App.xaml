@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<forms:MvvmNanoApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:MvvmNano.Forms;assembly=MvvmNano.Forms"
+             x:Class="Demo.App">
+	<Application.Resources>
+
+		<!-- Application resource dictionary -->
+
+	</Application.Resources>
+</forms:MvvmNanoApplication>
