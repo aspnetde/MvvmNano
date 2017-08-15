@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.ObjectModel;
+using Xamarin.Forms;
 
 namespace MvvmNano.Forms
 {
@@ -6,15 +7,15 @@ namespace MvvmNano.Forms
     /// The entry point of your XF application
     /// </summary>
     public abstract class MvvmNanoApplication : Application
-    {
+    { 
         protected override void OnStart()
         {
             base.OnStart();
 
             SetUpIoC();
             SetUpPresenter();
-            SetUpMessenger();
-        }
+            SetUpMessenger(); 
+        } 
 
         /// <summary>
         /// Provide the right IoC Container implementation, for example
@@ -55,60 +56,59 @@ namespace MvvmNano.Forms
         /// </summary>
         protected void SetUpMainPage<TViewModel>() where TViewModel : MvvmNanoViewModel
         {        
-            MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel>());
+            SetMainPage(GetPageFor<TViewModel>());
         }
 
         /// <summary>
         /// Sets up the main page for the given View Model type and parameter.
         /// </summary>
-        protected void SetUpMainPage<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : IViewModel<TNavigationParameter>
+        protected void SetUpMainPage<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : MvvmNanoViewModel<TNavigationParameter>
         {
-            MainPage = new MvvmNanoNavigationPage(GetPageFor<TViewModel, TNavigationParameter>(navigationParameter));
+            SetMainPage(GetPageFor<TViewModel, TNavigationParameter>(navigationParameter));
+        }
+
+        private void SetMainPage(Page page)
+        {
+            if (page is MasterDetailPage)
+                MainPage = page;
+            else
+                MainPage = new MvvmNanoNavigationPage(page); 
         }
 
         /// <summary>
         /// Creates a MvvmNanoContentPage for the given View Model type.
         /// </summary>
-        public MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
+        private Page GetPageFor<TViewModel>() where TViewModel : MvvmNanoViewModel
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>();
             viewModel.Initialize();
-
-            var page = MvvmNanoIoC
-                .Resolve<IPresenter>()
-                .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
-
-            if (page == null)
-            {
-                throw new MvvmNanoException($"Could not create a MvvmNanoContentPage for View Model of type {typeof(TViewModel)}.");
-            }
-
-            page.SetViewModel(viewModel);
-
-            return page;
+            return ResolvePage(viewModel);
         }
 
         /// <summary>
-        /// reates a MvvmNanoContentPage for the given View Model type and parameter
+        /// Creates a MvvmNanoContentPage for the given View Model type and parameter
         /// </summary>
-        public MvvmNanoContentPage<TViewModel> GetPageFor<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : IViewModel<TNavigationParameter>
+        private Page GetPageFor<TViewModel, TNavigationParameter>(TNavigationParameter navigationParameter) where TViewModel : MvvmNanoViewModel<TNavigationParameter>
         {
-            var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel<TNavigationParameter>;
-            viewModel.Initialize(navigationParameter);
-
-            var page = MvvmNanoIoC
-                .Resolve<IPresenter>()
-                .CreateViewFor<TViewModel>() as MvvmNanoContentPage<TViewModel>;
-
-            if (page == null)
-            {
-                throw new MvvmNanoException($"Could not create a MvvmNanoContentPage for View Model of type {typeof(TViewModel)}.");
-            }
-
-            page.SetViewModel(viewModel);
-
-            return page;
+            var viewModel = MvvmNanoIoC.Resolve<TViewModel>();
+            viewModel.Initialize(navigationParameter); 
+            return ResolvePage(viewModel);
         }
+
+        /// <summary>
+        /// Resolves the page that is associated with the given ViewModel.
+        /// </summary>
+        /// <typeparam name="TViewModel"></typeparam>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        private Page ResolvePage<TViewModel>(TViewModel viewModel) where TViewModel : IViewModel
+        {
+            var view = MvvmNanoIoC.Resolve<IPresenter>().CreateViewFor<TViewModel>();
+
+            view.SetViewModel(viewModel);
+
+            return view as Page;
+        } 
     }
 }
 
