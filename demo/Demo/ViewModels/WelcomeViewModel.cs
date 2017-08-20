@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Demo.Data;
 using Demo.Model;
 using MvvmNano;
@@ -12,6 +13,13 @@ namespace Demo.ViewModels
         public MvvmNanoCommand<Club> ShowClubCommand
         {
             get { return new MvvmNanoCommand<Club>(ShowClub); }
+        }
+
+        public MvvmNanoCommand ShowSecondDetailCommand => new MvvmNanoCommand(async ()=> await ShowSecondDetail());
+
+        private Task ShowSecondDetail()
+        {
+            return NavigateToAsync<SecondViewModel>();
         }
 
         public WelcomeViewModel(IClubRepository clubs)

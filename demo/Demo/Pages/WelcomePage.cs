@@ -12,6 +12,12 @@ namespace Demo.Pages
         {
             base.OnViewModelSet();
 
+            var aboutButton = new Button
+            {
+                Text = "Go to the second detail"
+            };
+            BindToViewModel(aboutButton, Button.CommandProperty, x => x.ShowSecondDetailCommand);
+
             _clubList = new ListView
             {
                 ItemsSource = ViewModel.Clubs,
@@ -24,6 +30,7 @@ namespace Demo.Pages
             {
                 Children = 
                 {
+                    aboutButton,
                     _clubList
                 }
             };

@@ -22,7 +22,9 @@ namespace Demo.Pages
         public MasterPage()
         {
             AddDetailData(new MvvmNanoMasterDetailData<WelcomeViewModel>("Welcome"));
-            AddDetailData(new MvvmNanoMasterDetailData<SecondDetailViewModel>("Second Detail"));
+            AddDetailData(new MvvmNanoMasterDetailData<FirstViewModel>("First Example Detail"));
+            AddDetailData(new MvvmNanoMasterDetailData<SecondViewModel>("Second Example Detail"));
+            AddDetailData(new MvvmNanoMasterDetailData<ThirdViewModel>("Third Example Detail")); 
             AddDetailData(new MvvmNanoMasterDetailData<TabbedViewModel>("Tab Detail"));
         }
 

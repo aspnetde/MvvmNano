@@ -52,20 +52,20 @@
     <Compile Include="Pages\ClubCell.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\MasterPage.cs" />
-    <Compile Include="Pages\SecondDetailPage.cs" />
     <Compile Include="Pages\TabbedPage.cs" />
-    <Compile Include="Pages\TabOnePage.cs" />
-    <Compile Include="Pages\TabTwoPage.cs" />
+    <Compile Include="Pages\FirstPage.cs" />
+    <Compile Include="Pages\SecondPage.cs" />
+    <Compile Include="Pages\ThirdPage.cs" />
     <Compile Include="Pages\WelcomePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\ClubViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
-    <Compile Include="ViewModels\SecondDetailViewModel.cs" />
     <Compile Include="ViewModels\TabbedViewModel.cs" />
-    <Compile Include="ViewModels\TabOneViewModel.cs" />
-    <Compile Include="ViewModels\TabTwoViewModel.cs" />
+    <Compile Include="ViewModels\FirstViewModel.cs" />
+    <Compile Include="ViewModels\SecondViewModel.cs" />
+    <Compile Include="ViewModels\ThirdViewModel.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
