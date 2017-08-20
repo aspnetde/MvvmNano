@@ -134,7 +134,10 @@ namespace MvvmNano.Forms
             if (_detail != page)
             {
                 _detail = page;
-                Detail = new MvvmNanoNavigationPage(page);
+                Detail = new MvvmNanoNavigationPage(page)
+                {
+                    Parent = this
+                };
                 IsPresented = false;
             }
 

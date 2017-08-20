@@ -45,21 +45,26 @@ namespace MvvmNano.Forms
                 }
 
                 var currentPage = GetCurrentPage();
-                var tabbedPage = currentPage as TabbedPage;
-                if (tabbedPage != null)
-                {
-                    return tabbedPage.CurrentPage;
-                }
-
-                var masterPage = currentPage as MvvmNanoMasterDetailPageBase;
-                if (masterPage != null)
-                {
-                    var navigation = (MvvmNanoNavigationPage)masterPage.Detail;
-                    return navigation.CurrentPage;
-                }
-
-                return currentPage;
+                return GetCurrentChildPage(currentPage);
             }
+        }
+
+        private Page GetCurrentChildPage(Page page)
+        { 
+            var tabbedPage = page as TabbedPage;
+            if (tabbedPage != null)
+            {
+                return GetCurrentChildPage(tabbedPage.CurrentPage);
+            }
+
+            var masterPage = page as MvvmNanoMasterDetailPageBase;
+            if (masterPage != null)
+            {
+                var navigation = (MvvmNanoNavigationPage)masterPage.Detail;
+                return GetCurrentChildPage(navigation.CurrentPage);
+            }
+
+            return page;
         }
 
         /// <summary>
@@ -155,9 +160,7 @@ namespace MvvmNano.Forms
         public void NavigateToViewModel<TViewModel>()
         {
             var page = CreateCompletePage<TViewModel>();
-
-            if (!TryOpenAsDetail<TViewModel>(page))
-                OpenPage(page);
+            OpenPage(page);
         }
 
         /// <summary>
@@ -166,10 +169,8 @@ namespace MvvmNano.Forms
         /// </summary>
         public async Task NavigateToViewModelAsync<TViewModel>()
         {
-            var page = CreateCompletePage<TViewModel>();
-
-            if (!TryOpenAsDetail<TViewModel>(page))
-                await OpenPageAsync(page);
+            var page = CreateCompletePage<TViewModel>(); 
+            await OpenPageAsync(page);
         }
 
         private Page CreateCompletePage<TViewModel>()
@@ -252,9 +253,31 @@ namespace MvvmNano.Forms
 
         #endregion
 
-        private bool TryOpenAsDetail<TViewModel>(Page page) 
+        /// <summary>
+        /// Trys to opent he page to be presented as another detail of the current master detail view.
+        /// The page needs to be registered using <see cref="MvvmNanoMasterDetailPageBase.AddDetailData{TViewModel}"/>.
+        /// </summary>
+        /// <param name="currentPage">Currently presented page.</param>
+        /// <param name="newPage">New page to be presented.</param>
+        /// <returns>Wether or not the page is presented as detail.</returns>
+        private bool TryOpenAsDetail(Page currentPage, Page newPage)
         {
-            return false;
+            var parent = currentPage.Parent;
+            if (!(parent is Page))
+                return false;
+
+            var masterDetailPage = parent as MvvmNanoMasterDetailPageBase; 
+            if (masterDetailPage != null) 
+            {
+                var pageName = ViewViewModelHelper.ViewModelNameFromView(newPage.GetType());
+                var detailData = masterDetailPage.MasterDetails.FirstOrDefault(x => x.ViewModelType.Name == pageName);
+                if (detailData == null)
+                    return false;
+                masterDetailPage.SetDetail(newPage, detailData);
+                return true; 
+            } 
+            //Try again with parent as current page.
+            return TryOpenAsDetail((Page)parent, newPage);
         }
 
         /// <summary>
@@ -269,6 +292,9 @@ namespace MvvmNano.Forms
                 throw new ArgumentNullException(nameof(page));
             }
 
+            if (TryOpenAsDetail(CurrentPage, page))
+                return;
+             
             Device.BeginInvokeOnMainThread(async () => 
                 await CurrentPage.Navigation.PushAsync(page, true)
             );
@@ -279,14 +305,17 @@ namespace MvvmNano.Forms
         /// implementation pushes the Page to the navigation stack. Override it
         /// to implement your own navigation magic (for modals etc.).
         /// </summary>
-        protected virtual Task OpenPageAsync(Page page)
+        protected virtual async Task OpenPageAsync(Page page)
         {
             if (page == null)
             {
                 throw new ArgumentNullException(nameof(page));
             }
 
-            return CurrentPage.Navigation.PushAsync(page, true);
+            if (TryOpenAsDetail(CurrentPage, page))
+                return;
+
+            await CurrentPage.Navigation.PushAsync(page, true);
         }  
     }
 }
