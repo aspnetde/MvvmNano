@@ -38,7 +38,9 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 
 ## Demo
 
-Just download this repo and take a look at the demo app which can be found within the /demo folder. Note: It's not using the NuGet packages.
+C#: If you are looking for a C# demo, just download this repo and take a look at the demo app which can be found within the /demo folder. Note: It's not using the NuGet packages.
+
+F#: [ixmrm01](https://github.com/ixmrm01) ported the current C# demo to F# and was kind enough to share it. You can take a look at it here: https://github.com/ixmrm01/MvvmNanoDemo
 
 <div id='getting-started'/>
 
@@ -46,7 +48,7 @@ Just download this repo and take a look at the demo app which can be found withi
 
 ### Preliminary remarks
 
-- MvvmNano comes as three Portable Class Libraries (PCL) with profile 78 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms)
+- MvvmNano comes as three Portable Class Libraries (PCL) with profile 259 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms)
 - MvvmNano.Forms references [Xamarin.Forms](https://www.nuget.org/packages/Xamarin.Forms/)
 - MvvmNano.Ninject references [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)
 - MvvmNano.Core does not have and external dependency
