@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using MvvmNano.Forms.Internals;
+using MvvmNano.Forms.MasterDetail;
 using Xamarin.Forms;
 
 namespace MvvmNano.Forms

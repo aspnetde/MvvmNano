@@ -22,10 +22,10 @@ namespace Demo
             //Dont forget to comment out the other SetUpMainPage calls.
 
             //Content page
-            //SetUpMainPage<LoginViewModel>();
+            SetUpMainPage<LoginViewModel>();
 
             //Tabbed page
-            SetUpMainPage<TabbedViewModel>();
+            //SetUpMainPage<TabbedViewModel>();
 
             //Master page
             //SetUpMainPage<MasterViewModel>();

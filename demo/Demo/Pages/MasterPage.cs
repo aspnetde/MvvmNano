@@ -1,10 +1,11 @@
 ﻿using Demo.ViewModels;
 using MvvmNano.Forms;
+using MvvmNano.Forms.MasterDetail;
 using Xamarin.Forms;
 
 namespace Demo.Pages
 {
-    public class MasterPage : MvvmNanoMasterDetailPage<MasterViewModel>
+    public class MasterPage : MvvmNanoDefaultMasterDetailPage<MasterViewModel>
     {
         private Label _usernameLabel = new Label
         {
@@ -21,11 +22,20 @@ namespace Demo.Pages
 
         public MasterPage()
         {
-            AddDetailData(new MvvmNanoMasterDetailData<WelcomeViewModel>("Welcome"));
-            AddDetailData(new MvvmNanoMasterDetailData<FirstViewModel>("First Example Detail"));
-            AddDetailData(new MvvmNanoMasterDetailData<SecondViewModel>("Second Example Detail"));
-            AddDetailData(new MvvmNanoMasterDetailData<ThirdViewModel>("Third Example Detail")); 
-            AddDetailData(new MvvmNanoMasterDetailData<TabbedViewModel>("Tab Detail"));
+            AddDetailData<WelcomeViewModel>(new MvvmNanoMasterDetailData("Welcome"));
+            AddDetailData<FirstViewModel>(new MvvmNanoMasterDetailData("First Example Detail"));
+            AddDetailData<SecondViewModel>(new MvvmNanoMasterDetailData("Second Example Detail"));
+            AddDetailData<ThirdViewModel>(new MvvmNanoMasterDetailData("Third Example Detail")); 
+            AddDetailData<TabbedViewModel>(new MvvmNanoMasterDetailData("Tab Detail"));
+        }
+
+        protected override Page CreateMasterPage()
+        {
+            var page = base.CreateMasterPage() as ContentPage;
+            var listView = page.Content as ListView;
+            listView.Header = _usernameLabel;
+            listView.Footer = _logoutButton;
+            return page;
         }
 
         public override void OnViewModelSet()
@@ -41,24 +51,7 @@ namespace Demo.Pages
             BindToViewModel(_logoutButton,
                 Button.CommandProperty,
                 model => model.LogoutCommand
-            );
-
-            MasterContent = new Grid
-            {
-                Padding = new Thickness(0, 20, 0, 0),
-                RowDefinitions =
-                {
-                    new RowDefinition{Height = new GridLength(1, GridUnitType.Auto)},
-                    new RowDefinition{Height = new GridLength(1, GridUnitType.Star)},
-                    new RowDefinition{Height = new GridLength(1, GridUnitType.Auto)}
-                },
-                Children =
-                {
-                    _usernameLabel,
-                    { DetailListView, 0, 1 },
-                    { _logoutButton, 0, 2 }
-                }
-            };
+            ); 
         }
     }
 }

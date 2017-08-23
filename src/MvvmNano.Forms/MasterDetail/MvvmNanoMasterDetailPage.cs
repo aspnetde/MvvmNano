@@ -2,14 +2,14 @@
 using System.Linq.Expressions;
 using Xamarin.Forms;
 
-namespace MvvmNano.Forms
+namespace MvvmNano.Forms.MasterDetail
 {
     /// <summary>
     /// The MvvmNano MasterDetailPage that allows easy adding of detail pages within the MvvmNano context.
     /// Add details in your App.cs by calling AddSiteToDetailPages(new MvvmNanoMasterDetailData(typeof (YourViewModel), "PageTitle"));  
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
-    public class MvvmNanoMasterDetailPage<TViewModel> : MvvmNanoMasterDetailPageBase, IView where TViewModel : IViewModel
+    public abstract class MvvmNanoMasterDetailPage<TViewModel> : MvvmNanoMasterDetailPageBase, IView where TViewModel : IViewModel
     {
         /// <summary>
         /// The current instance of this Pages's View Model.
@@ -35,7 +35,7 @@ namespace MvvmNano.Forms
         protected void BindToViewModel(BindableObject self, BindableProperty targetProperty,
             Expression<Func<TViewModel, object>> sourceProperty, BindingMode mode = BindingMode.Default,
             IValueConverter converter = null, string stringFormat = null)
-        { 
+        {
             self.SetBinding(targetProperty, sourceProperty, mode, converter, stringFormat);
         }
 

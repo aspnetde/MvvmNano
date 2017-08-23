@@ -6,8 +6,8 @@ namespace Demo.ViewModels
 {
     public class LoginViewModel : MvvmNanoViewModel
     {
-        private string _username = "a";
-        private string _password = "a";
+        private string _username;
+        private string _password;
 
         public string Username 
         {

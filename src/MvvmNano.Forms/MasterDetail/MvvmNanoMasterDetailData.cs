@@ -3,18 +3,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MvvmNano.Forms.Annotations;
 
-namespace MvvmNano.Forms
-{
-    public class MvvmNanoMasterDetailData<TViewModel> : MvvmNanoMasterDetailData
-        where TViewModel : MvvmNanoViewModel
-    {
-        public MvvmNanoMasterDetailData(string title) : base(title)
-        {
-            ViewModelType = typeof(TViewModel);
-        }
-    }
-
-    public abstract class MvvmNanoMasterDetailData : INotifyPropertyChanged
+namespace MvvmNano.Forms.MasterDetail
+{ 
+    public class MvvmNanoMasterDetailData : INotifyPropertyChanged
     {
         public Type ViewModelType { get; set; }
 
