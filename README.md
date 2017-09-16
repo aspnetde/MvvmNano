@@ -15,6 +15,7 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 8. [Messaging](#messaging)
 9. [Cleaning up](#cu)
 10. [XAML Support](#xaml-support)
+11. [MasterDetailPage](#mdp)
 
 <div id='manifesto'/>
 
@@ -38,7 +39,9 @@ The small and smart MVVM framework made with ❤ for Xamarin.Forms.
 
 ## Demo
 
-Just download this repo and take a look at the demo app which can be found within the /demo folder. Note: It's not using the NuGet packages.
+C#: If you are looking for a C# demo, just download this repo and take a look at the demo app which can be found within the /demo folder. Note: It's not using the NuGet packages.
+
+F#: [ixmrm01](https://github.com/ixmrm01) ported the current C# demo to F# and was kind enough to share it. You can take a look at it here: https://github.com/ixmrm01/MvvmNanoDemo
 
 <div id='getting-started'/>
 
@@ -46,7 +49,7 @@ Just download this repo and take a look at the demo app which can be found withi
 
 ### Preliminary remarks
 
-- MvvmNano comes as three Portable Class Libraries (PCL) with profile 78 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms)
+- MvvmNano comes as three Portable Class Libraries (PCL) with profile 259 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms)
 - MvvmNano.Forms references [Xamarin.Forms](https://www.nuget.org/packages/Xamarin.Forms/)
 - MvvmNano.Ninject references [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)
 - MvvmNano.Core does not have and external dependency
@@ -455,3 +458,27 @@ Page:
     </ContentPage.Content>
 </pages:MvvmNanoContentPage>
 ```
+
+<div id='mdp'/>
+
+## Master Detail Page
+
+Master detail pages are supported in MvvmNano, its a page type that contains a fly out menu (master) and page area (detail).
+The master is typically populated with a listview or something similiar to chose the detail from.
+
+Create a page that inherits from the `MvvmNanoDefaultMasterDetailPage` and a corresponding view model.
+You can add details with the `AddDetailData<TViewModel>(MvvmNanoMasterDetailData data)` method available in your master detail page.
+Information about each detail are stored in a `MvvMNanoMasterDetailData`, which you can inherit from  and add additional properties to.
+You can use these properties to present additional informations in the master area.
+
+The `MvvmNanoDefaultMasterDetailPage` is using a `ListView` to display all available details. You can override `DataTemplate GetItemTemplate()` to create your own DataTemplate or override the `Page CreateMasterPage()` to add a header, footer or embed the `ListView` in a view. An example for that can be found in the Demo.Pages.MasterPage.cs.
+ 
+### Create your own master detail layout
+
+If you decide to create your complete own layout however, the `MvvmNanoMasterDetailPage` provides multiple methods to hook up your layout. Use the `MvvmNanoMasterDetailPage` to inherit from, instead of the `MvvmNanoDefaultMasterDetailPage` in this case.
+
+Override `Page CreateMasterPage()` and return your own layout that will be used in the master area.
+Override `void DetailDataAdded<TViewModel>(MvvmNanoMasterDetailData detailData)` to execute some logic when a new detail data item is added. All added items are available in the `ObservableCollection<MvvmNanoMasterDetailData> MasterDetails`.
+
+You can call `void SetDetail(Type viewModelType)` or `void SetDetail(MvvmNanoMasterDetailData data)` to present a new page in the detail area. MvvmNano will take care of disposing the old page, creating the new view and viewmodel and hook up the binding context. 
+After a new detail is set, `void DetailSet(MvvmNanoMasterDetailData lastDetailData, MvvmNanoMasterDetailData newDetailData, Page page)` is called. You can override that aswell, for example to highlight the current detail in the master area.
