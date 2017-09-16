@@ -5,7 +5,8 @@ using Xamarin.Forms;
 namespace MvvmNano.Forms.MasterDetail
 {
     /// <summary>
-    /// The MvvmNano MasterDetailPage that allows easy adding of detail pages within the MvvmNano context.
+    /// A MasterDetailPage implementation to use in the MvvmNanoContext.
+    /// Derive from this page to create a master layout that fits the style of your app or use the default implementation <see cref="MvvmNanoDefaultMasterDetailPage{TViewModel}"/>.
     /// Add details in your App.cs by calling AddSiteToDetailPages(new MvvmNanoMasterDetailData(typeof (YourViewModel), "PageTitle"));  
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>

@@ -12,11 +12,20 @@ namespace MvvmNano.Forms.MasterDetail
     /// Base page for <see cref="MvvmNanoMasterDetailPage{TViewModel}"/>, dont directly derive from this class. Use <see cref="MvvmNanoMasterDetailPage{TViewModel}"/> instead!
     /// </summary>
     public abstract class MvvmNanoMasterDetailPageBase : MasterDetailPage
-    {    
+    {
+        /// <summary>
+        /// The currently presented detail.
+        /// </summary>
         private Page _detail;
 
+        /// <summary>
+        /// The data corrisponding with the currently presented detail page.
+        /// </summary>
         private MvvmNanoMasterDetailData _currentDetailData;
 
+        /// <summary>
+        /// All registered details.
+        /// </summary>
         public ObservableCollection<MvvmNanoMasterDetailData> MasterDetails { get; } = new ObservableCollection<MvvmNanoMasterDetailData>();  
 
         public MvvmNanoMasterDetailPageBase()
@@ -115,7 +124,7 @@ namespace MvvmNano.Forms.MasterDetail
         /// </summary> 
         public void SetDetail(Type viewModelType) 
         {
-            var page = CreateView(viewModelType); 
+            var page = CreatePage(viewModelType); 
             SetDetail(page);
         }
 
@@ -125,11 +134,16 @@ namespace MvvmNano.Forms.MasterDetail
         /// <param name="data"></param>
         public void SetDetail(MvvmNanoMasterDetailData data)
         {
-            var page = CreateView(data.ViewModelType); 
+            var page = CreatePage(data.ViewModelType); 
             SetDetail(page, data);
         }
 
-        private Page CreateView(Type viewModelType)
+        /// <summary>
+        /// Creates the page for the given <see cref="viewModelType"/>.
+        /// </summary>
+        /// <param name="viewModelType">View model type of the desired page.</param>
+        /// <returns></returns>
+        private Page CreatePage(Type viewModelType)
         {
             try
             {
@@ -146,6 +160,11 @@ namespace MvvmNano.Forms.MasterDetail
             }
         }
 
+        /// <summary>
+        /// Gets an instance of the given <see cref="viewModelType"/>.
+        /// </summary>
+        /// <param name="viewModelType">View model type to get an instance of.</param>
+        /// <returns></returns>
         private IViewModel GetViewModel(Type viewModelType)
         {
             try
@@ -163,6 +182,11 @@ namespace MvvmNano.Forms.MasterDetail
             }
         }
 
+        /// <summary>
+        /// Gets an instance of the given <see cref="TViewModel"/>.
+        /// </summary>
+        /// <typeparam name="TViewModel"></typeparam>
+        /// <returns></returns>
         private IViewModel ResolveViewModel<TViewModel>()
         {
             var viewModel = MvvmNanoIoC.Resolve<TViewModel>() as IViewModel;

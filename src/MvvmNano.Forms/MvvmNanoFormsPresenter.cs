@@ -50,6 +50,11 @@ namespace MvvmNano.Forms
             }
         }
 
+        /// <summary>
+        /// Gets the topmost page when using a page that contains child pages.
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         private Page GetCurrentChildPage(Page page)
         { 
             var tabbedPage = page as TabbedPage;
@@ -255,7 +260,7 @@ namespace MvvmNano.Forms
         #endregion
 
         /// <summary>
-        /// Trys to opent he page to be presented as another detail of the current master detail view.
+        /// Trys to open the page to be presented as another detail of the current master detail view.
         /// The page needs to be registered using <see cref="MvvmNanoMasterDetailPageBase.AddDetailData{TViewModel}"/>.
         /// </summary>
         /// <param name="currentPage">Currently presented page.</param>
@@ -263,20 +268,26 @@ namespace MvvmNano.Forms
         /// <returns>Wether or not the page is presented as detail.</returns>
         private bool TryOpenAsDetail(Page currentPage, Page newPage)
         {
+            //Check if the root page is reached.
             var parent = currentPage.Parent;
             if (!(parent is Page))
                 return false;
 
+            //Check if the current parent is a MvvmNanoMasterDetailPage.
             var masterDetailPage = parent as MvvmNanoMasterDetailPageBase; 
             if (masterDetailPage != null) 
             {
+                //Check if the MvvmNanoMasterDetailPage contains the new page as child.
                 var pageName = ViewViewModelHelper.ViewModelNameFromView(newPage.GetType());
                 var detailData = masterDetailPage.MasterDetails.FirstOrDefault(x => x.ViewModelType.Name == pageName);
                 if (detailData == null)
                     return false;
+
+                //Present the new page as Detail of the Master Detail Page.
                 masterDetailPage.SetDetail(newPage, detailData);
                 return true; 
             } 
+
             //Try again with parent as current page.
             return TryOpenAsDetail((Page)parent, newPage);
         }
