@@ -20,7 +20,17 @@ namespace MvvmNano.Forms.MasterDetail
         protected override Page CreateMasterPage()
         {
             DetailListView.ItemsSource = MasterDetails;
-            DetailListView.ItemTemplate = new DataTemplate(() =>
+            DetailListView.ItemTemplate = GetItemTemplate();
+            return new ContentPage { Content = DetailListView };
+        }
+
+        /// <summary>
+        /// Creates the <see cref="DetailListView"/> item template.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual DataTemplate GetItemTemplate()
+        {
+            return new DataTemplate(() =>
             {
                 Label titleLabel = new Label
                 {
@@ -33,7 +43,6 @@ namespace MvvmNano.Forms.MasterDetail
                     View = titleLabel
                 };
             });
-            return new ContentPage {Content = DetailListView};
         }
 
         protected override void DetailSet(MvvmNanoMasterDetailData lastDetailData, MvvmNanoMasterDetailData newDetailData, Page page)

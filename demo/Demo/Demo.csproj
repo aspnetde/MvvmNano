@@ -38,6 +38,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomMasterDetailData.cs" />
     <Compile Include="DemoPresenter.cs" />
     <Compile Include="Pages\ClubPage.xaml.cs">
       <DependentUpon>ClubPage.xaml</DependentUpon>

@@ -22,20 +22,42 @@ namespace Demo.Pages
 
         public MasterPage()
         {
-            AddDetailData<WelcomeViewModel>(new MvvmNanoMasterDetailData("Welcome"));
-            AddDetailData<FirstViewModel>(new MvvmNanoMasterDetailData("First Example Detail"));
-            AddDetailData<SecondViewModel>(new MvvmNanoMasterDetailData("Second Example Detail"));
-            AddDetailData<ThirdViewModel>(new MvvmNanoMasterDetailData("Third Example Detail")); 
-            AddDetailData<TabbedViewModel>(new MvvmNanoMasterDetailData("Tab Detail"));
+            AddDetailData<WelcomeViewModel>(new CustomMasterDetailData("Welcome", Color.Red));
+            AddDetailData<FirstViewModel>(new CustomMasterDetailData("First Example Detail", Color.Orange));
+            AddDetailData<SecondViewModel>(new CustomMasterDetailData("Second Example Detail", Color.Yellow));
+            AddDetailData<ThirdViewModel>(new CustomMasterDetailData("Third Example Detail", Color.Green)); 
+            AddDetailData<TabbedViewModel>(new CustomMasterDetailData("Tab Detail", Color.Blue));
         }
 
         protected override Page CreateMasterPage()
         {
-            var page = base.CreateMasterPage() as ContentPage;
-            var listView = page.Content as ListView;
-            listView.Header = _usernameLabel;
-            listView.Footer = _logoutButton;
-            return page;
+            DetailListView.Header = _usernameLabel;
+            DetailListView.Footer = _logoutButton;
+            return base.CreateMasterPage(); 
+        }
+
+        /// <summary>
+        /// We hook up our own item template here.
+        /// Our item template will add the background color from our <see cref="CustomMasterDetailData"/> to each cell.
+        /// </summary>
+        /// <returns></returns>
+        protected override DataTemplate GetItemTemplate()
+        {
+            return new DataTemplate(() =>
+            {
+                Label titleLabel = new Label
+                {
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Center
+                };
+                titleLabel.SetBinding(Label.TextProperty, nameof(CustomMasterDetailData.Title)); 
+                titleLabel.SetBinding(Label.TextColorProperty, nameof(CustomMasterDetailData.TextColor));
+
+                return new ViewCell
+                {
+                    View = titleLabel
+                };
+            });
         }
 
         public override void OnViewModelSet()
