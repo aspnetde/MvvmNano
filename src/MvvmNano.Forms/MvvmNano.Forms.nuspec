@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MvvmNano.Forms</id>
-    <version>3.0.2</version>
+    <version>3.1.0</version>
     <authors>Thomas Bandt</authors>
     <owners>Thomas Bandt</owners>
     <licenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</licenseUrl>
@@ -13,7 +13,7 @@
     <tags>MVVM MvvmNano Xamarin.Forms</tags>
     <dependencies>
       <dependency id="Xamarin.Forms" version="2.3.4.247" />
-      <dependency id="MvvmNano.Core" version="3.0.2" />
+      <dependency id="MvvmNano.Core" version="3.1.0" />
     </dependencies>
-  </metadata>
+  </metadata> 
 </package>
