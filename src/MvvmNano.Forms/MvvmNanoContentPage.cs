@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace MvvmNano.Forms
 {
     /// <summary>
-    /// The base class for all of your Content Pages
+    /// The base class for all of your MasterContent Pages
     /// </summary>
     public abstract class MvvmNanoContentPage<TViewModel> : ContentPage, IView
         where TViewModel : IViewModel
