@@ -43,7 +43,7 @@ namespace Demo.ViewModels
 
         public MvvmNanoCommand ShowAboutCommand
         {
-            get { return new MvvmNanoCommand(NavigateTo<AboutViewModel>); }
+            get { return new MvvmNanoCommand(async ()=> await NavigateToAsync<AboutViewModel>()); }
         }
 
         private void LogIn()
