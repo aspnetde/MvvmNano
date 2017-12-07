@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <RootNamespace>MvvmNano.TinyIoC</RootNamespace>
+    <AssemblyName>MvvmNano.TinyIoC</AssemblyName>
+    <Version>3.2.0</Version>
+    <Authors>Konrad Müller</Authors>
+    <Description>Dependency injection adapter made for MvvmNano based on TinyIoC.</Description>
+    <RepositoryUrl>https://github.com/aspnetde/MvvmNano</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/aspnetde/MvvmNano</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright 2017 Konrad Müller</Copyright> 
+    <PackageTags>MVVM MvvmNano Xamarin.Forms</PackageTags>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup> 
+  
+  <ItemGroup>
+    <ProjectReference Include="..\MvvmNano.Core\MvvmNano.Core.csproj" />
+  </ItemGroup> 
+
+</Project>

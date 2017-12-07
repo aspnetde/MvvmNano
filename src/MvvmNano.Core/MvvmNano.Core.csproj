@@ -1,50 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk"> 
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{20702C2E-24BF-417E-9EFB-B68CEC360FA3}</ProjectGuid>
+    <TargetFrameworks>netstandard2.0;portable-net45+win8+wpa81+wp8</TargetFrameworks> 
     <OutputType>Library</OutputType>
     <RootNamespace>MvvmNano</RootNamespace>
     <AssemblyName>MvvmNano.Core</AssemblyName>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <Version>3.2.0</Version>
+    <Authors>Thomas Bandt</Authors>
+    <RepositoryUrl>https://github.com/aspnetde/MvvmNano</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/aspnetde/MvvmNano</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/aspnetde/MvvmNano/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright 2016-2017 Thomas Bandt</Copyright>
+    <Description>The small and smart MVVM framework made with ❤ for Xamarin.Forms.</Description>
+    <PackageTags>MVVM MvvmNano Xamarin.Forms</PackageTags>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'portable-net45+win8+wpa81+wp8'">
+    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Release\MvvmNano.Core.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="IMvvmNanoIoCAdapter.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IPresenter.cs" />
-    <Compile Include="IViewModel.cs" />
-    <Compile Include="IView.cs" />
-    <Compile Include="MvvmNanoViewModel.cs" />
-    <Compile Include="MvvmNanoCommand.cs" />
-    <Compile Include="MvvmNanoIoC.cs" />
-    <Compile Include="MvvmNanoException.cs" />
-    <Compile Include="IMessage.cs" />
-    <Compile Include="IMessenger.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <ItemGroup>
-    <None Include="MvvmNano.Core.nuspec" />
-  </ItemGroup>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile259</NugetTargetMoniker>
+    <LanguageTargets>$(MSBuildProgramFiles32)\MSBuild\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets</LanguageTargets>
+  </PropertyGroup> 
 </Project>
