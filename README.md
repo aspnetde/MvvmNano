@@ -49,7 +49,7 @@ F#: [ixmrm01](https://github.com/ixmrm01) ported the current C# demo to F# and w
 
 ### Preliminary remarks
 
-- MvvmNano comes as three Portable Class Libraries (PCL) with profile 259 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms)
+- MvvmNano ships as three .netstandard 2.0 libraries (MvvmNano.Core, MvvmNano.TinyIoC, and MvvmNano.Forms) and also provides three Portable Class Libraries (PCL) with profile 259 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms). Your project will detect which libraries are needed based on your project type.
 - MvvmNano.Forms references [Xamarin.Forms](https://www.nuget.org/packages/Xamarin.Forms/)
 - MvvmNano.Ninject references [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)
 - MvvmNano.Core does not have and external dependency
@@ -60,11 +60,16 @@ You can add MvvmNano easily via [NuGet](https://www.nuget.org/packages/MvvmNano.
 
     Install-Package MvvmNano.Forms
 
-> **Important:** Add it to your Xamarin.Forms library as well as to your native app projects, so NuGet can resolve the right assemblies of the dependencies Xamarin.Forms and Portable.Ninject on each target (for example PCL, Xamarin.iOS, Xamarin.Android).
+> **Important:** Add it to your Xamarin.Forms library as well as to your native app projects, so NuGet can resolve the right assemblies of the dependencies Xamarin.Forms and Portable.Ninject/.TinyIoC on each target (for example PCL, Xamarin.iOS, Xamarin.Android).
 
-If you want to use our default IoC container (Ninject Portable), also add MvvmNano.Ninject:
+If you want to use our default IoC container, we provide one for .netstandard2.0 and PCL259.
+The default container for a PCL project is:
     
     Install-Package MvvmNano.Ninject
+    
+For .netstandard2.0 projects:
+
+    Install-Package MvvmNano.TinyIoC
 
 ### Add your first View Model and its Page
 
@@ -90,7 +95,7 @@ public class LoginPage : MvvmNanoContentPage<LoginViewModel>
 
 Each Xamarin.Forms app has an entry point – a class called `App` which is derived from `Application`. Change that base class to `MvvmNanoApplication`.
 
-Next you are asked to implement the method `GetIoCAdapter()` which is expected to return an implementation of `IMvvmNanoIoCAdapter`. Just go with our default choice (MvvmNano.Ninject, which uses [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)), or go [with your own](http://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison).
+Next you are asked to implement the method `GetIoCAdapter()` which is expected to return an implementation of `IMvvmNanoIoCAdapter`. Just go with our default choice (MvvmNano.Ninject in a PCL project, which uses [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/), `MvvmNano.TinyIoC` in a .netstandard2.0 project), or go [with your own](http://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison).
 
 You also want to tell your application the first Page and View Model which should be used when the app gets started for the first time. Put this setup inside of `OnStart()`, but don't forget to call `base.OnStart()`. This is important in order to set up the Presenter correctly (for more on that see below).
 
