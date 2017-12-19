@@ -49,7 +49,7 @@ F#: [ixmrm01](https://github.com/ixmrm01) ported the current C# demo to F# and w
 
 ### Preliminary remarks
 
-- MvvmNano ships as three .netstandard 2.0 libraries (MvvmNano.Core, MvvmNano.TinyIoC, and MvvmNano.Forms) and also provides three Portable Class Libraries (PCL) with profile 259 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms). Your project will detect which libraries are needed based on your project type.
+- MvvmNano ships as three .netstandard 2.0 libraries (MvvmNano.Core, MvvmNano.TinyIoC, and MvvmNano.Forms) and also provides three Portable Class Libraries (PCL) with profile 259 (MvvmNano.Core, MvvmNano.Ninject, and MvvmNano.Forms). NuGet will detect which libraries are needed based on your project type.
 - MvvmNano.Forms references [Xamarin.Forms](https://www.nuget.org/packages/Xamarin.Forms/)
 - MvvmNano.Ninject references [Portable.Ninject](https://www.nuget.org/packages/Portable.Ninject/)
 - MvvmNano.Core does not have and external dependency
