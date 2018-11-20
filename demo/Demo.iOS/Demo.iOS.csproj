@@ -149,7 +149,7 @@
       <Name>MvvmNano.Ninject</Name>
     </ProjectReference>
     <ProjectReference Include="..\Demo\Demo.csproj">
-      <Project>{b0f3df66-b218-45a7-b8db-1941a7189474}</Project>
+      <Project>{92C87123-3E5D-48BE-809B-9B038CA26DD4}</Project>
       <Name>Demo</Name>
     </ProjectReference>
   </ItemGroup>
