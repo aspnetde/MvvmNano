@@ -117,12 +117,6 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MvvmNano.Core, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmNano.Core.3.1.0\lib\portable45-net45+win8+wp8+wpa81\MvvmNano.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmNano.Forms, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmNano.Forms.3.1.0\lib\portable45-net45+win8+wp8+wpa81\MvvmNano.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.Ninject.3.3.1\lib\Xamarin.iOS\Ninject.dll</HintPath>
     </Reference>
@@ -151,6 +145,10 @@
     <ProjectReference Include="..\Demo\Demo.csproj">
       <Project>{92C87123-3E5D-48BE-809B-9B038CA26DD4}</Project>
       <Name>Demo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MvvmNano.Forms\MvvmNano.Forms.csproj">
+      <Project>{DB140B3E-0A15-4923-A07E-AD0C73523E27}</Project>
+      <Name>MvvmNano.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
