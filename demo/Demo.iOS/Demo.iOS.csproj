@@ -117,9 +117,6 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.Ninject.3.3.1\lib\Xamarin.iOS\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -138,10 +135,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MvvmNano.Ninject\MvvmNano.Ninject.csproj">
-      <Project>{4c6efdd3-14da-410e-8026-ab452c5e1e44}</Project>
-      <Name>MvvmNano.Ninject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Demo\Demo.csproj">
       <Project>{92C87123-3E5D-48BE-809B-9B038CA26DD4}</Project>
       <Name>Demo</Name>
@@ -149,6 +142,10 @@
     <ProjectReference Include="..\..\src\MvvmNano.Forms\MvvmNano.Forms.csproj">
       <Project>{DB140B3E-0A15-4923-A07E-AD0C73523E27}</Project>
       <Name>MvvmNano.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MvvmNano.TinyIoC\MvvmNano.TinyIoC.csproj">
+      <Project>{5D7F1CD1-30BA-44ED-B136-51C13CCEDD7F}</Project>
+      <Name>MvvmNano.TinyIoC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

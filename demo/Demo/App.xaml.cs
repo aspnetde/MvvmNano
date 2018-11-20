@@ -1,7 +1,7 @@
 ﻿using Demo.Data;
 using Demo.ViewModels;
 using MvvmNano;
-using MvvmNano.Ninject;
+using MvvmNano.TinyIoC;
 
 namespace Demo
 {
@@ -44,7 +44,7 @@ namespace Demo
 
         protected override IMvvmNanoIoCAdapter GetIoCAdapter()
         {
-            return new MvvmNanoNinjectAdapter();
+            return new MvvmNanoTinyIoCAdapter();
         }
     }
 }
